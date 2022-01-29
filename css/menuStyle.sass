@@ -1,0 +1,57 @@
+@font-face 
+    font-family: 'trajan-pro'
+    src: url(../Assets/fonts/Trajan-Pro-Regular.woff) format('woff')
+    font-weight: normal
+    font-style: normal
+
+@font-face 
+    font-family: 'trajan-pro-bold'
+    src: url(../Assets/fonts/Trajan-Pro-Bold.woff) format('woff')
+    font-weight: normal
+    font-style: normal 
+
+*
+    font-family: 'trajan-pro'
+    background: #000
+    padding: 0
+    margin: 0
+    user-select: none
+
+body
+    cursor: url("../Assets/images/pngs/Cursor.png"), auto
+
+ul
+    width: 100%
+    text-align: center
+    padding-top: 5em
+
+li 
+    font-family: 'trajan-pro-bold'
+    font-size: 2.4em
+    color: #fff
+    background: none
+
+    list-style-type: none
+
+    padding-top: 1em
+    margin: auto
+    width: fit-content
+
+.title-image
+    display: block
+    margin: auto
+    width: 50%
+
+.raise-on-hover
+    transition: all .75s ease
+
+    &:hover
+        transform: translateY(-.2em)
+        font-size: 2.6em
+
+        &::before
+            content: url("../Assets/images/pngs/PointerLeft.png")
+        &::after
+            content: url("../Assets/images/pngs/PointerRight.png")
+
+        
