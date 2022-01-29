@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,UAAU;EACN,WAAW,EAAE,YAAY;EACzB,GAAG,EAAE,4CAA4C,CAAC,cAAc;EAChE,WAAW,EAAE,MAAM;EACnB,UAAU,EAAE,MAAM;;;AAEtB,UAAU;EACN,WAAW,EAAE,iBAAiB;EAC9B,GAAG,EAAE,yCAAyC,CAAC,cAAc;EAC7D,WAAW,EAAE,MAAM;EACnB,UAAU,EAAE,MAAM;;;AAEtB,AAAA,CAAC,CAAC;EACE,WAAW,EAAE,YAAY;CAAG",
+    "sources": [
+        "gameStyle.sass"
+    ],
+    "names": [],
+    "file": "gameStyle.css"
+}

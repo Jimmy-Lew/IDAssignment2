@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "style.sass"
+        "menuStyle.sass"
     ],
     "names": [],
-    "file": "style.css"
+    "file": "menuStyle.css"
 }
