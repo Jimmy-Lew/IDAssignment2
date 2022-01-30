@@ -30,7 +30,7 @@ const getWordsAndDefs = async () => {
  * @param {dictionary} wordDict 
  */
 const displayWords = function (wordDict) {
-    let index = 0;
+    let index = 1;
 
     Object.keys(wordDict).forEach(key => {
         $(`.wordSelection-${index} p`).text(key);
