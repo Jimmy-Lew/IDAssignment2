@@ -1,14 +1,13 @@
 const difficulties = ["Easy", "Medium", "Hard", "Syncope"];
 let difficultyRating = 0;
 
-
 $(document).ready(function(){
     $("#Start").click(function(){
         window.location.href = "game.html";
     })
 
     $("#Difficulty").click(function(){
-        if (difficultyRating === 3){
+        if (difficultyRating === difficulties.length) {
             difficultyRating = -1;
         }
 
@@ -22,6 +21,6 @@ $(document).ready(function(){
     })
 
     $("#Help").click(function(){
-
+        $(".help-container").css("display","flex");
     })
 });
