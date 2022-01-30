@@ -1,6 +1,7 @@
 console.log("loaded script.js");
 
 const apiURL = 'https://random-words-api.vercel.app/word';
+const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
 /**
  * Calls API

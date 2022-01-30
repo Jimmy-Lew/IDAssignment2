@@ -23,7 +23,8 @@
           user-select: none;
 }
 
-body {
+html {
+  height: 100%;
   cursor: url("../Assets/images/pngs/Cursor.png"), auto;
 }
 
@@ -50,6 +51,7 @@ li {
   display: block;
   margin: auto;
   width: 50%;
+  padding-top: 1em;
 }
 
 .raise-on-hover {
