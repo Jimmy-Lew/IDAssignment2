@@ -76,3 +76,5 @@ const gameLogic = async () => {
     displayWords(wordDict);
     let wordComplexity = calculateWordComplexity(wordDict);
 }
+
+gameLogic();
