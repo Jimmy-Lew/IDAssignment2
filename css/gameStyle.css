@@ -12,7 +12,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'antiqua';
+  src: url(../Assets/fonts/Antiqua.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
-  font-family: 'trajan-pro';
+  font-family: 'antiqua';
 }
 /*# sourceMappingURL=gameStyle.css.map */

@@ -155,7 +155,7 @@ function CheckCompletion(userInput,predictedWord){
 
 // ------------ Main --------------
 const GameLogic = async () => {
-    let wordDict = await getWordsAndDefs();
+    let wordDict = await GetWordsAndDefs();
 
     DisplayWords(wordDict);
     let wordComplexity = CalculateWordComplexity(wordDict);
@@ -163,7 +163,7 @@ const GameLogic = async () => {
     Timer(diffTime);
     
     // Makeshift "Loop"
-    SetInterval(function(){ 
+    setInterval(function(){ 
         const userInput = GetUserInput();
         const predictedWord = AutoPredict(userInput,wordDict)
         const finishStatus = CheckCompletion(userInput,predictedWord)
