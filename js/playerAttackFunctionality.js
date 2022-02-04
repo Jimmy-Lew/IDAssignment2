@@ -7,7 +7,7 @@ const retrievedDifficulty = window.localStorage.getItem('difficulty');
  * Calls API
  * @returns {dictionary} Dictionary containing words and their respective definitions 
  */
-const getWordsAndDefs = async () => {
+const GetWordsAndDefs = async () => {
     let wordDict = {};
 
     for (let i = 0; i < 3; i++) 
@@ -29,12 +29,12 @@ const getWordsAndDefs = async () => {
  * Display words retrieved from API
  * @param {dictionary} wordDict 
  */
-const displayWords = function (wordDict) {
-    let index = 1;
+const DisplayWords = function (wordDict) {
+    let index = 0;
 
     Object.keys(wordDict).forEach(key => {
-        $(`.wordSelection-${index} p`).text(key);
         index ++;
+        $(`.wordSelection-${index} p`).text(key);
     })    
 
 }
@@ -44,7 +44,7 @@ const displayWords = function (wordDict) {
  * @param {string} selectedWord 
  * @param {dictionary} wordDict 
  */
-const displayDefinition = function (selectedWord, wordDict) {
+const DisplayDefinition = function (selectedWord, wordDict) {
     const definition = wordDict[selectedWord];
 }
 
@@ -53,7 +53,7 @@ const displayDefinition = function (selectedWord, wordDict) {
  * @param {dictionary} wordDict 
  * @returns {dictionary} Dictionary containing words and their respective complexity rating
  */
-const calculateWordComplexity = function (wordDict) {
+const CalculateWordComplexity = function (wordDict) {
     wordComplexity = {};
 
     Object.keys(wordDict).forEach(key => {
@@ -70,97 +70,109 @@ const calculateWordComplexity = function (wordDict) {
     return wordComplexity;
 }
 
-const difficultyTimer = function (retrievedDifficulty){
-    if (retrievedDifficulty === 'Easy') {
-        return 30; // time, base damage dealt by player
-    }
-    else if (retrievedDifficulty === 'Medium'){
-        return 20;
-    }
-    else if (retrievedDifficulty === 'Hard'){
-        return 15;
-    }
-    else // Syncope Difficulty
-    {
-        return 5;
-    }
+/**
+ * 
+ * @param {string} retrievedDifficulty 
+ * @returns Time user has to type word
+ */
+const DifficultyTimer = function (retrievedDifficulty){
+    if (retrievedDifficulty === 'Easy') return 30;
+    else if (retrievedDifficulty === 'Medium') return 20;
+    else if (retrievedDifficulty === 'Hard') return 15;
+    return 5;
 }
 
-const calculateDamage = function (wordDict,time) {
+const CalculateDamage = function (wordDict,time) {
     // Logic : WPS (Time taken to write word, length taken into account, does a certian amount of damage.)
     // Timer 
     // Calculate WPS
     // Calculate Damage (every 5s - damage 20% less)
 }
 
-function getUserInput(){
-    return [$("#textInput").val().split("")] // As Array
+/**
+ * 
+ * @returns {string[]} User input text
+ */
+function GetUserInput(){
+    return $("#textInput").val().split("") // As Array
 }
 
-function timer(diffTime){
+/**
+ * 
+ * @param {number} diffTime 
+ */
+function Timer(diffTime){
     console.log('%c>> Starting Timer...', 'color: red;');
-    var timeleft = diffTime; //Max time ; based on difficulty
+
+    var timeLeft = diffTime; //Max time ; based on difficulty
     var Timer = setInterval(function(){
-        timeleft--;
-        $("#time").text(`Time: ${timeleft}s`)
-        if(timeleft <= 0)
-            clearInterval(Timer);
-        return timeleft;
+        timeLeft--;
+        $("#time").text(`Time: ${timeLeft}s`);
+        if(timeLeft <= 0) clearInterval(Timer);
+        return timeLeft;
     },1000);
 }
 
-
-function autoPredict(userInput,wordDict){
+/**
+ * 
+ * @param {string[]} userInput user input text
+ * @param {dictionary} wordDict dictionary of words and their definitions
+ * @returns {string | undefined} Predicted word user wishes to input
+ */
+function AutoPredict(userInput, wordDict){
     console.log('%c>> Running AutoPredict...', 'color: #1aacf0;')
-    let predictedWord = undefined;
     
     // Read Through Dictionary Words
     let wordList = []
     Object.keys(wordDict).forEach(key => {
         wordList.push(key.split(""))
     })
-
     // Check each char at each position to see if they are the same (Prediction)
-    if (userInput != 0) {
-        for (let wl_index = 0; wl_index < wordList.length; wl_index++) {
-            for (let u_index = 0; u_index < userInput.length; u_index++) {
-                if (userInput[0][u_index] == wordList[wl_index][u_index]) {
-                    predictedWord = wordList[wl_index].join("")
-                }
-            }
-        }
-        return predictedWord;
+    if (userInput.length === 0) return;
+    for (word of wordList){
+        if (CompareWords(userInput, word)) return word.join("");
     }
 }
 
-function checkCompletion(userInput,apWord){
-    console.log('%c>> Running Check...', 'color: #1af08c;');
-    if(userInput[0].join("") === apWord){
-        return true;
+/**
+ * 
+ * @param {string[]} userInput user input text
+ * @param {string[]} wordToCompare word to compare userInput against
+ * @returns {boolean} Checks if user input matches word
+ */
+function CompareWords(userInput, wordToCompare) {
+    for (let letter in userInput) {
+        if (userInput[letter] !== wordToCompare[letter]) return false;
     }
+    return true;
+}
+
+function CheckCompletion(userInput,predictedWord){
+    console.log('%c>> Running Check...', 'color: #1af08c;');
+    if(userInput.join("") === predictedWord) return true;
     return false;
 }
 
 // ------------ Main --------------
-const gameLogic = async () => {
+const GameLogic = async () => {
     let wordDict = await getWordsAndDefs();
 
-    displayWords(wordDict);
-    let wordComplexity = calculateWordComplexity(wordDict);
-    const diffTime = difficultyTimer(retrievedDifficulty);
-    timer(diffTime);
+    DisplayWords(wordDict);
+    let wordComplexity = CalculateWordComplexity(wordDict);
+    const diffTime = DifficultyTimer(retrievedDifficulty);
+    Timer(diffTime);
     
     // Makeshift "Loop"
-    setInterval(function(){ 
-        const userInput = getUserInput();
-        const apWord = autoPredict(userInput,wordDict)
-        const finishStatus = checkCompletion(userInput,apWord)
-
-        console.log("User Input: " + userInput.join(""));
-        console.log("Predicted Word: "+ apWord);
-        console.log("Finish: " + finishStatus);
+    SetInterval(function(){ 
+        const userInput = GetUserInput();
+        const predictedWord = AutoPredict(userInput,wordDict)
+        const finishStatus = CheckCompletion(userInput,predictedWord)
+        
+        console.log(`User Input: ${userInput.join("")}`);
+        console.log(`Predicted Word: ${predictedWord}`);
+        console.log(`Finish: ${finishStatus}`);
     },1000);
     // const damage = calculateDamage(wordDict,time);
 }
 
-gameLogic();
+GameLogic();
