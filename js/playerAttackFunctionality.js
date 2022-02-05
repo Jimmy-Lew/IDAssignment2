@@ -58,21 +58,9 @@ const DisplayDefinition = function (selectedWord, wordDict) {
  * @param {dictionary} wordDict 
  * @returns {dictionary} Dictionary containing words and their respective complexity rating
  */
-const CalculateWordComplexity = function (wordDict) {
-    wordComplexity = {};
-
-    Object.keys(wordDict).forEach(key => {
-        let wordLength = key.length;
-
-        if (wordLength >= 10){
-            wordComplexity[key] = 2;
-        }
-        else{
-            wordComplexity[key] = 1;
-        }
-    })
-
-    return wordComplexity;
+const CalculateWordComplexity = function (userInput) {
+    if (userInput.length >= 10) return 2;
+    return 1;
 }
 
 /**
@@ -87,11 +75,28 @@ const DifficultyTimer = function (retrievedDifficulty){
     return 5;
 }
 
+const baseAttack = 5;
+let comboList = []
 
-function CalculateDamage(userInput) {
+function CalculateCombo(comboList){
+    const lastIndex = comboList.length - 1
+    let comboChain = 0;
+
+    for (let index = 1; comboList[lastIndex] === comboList[lastIndex - index] && index <= 3; ++index){
+        comboChain ++;
+    }
+
+    if (comboList[lastIndex] === 1) return 1 + (0.1*comboChain);
+    if (comboList[lastIndex] === 2) return 1 + (0.15*comboChain);
+}
+
+function CalculateDamage(userInput, comboList) {
     // Logic : WPS (Time taken to write word, length taken into account, does a certian amount of damage.)
     // Calculate WPS
     // Calculate Damage (every 5s - damage 20% less)
+    const typeSpeed = 100;
+    const comboBonus = CalculateCombo(comboList);
+    return baseAttack * (typeSpeed / 40) * comboBonus
 }
 
 /**
@@ -157,7 +162,7 @@ function CheckCompletion(userInput,predictedWord){
     return false;
 }
 
-// ------------ Main --------------
+// #region Main
 const GameLogic = async () => {
     // --- Initializing Health (Player & Enemy) & Input field ---
     $("#pHealth").text(`Player_Health: ${pHealth}`);    // Updates DOM Time Text
@@ -167,7 +172,6 @@ const GameLogic = async () => {
     
     let wordDict = await GetWordsAndDefs();
     DisplayWords(wordDict);
-    let wordComplexity = CalculateWordComplexity(wordDict);
     const diffTime = DifficultyTimer(retrievedDifficulty);
     let timeLeft = diffTime;
     
@@ -185,14 +189,15 @@ const GameLogic = async () => {
         const userInput = GetUserInput();
         const predictedWord = AutoPredict(userInput,wordDict);
         const finishStatus = CheckCompletion(userInput,predictedWord);
-        console.clear();
         
         console.log(`User Input: ${userInput.join("")}`);
         console.log(`Predicted Word: ${predictedWord}`);
         console.log(`Finish: ${finishStatus}`);
         
         if (finishStatus === true && timeLeft !== 0){
-            console.clear();
+            comboList.push(CalculateWordComplexity(userInput.join("")));
+            console.log(`Damage: ${CalculateDamage(userInput.join(""), comboList)}`);
+
             console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
             
             // Calculate Player Damage 
@@ -204,7 +209,7 @@ const GameLogic = async () => {
             GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft === 0) {
-            console.clear();
+
             console.log('%c>> You Ran Out Of Time!', 'color: red;');
 
             // Calculate Enemy Damage to Player  
@@ -213,7 +218,7 @@ const GameLogic = async () => {
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
-
+            console.log(`ComboList: ${comboList}`);
             if(pHealth <= 0) alert('You Lost (L)');
             else GameLogic();                // Recalls function to call API and update new words and stuff
         }
@@ -226,5 +231,6 @@ const GameLogic = async () => {
     
     
 }
+// #endregion
 
 GameLogic();
