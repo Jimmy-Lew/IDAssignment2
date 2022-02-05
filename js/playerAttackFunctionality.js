@@ -3,6 +3,11 @@ console.log("loaded script.js");
 const apiURL = 'https://random-words-api.vercel.app/word';
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
+
+let pHealth = 100
+let eHealth = 100
+
+
 /**
  * Calls API
  * @returns {dictionary} Dictionary containing words and their respective definitions 
@@ -82,9 +87,9 @@ const DifficultyTimer = function (retrievedDifficulty){
     return 5;
 }
 
-const CalculateDamage = function (wordDict,time) {
+
+function CalculateDamage(userInput) {
     // Logic : WPS (Time taken to write word, length taken into account, does a certian amount of damage.)
-    // Timer 
     // Calculate WPS
     // Calculate Damage (every 5s - damage 20% less)
 }
@@ -154,13 +159,20 @@ function CheckCompletion(userInput,predictedWord){
 
 // ------------ Main --------------
 const GameLogic = async () => {
-    ClearUserInput();     // Clears the input field
+    // --- Initializing Health (Player & Enemy) & Input field ---
+    $("#pHealth").text(`Player_Health: ${pHealth}`);    // Updates DOM Time Text
+    $("#eHealth").text(`Enemy_Health: ${eHealth}`);     // Updates DOM Time Text
+    ClearUserInput();                                   // Clears the input field
+    
+    
     let wordDict = await GetWordsAndDefs();
     DisplayWords(wordDict);
     let wordComplexity = CalculateWordComplexity(wordDict);
     const diffTime = DifficultyTimer(retrievedDifficulty);
     let timeLeft = diffTime;
     
+
+    // --- Runs Timer ---
     let timerID = setInterval(function(){               // Created an anonymous function to run the code below
         const x = Timer(timeLeft);                      // Calls Timer function and returns the time remaining to a temporary variable called 'x'
         timeLeft = x;                                   // Reassigns timeLeft to the value of x
@@ -183,15 +195,27 @@ const GameLogic = async () => {
             console.clear();
             console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
             
+            // Calculate Player Damage 
+
+
+            // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
             GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft === 0) {
             console.clear();
-            console.log('%c>> you lost', 'color: red;');
+            console.log('%c>> You Ran Out Of Time!', 'color: red;');
+
+            // Calculate Enemy Damage to Player  
+            pHealth -= 100;
+            
+            // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+
+            if(pHealth <= 0) alert('You Lost (L)');
+            else GameLogic();                // Recalls function to call API and update new words and stuff
         }
     },100);
     
