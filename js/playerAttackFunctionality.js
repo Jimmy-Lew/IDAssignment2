@@ -94,23 +94,22 @@ const CalculateDamage = function (wordDict,time) {
  * @returns {string[]} User input text
  */
 function GetUserInput(){
-    return $("#textInput").val().split("") // As Array
+    return $("#textInput").val().split(""); // As Array
+}
+
+function ClearUserInput(){
+    $("#textInput").val("");
 }
 
 /**
  * 
- * @param {number} diffTime 
+ * @param {number} timeLeft 
  */
-function Timer(diffTime){
-    console.log('%c>> Starting Timer...', 'color: red;');
-
-    var timeLeft = diffTime; //Max time ; based on difficulty
-    var Timer = setInterval(function(){
-        timeLeft--;
-        $("#time").text(`Time: ${timeLeft}s`); // Updates DOM Time Text
-        if(timeLeft <= 0) clearInterval(Timer);
-        return timeLeft;
-    },1000);
+function Timer(timeLeft){
+    console.log(`%c>> Running Timer...`, 'color: red;');
+    timeLeft--;
+    $("#time").text(`Time: ${timeLeft}s`); // Updates DOM Time Text
+    return timeLeft;
 }
 
 /**
@@ -120,12 +119,12 @@ function Timer(diffTime){
  * @returns {string | undefined} Predicted word user wishes to input
  */
 function AutoPredict(userInput, wordDict){
-    console.log('%c>> Running AutoPredict...', 'color: #1aacf0;')
+    console.log('%c>> Running AutoPredict...', 'color: #1aacf0;');
     
     // Read Through Dictionary Words
-    let wordList = []
+    let wordList = [];
     Object.keys(wordDict).forEach(key => {
-        wordList.push(key.split(""))
+        wordList.push(key.split(""));
     })
     // Check each char at each position to see if they are the same (Prediction)
     if (userInput.length === 0) return;
@@ -155,36 +154,53 @@ function CheckCompletion(userInput,predictedWord){
 
 // ------------ Main --------------
 const GameLogic = async () => {
+    ClearUserInput();     // Clears the input field
     let wordDict = await GetWordsAndDefs();
-
     DisplayWords(wordDict);
     let wordComplexity = CalculateWordComplexity(wordDict);
     const diffTime = DifficultyTimer(retrievedDifficulty);
-    Timer(diffTime);
+    let timeLeft = diffTime;
+    
+    let timerID = setInterval(function(){               // Created an anonymous function to run the code below
+        const x = Timer(timeLeft);                      // Calls Timer function and returns the time remaining to a temporary variable called 'x'
+        timeLeft = x;                                   // Reassigns timeLeft to the value of x
+        if(timeLeft === 0) clearInterval(timerID);
+    },1000,timeLeft);                                   // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
 
     
     // Makeshift "Loop" (called every second)
-    let breakBool = false;
     var check = setInterval(function(){ 
         const userInput = GetUserInput();
-        const predictedWord = AutoPredict(userInput,wordDict)
-        const finishStatus = CheckCompletion(userInput,predictedWord)
+        const predictedWord = AutoPredict(userInput,wordDict);
+        const finishStatus = CheckCompletion(userInput,predictedWord);
+        console.clear();
         
         console.log(`User Input: ${userInput.join("")}`);
         console.log(`Predicted Word: ${predictedWord}`);
         console.log(`Finish: ${finishStatus}`);
         
-        if (finishStatus === true){
-            breakBool = true;
-            clearInterval(check);
+        if (finishStatus === true && timeLeft !== 0){
+            console.clear();
+            console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
+            
+            clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
+            clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+            GameLogic();                // Recalls function to call API and update new words and stuff
         }
-    },1000);
+        else if(timeLeft === 0) {
+            console.clear();
+            console.log('%c>> you lost', 'color: red;');
+            clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
+            clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+        }
+    },100);
+    
 
     
     
 
     
-    // const damage = calculateDamage(wordDict,time);
+    
 }
 
 GameLogic();
