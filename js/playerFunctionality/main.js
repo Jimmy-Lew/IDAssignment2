@@ -39,13 +39,16 @@ const GameLogic = async () => {
             const WPM = calcWPM(userInput,diffTime,timeLeft);
             const damageDealt = CalculateDamage(comboList, WPM);
             
+            DisplayWPM(WPM);
+
             eHealth -= damageDealt;
 
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
             
-            GameLogic();                // Recalls function to call API and update new words and stuff
+            if (eHealth <= 0) alert('You win');
+            else GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft <= 0) {
 
@@ -57,6 +60,7 @@ const GameLogic = async () => {
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+            
             if(pHealth <= 0) alert('You Lost (L)');
             else GameLogic();                // Recalls function to call API and update new words and stuff
         }

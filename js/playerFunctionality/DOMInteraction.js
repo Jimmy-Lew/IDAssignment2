@@ -13,7 +13,11 @@ function DisplayPlayerHealth(pHealth) {
 }
 
 function DisplayBossHealth(eHealth) {
-    $("#eHealth").text(`Boss_Health: ${eHealth}`); 
+    $("#eHealth").text(`Enemy_Health: ${eHealth}`); 
+}
+
+function DisplayWPM(WPM) {
+    $("#pWPM").text(`PLayer_WPM: ${WPM}`);
 }
 
 /**
