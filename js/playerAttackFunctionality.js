@@ -88,9 +88,21 @@ const DifficultyTimer = function (retrievedDifficulty){
 }
 
 
+/**
+ * 
+ * @param {string[]} userInput
+ * @param {int} diffTime
+ * @param {int} timeLeft
+ * @returns Word Per Second (WPM)
+ */
+function calcWPM(userInput,diffTime, timeLeft){
+    let timeTaken = diffTime - timeLeft;
+    return (userInput.length/timeTaken)*12
+}
+
+
 function CalculateDamage(userInput) {
-    // Logic : WPS (Time taken to write word, length taken into account, does a certian amount of damage.)
-    // Calculate WPS
+    // Logic : WPM (Time taken to write word, length taken into account, does a certian amount of damage.)
     // Calculate Damage (every 5s - damage 20% less)
 }
 
@@ -195,12 +207,15 @@ const GameLogic = async () => {
             console.clear();
             console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
             
+            const wpm = calcWPM(userInput,diffTime,timeLeft);
+            console.log(`Word Per Minute (WMP): ${wpm}`);
             // Calculate Player Damage 
 
 
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+            
             GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft === 0) {
