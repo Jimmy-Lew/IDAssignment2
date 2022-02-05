@@ -107,7 +107,7 @@ function Timer(diffTime){
     var timeLeft = diffTime; //Max time ; based on difficulty
     var Timer = setInterval(function(){
         timeLeft--;
-        $("#time").text(`Time: ${timeLeft}s`);
+        $("#time").text(`Time: ${timeLeft}s`); // Updates DOM Time Text
         if(timeLeft <= 0) clearInterval(Timer);
         return timeLeft;
     },1000);
@@ -161,9 +161,11 @@ const GameLogic = async () => {
     let wordComplexity = CalculateWordComplexity(wordDict);
     const diffTime = DifficultyTimer(retrievedDifficulty);
     Timer(diffTime);
+
     
-    // Makeshift "Loop"
-    setInterval(function(){ 
+    // Makeshift "Loop" (called every second)
+    let breakBool = false;
+    var check = setInterval(function(){ 
         const userInput = GetUserInput();
         const predictedWord = AutoPredict(userInput,wordDict)
         const finishStatus = CheckCompletion(userInput,predictedWord)
@@ -171,7 +173,17 @@ const GameLogic = async () => {
         console.log(`User Input: ${userInput.join("")}`);
         console.log(`Predicted Word: ${predictedWord}`);
         console.log(`Finish: ${finishStatus}`);
+        
+        if (finishStatus === true){
+            breakBool = true;
+            clearInterval(check);
+        }
     },1000);
+
+    
+    
+
+    
     // const damage = calculateDamage(wordDict,time);
 }
 
