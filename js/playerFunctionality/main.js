@@ -16,7 +16,7 @@ const GameLogic = async () => {
     // --- Runs Timer ---
     let timerID = setInterval(() => {                   // Created an anonymous function to run the code below
         const x = UpdateTimer(timeLeft);                // Calls Timer function and returns the time remaining to a temporary variable called 'x'
-        timeLeft = Math.ceil(x);                        // Reassigns timeLeft to the value of x
+        timeLeft = Math.ceil(x);                        // Reassigns timeLeft to the value of x (Math.ceil = Rounds up to next largest int)
         if(timeLeft <= 0) clearInterval(timerID);
     },1000,timeLeft);                                   // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
 
