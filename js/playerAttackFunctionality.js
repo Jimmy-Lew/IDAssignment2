@@ -204,32 +204,34 @@ const GameLogic = async () => {
             const WPM = calcWPM(userInput,diffTime,timeLeft);
             const damageDealt = CalculateDamage(userInput.join(""), comboList, WPM);
             
-            eHealth -= damageDealt;
-
             console.log(`Damage: ${damageDealt}`);
             console.log(`Word Per Minute (WMP): ${WPM}`);
-            // Calculate Player Damage 
 
+            // Calculate Player Damage 
+            eHealth -= damageDealt;
+            $("#pWPM").text(`Player_WPM: ${WPM}`);     // Updates DOM Time Text
 
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
             
-            GameLogic();                // Recalls function to call API and update new words and stuff
+            if(eHealth <= 0) alert('You Win (W)');  // If Player Defeats Enemy 
+            else GameLogic();                       // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft === 0) {
 
             console.log('%c>> You Ran Out Of Time!', 'color: red;');
 
             // Calculate Enemy Damage to Player  
-            pHealth -= 100;
+            pHealth -= 20;
             
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
             console.log(`ComboList: ${comboList}`);
-            if(pHealth <= 0) alert('You Lost (L)');
-            else GameLogic();                // Recalls function to call API and update new words and stuff
+            
+            if(pHealth <= 0) alert('You Lost (L)'); // If Player Loses All thier health (Enemy Defeats Player)
+            else GameLogic();                       // Recalls function to call API and update new words and stuff
         }
     },100);
     
