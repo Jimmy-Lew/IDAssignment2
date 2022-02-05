@@ -6,7 +6,8 @@ const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
 let pHealth = 100
 let eHealth = 100
-
+const baseAttack = 5;
+let comboList = []
 
 /**
  * Calls API
@@ -75,9 +76,6 @@ const DifficultyTimer = function (retrievedDifficulty){
     return 5;
 }
 
-const baseAttack = 5;
-let comboList = []
-
 function CalculateCombo(comboList){
     const lastIndex = comboList.length - 1
     let comboChain = 0;
@@ -90,11 +88,14 @@ function CalculateCombo(comboList){
     if (comboList[lastIndex] === 2) return 1 + (0.15*comboChain);
 }
 
-function CalculateDamage(userInput, comboList) {
-    // Logic : WPS (Time taken to write word, length taken into account, does a certian amount of damage.)
-    // Calculate WPS
+function calcWPM(userInput,diffTime, timeLeft){
+    let timeTaken = diffTime - timeLeft;
+    return (userInput.length/timeTaken)*12
+}
+
+function CalculateDamage(userInput, comboList, typeSpeed) {
+    // Logic : WPM (Time taken to write word, length taken into account, does a certian amount of damage.)
     // Calculate Damage (every 5s - damage 20% less)
-    const typeSpeed = 100;
     const comboBonus = CalculateCombo(comboList);
     return baseAttack * (typeSpeed / 40) * comboBonus
 }
@@ -195,17 +196,25 @@ const GameLogic = async () => {
         console.log(`Finish: ${finishStatus}`);
         
         if (finishStatus === true && timeLeft !== 0){
-            comboList.push(CalculateWordComplexity(userInput.join("")));
-            console.log(`Damage: ${CalculateDamage(userInput.join(""), comboList)}`);
+
 
             console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
+
+            comboList.push(CalculateWordComplexity(userInput.join("")));
+            const WPM = calcWPM(userInput,diffTime,timeLeft);
+            const damageDealt = CalculateDamage(userInput.join(""), comboList, WPM);
             
+            eHealth -= damageDealt;
+
+            console.log(`Damage: ${damageDealt}`);
+            console.log(`Word Per Minute (WMP): ${WPM}`);
             // Calculate Player Damage 
 
 
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
+            
             GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft === 0) {
