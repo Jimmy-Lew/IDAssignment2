@@ -53,9 +53,9 @@ function hoverUserInputText(match, wordMap){
 
     resetDisplayWords(wordMap);
     if (notMatch > 2) return;
-    
-    $(`.wordSelection-${index}`).css({"transform" : "translateY(-.2em)",
-                                      "font-size" : "2.6em"});
+
+    $(`.wordSelection-${index}`).css({"transform" : "translateY(-.4em)",
+                                      "font-size" : "2.5em"});
 }
 
 function resetDisplayWords(wordMap){

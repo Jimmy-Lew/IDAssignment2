@@ -32,31 +32,43 @@
           user-select: none;
 }
 
+*:focus {
+  outline: none;
+}
+
 ul {
-  text-align: center;
-  width: 100%;
-  display: table;
-  margin: 0 auto;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding-top: 5em;
 }
 
 li {
   font-family: 'trajan-pro-bold';
   font-size: 2em;
+  text-align: center;
   color: #fff;
   background: none;
   display: inline-table;
   list-style-type: none;
-  padding: 1em 2em 0 2em;
-  margin: auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  margin: 0 1em;
+  height: 50px;
+  width: 320px;
   -webkit-transition: all .75s ease;
   transition: all .75s ease;
 }
 
 #textInput {
+  position: absolute;
+  text-align: center;
   font-size: 1.9em;
+  width: 100%;
+  padding-top: 7em;
+  margin: 0 auto;
+  border: none;
 }
 /*# sourceMappingURL=gameStyle.css.map */

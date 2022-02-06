@@ -1,6 +1,5 @@
 console.log("loaded script.js");
 
-const retrievedDifficulty = window.localStorage.getItem('difficulty');
 const baseAttack = 5;
 
 /**
@@ -19,17 +18,19 @@ const CalculateWordComplexity = function (userInput) {
  * @returns Time user has to type word
  */
 const RetrieveDifficultyData = function (retrievedDifficulty){
-    if (retrievedDifficulty === 'Easy') return 60;
-    else if (retrievedDifficulty === 'Medium') return 20;
-    else if (retrievedDifficulty === 'Hard') return 15;
-    return 5.5;
+    if (retrievedDifficulty === 'Easy') return 60;         // 7.5
+    else if (retrievedDifficulty === 'Medium') return 20;  // 5
+    else if (retrievedDifficulty === 'Hard') return 15;    // 3.5
+    return 5.5;                                            // 1.5
 }
 
 function cullComboList(comboList) {
     if (comboList.length > 3) return comboList.slice(-4);
+    return comboList;
 }
 
 function CalculateCombo(comboList){
+    comboList = cullComboList(comboList);
 
     const lastIndex = comboList.length - 1
     let comboChain = 0;
@@ -42,9 +43,9 @@ function CalculateCombo(comboList){
     if (comboList[lastIndex] === 2) return 1 + (0.15*comboChain);
 }
 
-function calcWPM(userInput,diffTime, timeLeft){
-    let timeTaken = diffTime - timeLeft;
-    return Math.floor(((userInput.length/timeTaken)*60)/5);
+function CalculateWordsPerMin(userInput, diffTime, timeLeft, timeSubtracted){
+    let timeTaken = diffTime - timeLeft - timeSubtracted;
+    return Math.ceil(((userInput.length/timeTaken)*60)/5);
 }
 
 function CalculateDamage(comboList, typeSpeed) {
@@ -59,7 +60,7 @@ function CalculateDamage(comboList, typeSpeed) {
  * @returns {string | undefined} Predicted word user wishes to input
  */
 function AutoPredict(userInput, wordMap){
-    console.log('%c>> Running AutoPredict...', 'color: #1aacf0;');
+    // console.log('%c>> Running AutoPredict...', 'color: #1aacf0;');
     
     // Read Through Dictionary Words
     let wordList = [];
@@ -87,8 +88,8 @@ function CompareWords(userInput, wordToCompare) {
     return true;
 }
 
-function CheckCompletion(userInput,predictedWord){
-    console.log('%c>> Running Check...', 'color: #1af08c;');
+function IsComplete(userInput,predictedWord){
+    // console.log('%c>> Running Check...', 'color: #1af08c;');
     if(userInput.join("") === predictedWord) return true;
     return false;
 }
@@ -99,7 +100,7 @@ function CheckCompletion(userInput,predictedWord){
  * @param {string} predictedWord word to compare userInput against
  * @returns {boolean} Checks if user made a typo
  */
-function CheckTypo(userInput,predictedWord){
+function HasTypo(userInput,predictedWord){
     if(userInput.length > 0 && predictedWord === undefined) return true;
     return false;
 }
