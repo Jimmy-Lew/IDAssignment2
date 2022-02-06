@@ -1,7 +1,5 @@
 console.log("loaded script.js");
 
-const baseAttack = 5;
-
 /**
  * Calculates complexity rating of words
  * @param {string} userInput
