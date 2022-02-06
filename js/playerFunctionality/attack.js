@@ -91,3 +91,16 @@ function CheckCompletion(userInput,predictedWord){
     if(userInput.join("") === predictedWord) return true;
     return false;
 }
+
+/**
+ * 
+ * @param {string[]} userInput user input text
+ * @param {string} predictedWord word to compare userInput against
+ * @returns {boolean} Checks if user made a typo
+ */
+function CheckTypo(userInput,predictedWord){
+    if(userInput.length > 0 && predictedWord === undefined){
+        return true;
+    }
+    else return false;
+}
