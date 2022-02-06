@@ -17,7 +17,7 @@ function DisplayBossHealth(eHealth) {
 }
 
 function DisplayWPM(WPM) {
-    $("#pWPM").text(`PLayer_WPM: ${WPM}`);
+    $("#pWPM").text(`Player_WPM: ${WPM}`);
 }
 
 /**

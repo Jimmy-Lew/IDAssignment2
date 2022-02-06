@@ -3,10 +3,6 @@ console.log("loaded script.js");
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 const baseAttack = 5;
 
-let pHealth = 100
-let eHealth = 100
-let comboList = []
-
 /**
  * Calculates complexity rating of words
  * @param {string} userInput
@@ -23,13 +19,19 @@ const CalculateWordComplexity = function (userInput) {
  * @returns Time user has to type word
  */
 const RetrieveDifficultyData = function (retrievedDifficulty){
-    if (retrievedDifficulty === 'Easy') return 30;
+    if (retrievedDifficulty === 'Easy') return 60;
     else if (retrievedDifficulty === 'Medium') return 20;
     else if (retrievedDifficulty === 'Hard') return 15;
     return 5.5;
 }
 
+function cullComboList(comboList) {
+    if (comboList.length > 3) return comboList.slice(-4);
+}
+
 function CalculateCombo(comboList){
+    comboList = cullComboList(comboList);
+
     const lastIndex = comboList.length - 1
     let comboChain = 0;
 
@@ -43,12 +45,12 @@ function CalculateCombo(comboList){
 
 function calcWPM(userInput,diffTime, timeLeft){
     let timeTaken = diffTime - timeLeft;
-    return (userInput.length/timeTaken)*12
+    return ((userInput.length/timeTaken)*60)/5;
 }
 
 function CalculateDamage(comboList, typeSpeed) {
     const comboBonus = CalculateCombo(comboList);
-    return baseAttack * (typeSpeed / 40) * comboBonus
+    return Math.floor(baseAttack * (typeSpeed / 40) * comboBonus);
 }
 
 /**
@@ -99,8 +101,6 @@ function CheckCompletion(userInput,predictedWord){
  * @returns {boolean} Checks if user made a typo
  */
 function CheckTypo(userInput,predictedWord){
-    if(userInput.length > 0 && predictedWord === undefined){
-        return true;
-    }
-    else return false;
+    if(userInput.length > 0 && predictedWord === undefined) return true;
+    return false;
 }

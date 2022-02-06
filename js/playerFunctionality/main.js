@@ -1,7 +1,14 @@
+let pHealth = 100
+let eHealth = 30
+let comboList = []
+
 // #region Main
 const GameLogic = async () => {
+    let userInput;
+    let predictedWord;
+    let finishStatus = false;
+
     // --- Initializing Health (Player & Enemy) & Input field ---
-    eHealth = Math.floor(eHealth);
 
     DisplayPlayerHealth(pHealth);
     DisplayBossHealth(eHealth);
@@ -9,46 +16,45 @@ const GameLogic = async () => {
     
     let wordMap = await GetWordsAndDefs();
     DisplayWords(wordMap);
+    
     const diffTime = RetrieveDifficultyData(retrievedDifficulty);
     let timeLeft = diffTime;
-    
-    let checkTypo = false;
 
     // --- Runs Timer ---
     let timerID = setInterval(() => {                   // Created an anonymous function to run the code below
         const x = UpdateTimer(timeLeft);                // Calls Timer function and returns the time remaining to a temporary variable called 'x'
         timeLeft = Math.ceil(x);                        // Reassigns timeLeft to the value of x (Math.ceil = Rounds up to next largest int)
         if(timeLeft <= 0) clearInterval(timerID);
-        checkTypo = true; // TEMPORARY WORKAROUND [TODO - Fix CheckTypo]
     },1000,timeLeft);                                   // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
 
-    // Makeshift "Loop" (called every second)
-    var check = setInterval(() => { 
-        const userInput = GetUserInput();
-        const predictedWord = AutoPredict(userInput,wordMap);
-        const finishStatus = CheckCompletion(userInput,predictedWord);
-        
-        // Check for Typo
-        console.log(checkTypo)
-        if(CheckTypo(userInput,predictedWord) && checkTypo === true){
-            timeLeft -= 1;
-            console.log("Typo!" + timeLeft);
-        }
-        checkTypo = false; // TEMPORARY WORKAROUND [TODO - Fix CheckTypo]
-        
+    // Detect change in input
+    $("#textInput").on("keyup", () => { 
+        userInput = GetUserInput();
+        predictedWord = AutoPredict(userInput,wordMap);
+        finishStatus = CheckCompletion(userInput,predictedWord);
 
         console.log(`User Input: ${userInput.join("")}`);
         console.log(`Predicted Word: ${predictedWord}`);
         console.log(`Finish: ${finishStatus}`);
-        
+
+        // #region Typo Check
+        if(CheckTypo(userInput,predictedWord)){
+            timeLeft -= 1;
+        }
+        // #endregion
+    })
+
+    // Makeshift "Loop" (called every 100ms)
+    var check = setInterval(() => {         
         if (finishStatus === true && timeLeft !== 0){
             console.log('%c>> Moving To Next Stage...','color: #1aacf0;');
 
-            // Calculate Player Damage 
+            // #region Damage Calculation
             comboList.push(CalculateWordComplexity(userInput.join("")));
             const WPM = calcWPM(userInput,diffTime,timeLeft);
             const damageDealt = CalculateDamage(comboList, WPM);
-            
+            // #endregion
+
             DisplayWPM(WPM);
 
             eHealth -= damageDealt;
@@ -58,7 +64,7 @@ const GameLogic = async () => {
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
 
             if (eHealth <= 0) alert('You win');
-            else GameLogic();                // Recalls function to call API and update new words and stuff
+            GameLogic();                // Recalls function to call API and update new words and stuff
         }
         else if(timeLeft <= 0) {
 
@@ -72,7 +78,7 @@ const GameLogic = async () => {
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
 
             if(pHealth <= 0) alert('You Lost (L)');
-            else GameLogic();                // Recalls function to call API and update new words and stuff
+            GameLogic();                // Recalls function to call API and update new words and stuff
         }
     },100);
 }
