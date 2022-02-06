@@ -3,7 +3,7 @@ const apiURL = 'https://random-words-api.vercel.app/word';
 const GetWordsAndDefs = async () => {
     let wordMap = new Map();
 
-    for (let i = 0; i < 3;) 
+    for (; wordMap.size < 3;) 
     {
         let response = await fetch(apiURL)
         let data = await response.json();
@@ -14,7 +14,6 @@ const GetWordsAndDefs = async () => {
 
         if (/^[a-z]+$/i.test(word)){
             wordMap.set(word, definition)
-            i++;
         }   
     }
 

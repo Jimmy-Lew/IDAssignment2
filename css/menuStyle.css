@@ -23,6 +23,10 @@
           user-select: none;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 html {
   height: 100%;
   cursor: url("../Assets/images/pngs/Cursor.png"), auto;

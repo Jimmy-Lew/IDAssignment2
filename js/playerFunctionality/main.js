@@ -20,7 +20,6 @@ const GameLogic = async () => {
         if(timeLeft <= 0) clearInterval(timerID);
     },1000,timeLeft);                                   // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
 
-    
     // Makeshift "Loop" (called every second)
     var check = setInterval(() => { 
         const userInput = GetUserInput();
@@ -60,7 +59,7 @@ const GameLogic = async () => {
             // --- Prepare for next round! ---
             clearInterval(timerID);     // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);       // Stops the Check setInterval from iterating. (breaks)
-            
+
             if(pHealth <= 0) alert('You Lost (L)');
             else GameLogic();                // Recalls function to call API and update new words and stuff
         }
