@@ -1,21 +1,26 @@
 var difficulties = ["Easy", "Medium", "Hard", "Syncope"];
 var difficultyRating = 0;
-$("#Start").on("click", function () {
+
+$("#Start").on("click", () => {
+    window.localStorage.setItem('difficulty', $("#Difficulty").text());
     window.location.href = "game.html";
 });
-$("#Difficulty").on("click", function () {
+
+$("#Difficulty").on("click", () => {
     if (difficultyRating === difficulties.length - 1) {
         difficultyRating = -1;
     }
     difficultyRating++;
     $("#Difficulty").text(difficulties[difficultyRating]);
-    window.localStorage.setItem('difficulty', difficulties[difficultyRating]);
 });
-$("#Leaderboard").on("click", function () {
+
+$("#Leaderboard").on("click", () => {
 });
-$("#Help").on("click", function () {
+
+$("#Help").on("click", () => {
     $(".help-container").css("display", "flex");
 });
-$(".help-container").on("click", function () {
+
+$(".help-container").on("click", () => {
     $(this).css("display", "none");
 });

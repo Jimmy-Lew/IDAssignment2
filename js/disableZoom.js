@@ -1,4 +1,4 @@
-$(document).keydown(function(event) {
+$(document).on("keydown", function(event) {
     if (event.ctrlKey == true && 
        (event.which == '61'  || 
         event.which == '107' || 

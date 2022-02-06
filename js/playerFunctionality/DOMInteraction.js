@@ -58,12 +58,9 @@ function hoverUserInputText(match, wordMap){
                                       "font-size" : "2.5em"});
 }
 
-function resetDisplayWords(wordMap){
-    let index = 0;
-
-    wordMap.forEach((value, key) => {
-        index++;
-        $(`.wordSelection-${index}`).css({"transform" : "",
-                                          "font-size" : "2em"})
-    });
+function resetDisplayWords(){
+    for (let i = 1; i < 4; i++){
+        $(`.wordSelection-${i}`).css({"transform" : "",
+                                      "font-size" : "2em"})
+    }
 }

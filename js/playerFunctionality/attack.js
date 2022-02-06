@@ -18,10 +18,10 @@ const CalculateWordComplexity = function (userInput) {
  * @returns Time user has to type word
  */
 const RetrieveDifficultyData = function (retrievedDifficulty){
-    if (retrievedDifficulty === 'Easy') return 60;         // 7.5
-    else if (retrievedDifficulty === 'Medium') return 20;  // 5
-    else if (retrievedDifficulty === 'Hard') return 15;    // 3.5
-    return 5.5;                                            // 1.5
+    if (retrievedDifficulty === 'Easy') return 7.5;         // 40WPM
+    else if (retrievedDifficulty === 'Medium') return 5;    // 60WPM
+    else if (retrievedDifficulty === 'Hard') return 3.5;    // 90WPM
+    return 1.5;                                             // 100WPM
 }
 
 function cullComboList(comboList) {
