@@ -15,6 +15,7 @@ const GameLogic = async () => {
     ClearUserInput();                                   // Clears the input field
     
     let wordMap = await GetWordsAndDefs();
+    resetDisplayWords(wordMap);
     DisplayWords(wordMap);
     
     const diffTime = RetrieveDifficultyData(retrievedDifficulty);
@@ -42,6 +43,8 @@ const GameLogic = async () => {
             timeLeft -= 1;
         }
         // #endregion
+
+        hoverUserInputText(predictedWord, wordMap);
     })
 
     // Makeshift "Loop" (called every 100ms)

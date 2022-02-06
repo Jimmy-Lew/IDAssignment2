@@ -1,5 +1,5 @@
 <p align = "center">
-  <img src = "Assets\images\pngs\ReadMeBanner.png" size = 200>
+  <img src = "Assets\images\pngs\Title.png" size = 200>
 </p>
 
 # Syncope

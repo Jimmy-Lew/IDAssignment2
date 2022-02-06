@@ -4,7 +4,7 @@ function DisplayWords(wordMap) {
 
     wordMap.forEach((value, key) => {
         index++;
-        $(`.wordSelection-${index} p`).text(key);
+        $(`.wordSelection-${index}`).text(key);
     });
 }
 
@@ -41,3 +41,29 @@ function ClearUserInput(){
     $("#textInput").val("");
 }
 // #endregion
+
+function hoverUserInputText(match, wordMap){
+    let index = 0;
+    let notMatch = 0;
+    for (word of wordMap) {
+        index++;
+        if (word[0] === match) break;
+        notMatch++;
+    }
+
+    resetDisplayWords(wordMap);
+    if (notMatch > 2) return;
+    
+    $(`.wordSelection-${index}`).css({"transform" : "translateY(-.2em)",
+                                      "font-size" : "2.6em"});
+}
+
+function resetDisplayWords(wordMap){
+    let index = 0;
+
+    wordMap.forEach((value, key) => {
+        index++;
+        $(`.wordSelection-${index}`).css({"transform" : "",
+                                          "font-size" : "2em"})
+    });
+}

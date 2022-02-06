@@ -24,9 +24,39 @@
   background: #000;
   color: #fff;
   font-weight: bold;
+  padding: 0;
+  margin: 0;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+ul {
+  text-align: center;
+  width: 100%;
+  display: table;
+  margin: 0 auto;
+  padding-top: 5em;
+}
+
+li {
+  font-family: 'trajan-pro-bold';
+  font-size: 2em;
+  color: #fff;
+  background: none;
+  display: inline-table;
+  list-style-type: none;
+  padding: 1em 2em 0 2em;
+  margin: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-transition: all .75s ease;
+  transition: all .75s ease;
+}
+
+#textInput {
+  font-size: 1.9em;
 }
 /*# sourceMappingURL=gameStyle.css.map */

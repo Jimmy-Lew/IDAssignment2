@@ -30,7 +30,6 @@ function cullComboList(comboList) {
 }
 
 function CalculateCombo(comboList){
-    comboList = cullComboList(comboList);
 
     const lastIndex = comboList.length - 1
     let comboChain = 0;
@@ -45,7 +44,7 @@ function CalculateCombo(comboList){
 
 function calcWPM(userInput,diffTime, timeLeft){
     let timeTaken = diffTime - timeLeft;
-    return ((userInput.length/timeTaken)*60)/5;
+    return Math.floor(((userInput.length/timeTaken)*60)/5);
 }
 
 function CalculateDamage(comboList, typeSpeed) {
