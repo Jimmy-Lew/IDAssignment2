@@ -1,9 +1,15 @@
-let pHealth = 10000
-let eHealth = 30
 let totalTimeElapsed = 0;
 let comboList = []
 
+let defaultPlayer = new Player(10000, 5);
+let boss = new Boss(30, 25, 0, 3);
+
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
+
+function LevelComplete(win){
+    if(win) return alert("You win");
+    return alert("You lose");
+}
 
 // #region Main
 async function GameLogic() {
@@ -13,11 +19,11 @@ async function GameLogic() {
     let isFinished = false;
 
     // --- Initializing Health (Player & Enemy) & Input field ---
-    DisplayPlayerHealth(pHealth);
-    DisplayBossHealth(eHealth);
+    DisplayPlayerHealth(defaultPlayer.Health);
+    DisplayBossHealth(boss.Health);
 
     resetDisplayWords();
-    let wordMap = await GetWordsAndDefs();
+    let wordMap = await GetWordsAndDefs(boss.APICalls);
     DisplayWords(wordMap);
     ClearUserInput();                            // Clears the input field
 
@@ -38,10 +44,6 @@ async function GameLogic() {
         predictedWord = AutoPredict(userInput, wordMap);
         isFinished = IsComplete(userInput, predictedWord);
 
-        // console.log(`User Input: ${userInput.join("")}`);
-        // console.log(`Predicted Word: ${predictedWord}`);
-        // console.log(`Finish: ${finishStatus}`);
-
         // #region Typo Check
         if (HasTypo(userInput, predictedWord)) {
             timeSubtracted += 1;
@@ -59,31 +61,29 @@ async function GameLogic() {
             // #region Damage Calculation
             comboList.push(CalculateWordComplexity(userInput.join("")));
             const WPM = CalculateWordsPerMin(userInput, diffTime, timeLeft, timeSubtracted);
-            const damageDealt = CalculateDamage(comboList, WPM);
+            const damageDealt = CalculateDamage(defaultPlayer.Damage, comboList, WPM);
             // #endregion
             DisplayWPM(WPM);
 
-            eHealth -= damageDealt;
+            boss.damage(damageDealt);
 
             // --- Prepare for next round! ---
             clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
-            if (eHealth <= 0) alert(`You Win \nTotal Time Elapsed: ${totalTimeElapsed}`);
+            if (boss.Health <= 0) return LevelComplete(true);
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
+
         else if (timeLeft <= 0) {
-
-            console.log('%c>> You Ran Out Of Time!', 'color: red;');
-
             // Calculate Enemy Damage to Player  
-            pHealth -= 50;
+            defaultPlayer.damage(boss.FailureDamage);
 
             // --- Prepare for next round! ---
             clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
-            if (pHealth <= 0) alert('You Lost (L)');
+            if (defaultPlayer.Health <= 0) return LevelComplete(false);
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
     }, 100);

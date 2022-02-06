@@ -48,7 +48,7 @@ function CalculateWordsPerMin(userInput, diffTime, timeLeft, timeSubtracted){
     return Math.ceil(((userInput.length/timeTaken)*60)/5);
 }
 
-function CalculateDamage(comboList, typeSpeed) {
+function CalculateDamage(baseAttack, comboList, typeSpeed) {
     const comboBonus = CalculateCombo(comboList);
     return Math.floor(baseAttack * (typeSpeed / 40) * comboBonus);
 }

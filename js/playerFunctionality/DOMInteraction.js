@@ -4,7 +4,8 @@ function DisplayWords(wordMap) {
 
     wordMap.forEach((value, key) => {
         index++;
-        $(`.wordSelection-${index}`).text(key);
+        $(`.wordSelection-${index}`).remove()
+        $("#wordContainer ul").append(`<li class="wordSelection-${index}">${key}</li>`);
     });
 }
 
