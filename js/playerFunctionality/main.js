@@ -3,6 +3,7 @@ let comboList = []
 let isFirstRun = true;
 
 let wordTime = 0;
+let elapsedTime = "00:00"; // To create Time Elapsed Timer
 let entityList = [];
 let enemy = new Enemy();
 let player = new Player();
@@ -10,8 +11,14 @@ let player = new Player();
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
 function LevelComplete(win){
-    if(win) return alert("You win");
-    return alert("You lose");
+    if(win){
+        alert("You Won!");
+        UpdateLeaderboard();
+    }
+    else{
+        alert("You Lost... Try again next time Soldier 07");
+        window.location.replace(`/`); // Returns to main menu.
+    } 
 }
 
 async function parseLocalStorageData(){
