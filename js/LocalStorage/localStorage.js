@@ -20,10 +20,10 @@ function retrieveLocalStorage(){
 }
 
 function DefineWordTime(retrievedDifficulty, difficultyTimings) {
-    if (retrievedDifficulty === 0) return difficultyTimings[3]; // 40WPM
-    else if (retrievedDifficulty === 1) return difficultyTimings[2]; // 60WPM
-    else if (retrievedDifficulty === 2) return difficultyTimings[1]; // 90WPM
-    return difficultyTimings[0]; // 100WPM
+    return (retrievedDifficulty === 0) ? difficultyTimings[3] // 40WPM
+         : (retrievedDifficulty === 1) ? difficultyTimings[2] // 60WPM
+         : (retrievedDifficulty === 2) ? difficultyTimings[1] // 90WPM
+         : difficultyTimings[0]; // 100WPM
 }
 
 function parsePlayerData(playerData){
