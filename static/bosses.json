@@ -1,0 +1,14 @@
+{
+    "Father Gn-ynda": {
+        "Health": 2520,
+        "FailureDamage": 25,
+        "ConstantDamage": 0,
+        "APICalls": 3
+    },
+    "Admin [Unkillable]": {
+        "Health": 999999999,
+        "FailureDamage": 0,
+        "ConstantDamage": 0,
+        "APICalls": 3
+    }
+}

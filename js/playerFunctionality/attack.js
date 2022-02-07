@@ -10,18 +10,6 @@ const CalculateWordComplexity = function (userInput) {
     return 1;
 }
 
-/**
- * 
- * @param {string} retrievedDifficulty 
- * @returns Time user has to type word
- */
-const RetrieveDifficultyData = function (retrievedDifficulty){
-    if (retrievedDifficulty === 'Easy') return 7.5;         // 40WPM
-    else if (retrievedDifficulty === 'Medium') return 5;    // 60WPM
-    else if (retrievedDifficulty === 'Hard') return 3.5;    // 90WPM
-    return 1.5;                                             // 100WPM
-}
-
 function cullComboList(comboList) {
     if (comboList.length > 3) return comboList.slice(-4);
     return comboList;
@@ -41,8 +29,8 @@ function CalculateCombo(comboList){
     if (comboList[lastIndex] === 2) return 1 + (0.15*comboChain);
 }
 
-function CalculateWordsPerMin(userInput, diffTime, timeLeft, timeSubtracted){
-    let timeTaken = diffTime - timeLeft - timeSubtracted;
+function CalculateWordsPerMin(userInput, diffTime, timeLeft){
+    let timeTaken = diffTime - timeLeft;
     return Math.ceil(((userInput.length/timeTaken)*60)/5);
 }
 

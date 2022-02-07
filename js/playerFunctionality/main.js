@@ -1,14 +1,28 @@
 let totalTimeElapsed = 0;
 let comboList = []
+let isFirstRun = true;
 
-let defaultPlayer = new Player(10000, 5);
-let boss = new Boss(30, 25, 0, 3);
+let wordTime = 0;
+let entityList = [];
+let enemy = new Enemy();
+let player = new Player();
 
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
 function LevelComplete(win){
     if(win) return alert("You win");
     return alert("You lose");
+}
+
+async function parseLocalStorageData(){
+    const {retrievedDifficulty, retrievedLevelData, retrievedPlayerData} = retrieveLocalStorage();
+
+    const {DifficultyTimings, Entities} = await getLevelJSON(retrievedLevelData);
+    entityList = await getBossJSON(Entities);
+
+    wordTime = DefineWordTime(retrievedDifficulty, DifficultyTimings);
+    player = parsePlayerData(retrievedPlayerData);
+    enemy = entityList[0];
 }
 
 // #region Main
@@ -18,17 +32,21 @@ async function GameLogic() {
     let timeSubtracted = 0;
     let isFinished = false;
 
+    if(isFirstRun) {
+        await parseLocalStorageData();
+        isFirstRun = false;
+    }
+
     // --- Initializing Health (Player & Enemy) & Input field ---
-    DisplayPlayerHealth(defaultPlayer.Health);
-    DisplayBossHealth(boss.Health);
+    DisplayPlayerHealth(player.Health);
+    DisplayBossHealth(enemy.Health);
 
     resetDisplayWords();
-    let wordMap = await GetWordsAndDefs(boss.APICalls);
+    let wordMap = await GetWordsAndDefs(enemy.APICalls);
     DisplayWords(wordMap);
     ClearUserInput();                            // Clears the input field
 
-    const diffTime = RetrieveDifficultyData(retrievedDifficulty);
-    let timeLeft = diffTime;
+    let timeLeft = wordTime;
 
     // --- Runs Timer ---
     let timerID = setInterval(() => {
@@ -60,34 +78,35 @@ async function GameLogic() {
 
             // #region Damage Calculation
             comboList.push(CalculateWordComplexity(userInput.join("")));
-            const WPM = CalculateWordsPerMin(userInput, diffTime, timeLeft, timeSubtracted);
-            const damageDealt = CalculateDamage(defaultPlayer.Damage, comboList, WPM);
+            const WPM = CalculateWordsPerMin(userInput, wordTime, (timeLeft - timeSubtracted));
+            const damageDealt = CalculateDamage(player.Damage, comboList, WPM);
             // #endregion
             DisplayWPM(WPM);
 
-            boss.damage(damageDealt);
+            enemy.damage(damageDealt);
 
             // --- Prepare for next round! ---
             clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
-            if (boss.Health <= 0) return LevelComplete(true);
+            if (enemy.Health <= 0) return LevelComplete(true);
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
 
         else if (timeLeft <= 0) {
             // Calculate Enemy Damage to Player  
-            defaultPlayer.damage(boss.FailureDamage);
+            player.damage(enemy.FailureDamage);
 
             // --- Prepare for next round! ---
             clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
-            if (defaultPlayer.Health <= 0) return LevelComplete(false);
+            if (player.Health <= 0) return LevelComplete(false);
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
     }, 100);
 }
 // #endregion
 
+console.log(localStorageSpace());
 GameLogic();

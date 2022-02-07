@@ -1,4 +1,4 @@
-class Boss {
+class Enemy {
     constructor(aHealth, aFailureDamage, aConstantDamage, aAPICalls){
 
         this.Health = aHealth;

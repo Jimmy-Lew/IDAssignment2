@@ -1,8 +1,13 @@
 var difficulties = ["Easy", "Medium", "Hard", "Syncope"];
 var difficultyRating = 0;
+let isNewGame = true;
 
 $("#Start").on("click", () => {
-    window.localStorage.setItem('difficulty', $("#Difficulty").text());
+    window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
+    if (isNewGame){
+        window.localStorage.setItem('levelData', 1);
+        window.localStorage.setItem('playerData', "1");
+    }
     window.location.href = "game.html";
 });
 
