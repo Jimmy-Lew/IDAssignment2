@@ -149,5 +149,6 @@ function GetDBData(query = "", noOfResults = 1, isSpecific = false){
             }
         }
     )
-    return results;
+    return results?.length ? results 
+                           : false;
 }
