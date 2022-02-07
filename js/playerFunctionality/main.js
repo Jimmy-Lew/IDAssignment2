@@ -3,7 +3,6 @@ let comboList = []
 let isFirstRun = true;
 
 let wordTime = 0;
-let elapsedTime = "00:00"; // To create Time Elapsed Timer
 let entityList = [];
 let enemy = new Enemy();
 let player = new Player();

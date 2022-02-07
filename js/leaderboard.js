@@ -12,7 +12,7 @@ function UpdateLeaderboard(){
                 while (true){
                     let secretCode = prompt("Enter your secret code (6 Characters Long)");
                     if(CheckSecretCode(secretCode, username)){
-                        UpdatePlayer(username,elapsedTime,secretCode);
+                        UpdatePlayer(username,totalTimeElapsed,secretCode);
                         break;
                     }
                     else{
@@ -33,7 +33,7 @@ function UpdateLeaderboard(){
             }
         }
         else{ //If Username Does *NOT* Exists...
-            NewPlayer(username,elapsedTime); // Creates a new User & Alert them the secret code.
+            NewPlayer(username,totalTimeElapsed); // Creates a new User & Alert them the secret code.
             
             setTimeout(() => { // Wait for a bit until DB is updated
                 window.location.replace(`/`); // Returns to main menu.
@@ -50,14 +50,14 @@ function UpdateLeaderboard(){
 
 /**
  * @param {string} Username
- * @param {string} time Total time elepased
+ * @param {string} totalTimeElapsed Total time elepased
  */
-function NewPlayer(username,time){
+function NewPlayer(username,totalTimeElapsed){
     // CRUD Operation (C) [POST]
     console.log(`Adding new user (${username}) to Leaderboard DataBase`);
     const secretCode = GenerateCode()
 
-    var jsondata = {"Username": username, "Time": time, "SecretCode": secretCode};
+    var jsondata = {"Username": username, "Time": totalTimeElapsed, "SecretCode": secretCode};
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -89,7 +89,7 @@ function NewPlayer(username,time){
  * @param {string} secretCode 6 chars long
  * @returns {bool} Returns true if username already exists.
  */
-function UpdatePlayer(username,elapsedTime,secretCode){
+function UpdatePlayer(username,totalTimeElapsed,secretCode){
     
     // Get Object ID
     const results = GetDBData()
@@ -101,7 +101,7 @@ function UpdatePlayer(username,elapsedTime,secretCode){
     }
 
     // CRUD Operation (U) [PUT]
-    var jsondata = {"Username": username, "Time": elapsedTime, "SecretCode": secretCode};
+    var jsondata = {"Username": username, "Time": totalTimeElapsed, "SecretCode": secretCode};
     var settings = {
     "async": true,
     "crossDomain": true,
