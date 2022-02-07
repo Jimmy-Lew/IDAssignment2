@@ -88,7 +88,11 @@ function UpdateLeaderboard(){
 }
 
 function CheckUsername(username){
-    return GetDBData(`{"Username": ${username}}`, 1, true);
+    for(;username.length > 15;){ // Checks if username is above 15 chars (max).
+            alert("Max characters for a username is 15 characters long.");
+            username = prompt("Please enter your username");
+    }
+    return GetDBData(`{"Username": ${username}}`, 1, true); // Basically ; if it returns an object/array, it is considered 'truthy'
 }
 
 function GenerateCode(){
