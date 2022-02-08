@@ -9,10 +9,16 @@ let player = new Player();
 
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
-function LevelComplete(win){
+const delay = timeInMilli => new Promise((resolve, reject) => {
+    setTimeout(_ => resolve(), timeInMilli)
+  });
+
+async function LevelComplete(win){
     if(win){
         alert("You Won!");
         UpdateLeaderboard();
+        await delay(5000);
+        window.location.replace(`/`);   
     }
     else{
         alert("You Lost... Try again next time Soldier 07");

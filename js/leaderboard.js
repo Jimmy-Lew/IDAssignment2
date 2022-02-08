@@ -64,7 +64,7 @@ function UpdateLeaderboard(){
  function UpdatePlayer(username,totalTimeElapsed,secretCode){
     
     // Get Object ID
-    const userID = GetDBData(`{"Username": ${username}}`, 1, true)._id
+    const userID = GetDBData(`{"Username":"${username}"}`, 1, true)[0]._id;
 
     // CRUD Operation (U) [PUT]
     var jsondata = {"Username": username, "Time": totalTimeElapsed, "SecretCode": secretCode};
@@ -92,7 +92,7 @@ function CheckUsername(username){
             alert("Max characters for a username is 15 characters long.");
             username = prompt("Please enter your username");
     }
-    return GetDBData(`{"Username": ${username}}`, 1, true); // Basically ; if it returns an object/array, it is considered 'truthy'
+    return GetDBData(`{"Username":"${username}"}`, 1, true); // Basically ; if it returns an object/array, it is considered 'truthy'
 }
 
 function GenerateCode(){
@@ -116,7 +116,7 @@ function GenerateCode(){
  */
  function CheckSecretCode(secretCode, username = ''){
     const response = username ? GetDBData() 
-                              : GetDBData(`{"Username": ${username}}`, 1, true); // Get Database Data
+                              : GetDBData(`{"Username":"${username}"}`, 1, true); // Get Database Data
 
     for (let index = 0; index < response.length; index++) {
         if(response[index].SecretCode === secretCode) return true; // Secret Code already exists
@@ -125,15 +125,16 @@ function GenerateCode(){
     return false; // Secret Code does NOT exist
 }
 
-function GetDBData(query = "", noOfResults = 1, isSpecific = false){
+function GetDBData(query = "", noOfResults = "", isSpecific = false){
     // Getting ALL Database Data 
     // GOD BLESS STACKOVERFLOW : https://stackoverflow.com/questions/1457690/jquery-ajax-success-anonymous-function-scope
     // WAS TRYING TO RETURN A VALUE FROM AN ANONYMOUS AJAX FUNCTION AND SPENT 3 HOURS TRYING 🙏
+    // Amen
 
     // ----- NON-Async Request -----
     var results = '' // Create an empty variable called results (to be modified)
     let url = isSpecific ? `https://syncope-a0db.restdb.io/rest/leaderboard?q=${query}&max=${noOfResults}`
-                         : `https://syncope-a0db.restdb.io/rest/leaderboard`
+                         : `https://syncope-a0db.restdb.io/rest/leaderboard?max=${noOfResults}`
     jQuery.ajax      // Calling the API and extracting the value ☠
     (
         {
