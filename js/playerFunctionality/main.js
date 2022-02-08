@@ -56,7 +56,6 @@ async function GameLogic() {
     resetDisplayWords();
     let wordMap = await GetWordsAndDefs(enemy.APICalls);
     DisplayWords(wordMap);
-    ClearUserInput();                            // Clears the input field
 
     let timeLeft = wordTime;
 
@@ -80,7 +79,7 @@ async function GameLogic() {
             timeLeft -= 1;
         }
         // #endregion
-        hoverUserInputText(predictedWord, wordMap);
+        renderUserInputText(predictedWord, wordMap, userInput);
     });
 
     // Makeshift "Loop" (called every 100ms)

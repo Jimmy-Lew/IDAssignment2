@@ -129,7 +129,7 @@ function GetDBData(query = "", noOfResults = "", isSpecific = false){
     // Getting ALL Database Data 
     // GOD BLESS STACKOVERFLOW : https://stackoverflow.com/questions/1457690/jquery-ajax-success-anonymous-function-scope
     // WAS TRYING TO RETURN A VALUE FROM AN ANONYMOUS AJAX FUNCTION AND SPENT 3 HOURS TRYING 🙏
-    // Amen
+    // Amen 🙏
 
     // ----- NON-Async Request -----
     var results = '' // Create an empty variable called results (to be modified)

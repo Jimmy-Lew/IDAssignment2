@@ -3,10 +3,17 @@ function DisplayWords(wordMap) {
     let index = 0;
 
     wordMap.forEach((value, key) => {
+        let charIndex = 0;
         index++;
         $(`.wordSelection-${index}`).remove()
-        $("#wordContainer ul").append(`<li class="wordSelection-${index}">${key}</li>`);
+        $("#wordContainer ul").append(`<li class="wordSelection-${index}"></li>`);
+        key.split("").forEach(character => {
+            charIndex++
+            $(`.wordSelection-${index}`).append(`<span class="char-${charIndex}">${character}</span>`);
+        })
     });
+
+    ClearUserInput();
 }
 
 function DisplayPlayerHealth(pHealth) {
@@ -43,7 +50,7 @@ function ClearUserInput(){
 }
 // #endregion
 
-function hoverUserInputText(match, wordMap){
+function renderUserInputText(match, wordMap, userInput){
     let index = 0;
     let notMatch = 0;
     for (word of wordMap) {
@@ -57,6 +64,11 @@ function hoverUserInputText(match, wordMap){
 
     $(`.wordSelection-${index}`).css({"transform" : "translateY(-.4em)",
                                       "font-size" : "2.5em"});
+
+    for(let charIndex = 1; charIndex <= userInput.length; charIndex++){
+        if (userInput[charIndex - 1] === $(`.wordSelection-${index} .char-${charIndex}`).text()) $(`.wordSelection-${index} .char-${charIndex}`).css({"color" : "#fff", 
+                                                                                                                                                      "text-shadow" : "0 0 1px #fff, 0px 0px 1px #fff"})
+    }
 }
 
 function resetDisplayWords(){
