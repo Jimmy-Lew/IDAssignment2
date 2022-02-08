@@ -1,10 +1,15 @@
 var difficulties = ["Easy", "Medium", "Hard", "Syncope"];
 var difficultyRating = 0;
-let isNewGame = true;
+
+function isNewGame(){
+    let hasLocal = window.localStorage.getItem("levelData");
+    if(!hasLocal) return true;
+    if(!confirm("Continue from last game?")) return true
+}
 
 $("#Start").on("click", () => {
-    window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
-    if (isNewGame){
+    if (isNewGame()){
+        window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
         window.localStorage.setItem('levelData', 1);
         window.localStorage.setItem('playerData', "1");
     }
@@ -20,12 +25,20 @@ $("#Difficulty").on("click", () => {
 });
 
 $("#Leaderboard").on("click", () => {
+    console.log("Leaderboard clicked");
 });
 
 $("#Help").on("click", () => {
     $(".help-container").css("display", "flex");
+    $(".help-body").attr("src", "../Assets/images/pngs/HelpMenu.png")
 });
 
-$(".help-container").on("click", () => {
+$(".help-container").on("click", function() {
     $(this).css("display", "none");
 });
+
+$(document).on("keydown", (e) => {
+    if (e.key === "Escape"){
+        $(".help-container").css("display", "none");
+    }
+})

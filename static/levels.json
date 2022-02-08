@@ -1,7 +1,7 @@
 {
     "Level": {
         "Level-1": {
-            "DifficultyTimings": [10, 7.5, 5, 3.5],
+            "DifficultyTimings": [100, 7.5, 5, 3.5],
             "Entities": ["Father Gn-ynda"],
             "LevelID": 1
         },
