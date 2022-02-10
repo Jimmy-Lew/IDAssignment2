@@ -48,13 +48,18 @@ $("#Difficulty").on("click", () => {
     $("#Difficulty").text(difficulties[difficultyRating]);
 });
 
+let populatedBool = true; // Temporary Fix to prevent Leaderboard to append HTML again if it already is populated.
 $("#Leaderboard").on("click", () => {
     console.log("Leaderboard clicked");
     $("#leaderboard-container").show();
-    PopulateLeaderboard();
-
-    // Adding a exit (close) button at the bottom after appending.
-    $('#leaderboard-container').append('<button id="close-leaderboard">Close</button>')
+    
+    if (populatedBool){
+        PopulateLeaderboard();
+        // Adding a exit (close) button at the bottom after appending.
+        $('#leaderboard-container').append('<button id="close-leaderboard">Close</button>')
+        populatedBool = false;
+    }
+    
     
     $("#close-leaderboard").on("click", () => {
         console.log("close");
