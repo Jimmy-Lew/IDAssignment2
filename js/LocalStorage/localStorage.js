@@ -1,5 +1,5 @@
-const levelJSON = "../../static/levels.json";
-const bossJSON = "../../static/bosses.json";
+const levelJSON = "static/levels.json";
+const bossJSON = "static/bosses.json";
 
 function localStorageSpace() {
     var allStrings = '';
