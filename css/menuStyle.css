@@ -34,7 +34,7 @@
 
 html {
   height: 100%;
-  cursor: url("/Assets/images/pngs/Cursor.png"), auto;
+  cursor: url("../Assets/images/pngs/Cursor.png"), auto;
 }
 
 ul {
@@ -106,7 +106,7 @@ span {
   border-radius: 50%;
   font-size: 1.5em;
   text-align: center;
-  cursor: url("/Assets/images/pngs/Cursor.png"), auto;
+  cursor: url("../Assets/images/pngs/Cursor.png"), auto;
 }
 
 .game-saveMenu {

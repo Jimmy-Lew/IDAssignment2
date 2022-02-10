@@ -19,7 +19,7 @@ async function swal(options, refreshTime, isReverseDefault = false, userInput = 
 
     const width = options.width || alertWidth;
     const height = options.height || alertHeight;
-    const bg = options.background || `url("../Assets/images/pngs/FrameDesign1.png")`;
+    const bg = options.background || `url("..../Assets/images/pngs/FrameDesign1.png")`;
     const textCol = options.textColor || "#fff";
 
     const buttons = options.buttons || [true, false];
@@ -66,7 +66,7 @@ async function swal(options, refreshTime, isReverseDefault = false, userInput = 
         "background-color": "#000",
         position: "relative",
         top: `${height * 0.46}px`,
-        cursor: `url("/Assets/images/pngs/Cursor.png"), auto`
+        cursor: `url("../Assets/images/pngs/Cursor.png"), auto`
     };
 
     const imgStyle = {
