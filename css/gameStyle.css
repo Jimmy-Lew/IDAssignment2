@@ -36,6 +36,10 @@
   outline: none;
 }
 
+html {
+  cursor: none;
+}
+
 ul {
   list-style-type: none;
   display: -webkit-box;
@@ -44,14 +48,13 @@ ul {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding-top: 5em;
+  padding-top: 4em;
 }
 
 li {
   font-family: 'trajan-pro-bold';
   font-size: 2em;
   text-align: center;
-  color: #fff;
   background: none;
   display: inline-table;
   list-style-type: none;
@@ -62,12 +65,16 @@ li {
   transition: all .75s ease;
 }
 
+span {
+  color: #888;
+}
+
 #textInput {
   position: absolute;
   text-align: center;
   font-size: 1.9em;
   width: 100%;
-  padding-top: 7em;
+  padding-top: 3em;
   margin: 0 auto;
   border: none;
 }

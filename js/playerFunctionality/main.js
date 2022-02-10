@@ -9,10 +9,16 @@ let player = new Player();
 
 const retrievedDifficulty = window.localStorage.getItem('difficulty');
 
-function LevelComplete(win){
+const delay = timeInMilli => new Promise((resolve, reject) => {
+    setTimeout(_ => resolve(), timeInMilli)
+  });
+
+async function LevelComplete(win){
     if(win){
         alert("You Won!");
         UpdateLeaderboard();
+        await delay(5000);
+        window.location.replace(`/`);   
     }
     else{
         alert("You Lost... Try again next time Soldier 07");
@@ -50,7 +56,6 @@ async function GameLogic() {
     resetDisplayWords();
     let wordMap = await GetWordsAndDefs(enemy.APICalls);
     DisplayWords(wordMap);
-    ClearUserInput();                            // Clears the input field
 
     let timeLeft = wordTime;
 
@@ -74,7 +79,7 @@ async function GameLogic() {
             timeLeft -= 1;
         }
         // #endregion
-        hoverUserInputText(predictedWord, wordMap);
+        renderUserInputText(predictedWord, wordMap, userInput);
     });
 
     // Makeshift "Loop" (called every 100ms)

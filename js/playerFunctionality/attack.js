@@ -25,12 +25,12 @@ function CalculateCombo(comboList){
         comboChain ++;
     }
 
-    if (comboList[lastIndex] === 1) return 1 + (0.1*comboChain);
-    if (comboList[lastIndex] === 2) return 1 + (0.15*comboChain);
+    return (comboList[lastIndex] === 1) ? 1 + (0.1*comboChain)
+                                        : 1 + (0.15*comboChain);
 }
 
 function CalculateWordsPerMin(userInput, diffTime, timeLeft){
-    let timeTaken = diffTime - timeLeft;
+    let timeTaken = diffTime - timeLeft - 0.5;
     return Math.ceil(((userInput.length/timeTaken)*60)/5);
 }
 
