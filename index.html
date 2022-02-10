@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="css/menuStyle.css">
         <script src="js/SwAl.js" defer></script>
         <script src="js/menu.js" defer></script>
+        <script src="js/leaderboard.js" defer></script>
         <script src="js/disableZoom.js" defer></script>
         <title>Syncope</title>
     </head>
@@ -21,11 +22,24 @@
             <li id="Start" class="raise-on-hover">Start Game</li>
             <li id="Difficulty" class="raise-on-hover">Easy</li>
             <li id="Leaderboard" class="raise-on-hover">Leaderboard</li>
+            <li id="Credits" class="raise-on-hover">Credits</li>
         </ul>
         <div class="game-saveMenu">
         </div>
         <div id="Help"class="help-button">?</div>
         <div id="swal-container"></div>
+        
+        <div id="leaderboard-container" style="display: none">
+            <h2>Leaderboard (Top 10)</h2> <br>
+            <div class="l-header">
+                    <h3 class="pNumber">Pos.</h3>
+                    <div class="user-data">
+                        <h3 class="username">username</h3>
+                        <h3 class="uTime">Time</h3>
+                    </div>  
+            </div>  
+        </div>
+
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
