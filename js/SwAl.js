@@ -19,7 +19,7 @@ async function swal(options, refreshTime, isReverseDefault = false, userInput = 
 
     const width = options.width || alertWidth;
     const height = options.height || alertHeight;
-    const bg = options.background || `url("..../Assets/images/pngs/FrameDesign1.png")`;
+    const bg = options.background || `url("../Assets/images/pngs/FrameDesign1.png")`;
     const textCol = options.textColor || "#fff";
 
     const buttons = options.buttons || [true, false];
