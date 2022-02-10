@@ -1,19 +1,19 @@
 const key = "620138721b941c73ff39795b"
 
-function UpdateLeaderboard(){
-    if(!confirm("Would you like to submit/update your time to the leaderboard?")) return window.location.replace(`/`);
+async function UpdateLeaderboard(){
+    let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
+    if(!hasUpdate) return window.location.replace(`/`);
 
-    let username = prompt("Please enter your username");
+    let username = await swalPrompt("Please enter your username", "Enter to submit");
     if(!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
 
-    if(!confirm("Username already exists. Proceed with your Secret Code?")) return window.location.replace(`/`);
-
     for(; ;){
-        let secretCode = prompt("Enter your secret code (6 Characters Long)");
+        let secretCode = await swalPrompt("Please enter your secret code", "Enter to submit");
         if (CheckSecretCode(secretCode, username)) return UpdatePlayer(username,totalTimeElapsed,secretCode);
-        alert("Invalid secret code!");
-        if (!confirm("Would you like to try again?")) return window.location.replace(`/`);
-        console.log("Retying...")
+        await swalAlert("Invalid code")
+        let isRetry = await swalConfirm("Would you like to try again?");
+        if (!isRetry) return window.location.replace(`/`);
+        console.log("Retrying...")
     }
 }
 
@@ -21,7 +21,7 @@ function UpdateLeaderboard(){
  * @param {string} Username
  * @param {string} totalTimeElapsed Total time elepased
  */
- function NewPlayer(username,totalTimeElapsed){
+async function NewPlayer(username,totalTimeElapsed){
     // CRUD Operation (C) [POST]
     console.log(`Adding new user (${username}) to Leaderboard DataBase`);
     const secretCode = GenerateCode()
@@ -45,14 +45,15 @@ function UpdateLeaderboard(){
     }
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
-        alert(`
-        Please Screenshot / Note the following information below.
-        *Code will be used to update your personal time in the future.
-
-        >> Username: ${username} 
-        >> Secret Code: ${secretCode}`)
+        // console.log(response);
     });
+
+    await swalAlert(`
+    Note the following information below<br><br>
+    
+    Username: ${username} <br>
+    Secret Code: ${secretCode}
+    `, "Code used to update profile")
 }
 
 /**
@@ -83,15 +84,15 @@ function UpdateLeaderboard(){
     }
 
     $.ajax(settings).done(function (response) {
-    console.log(response);
+    // console.log(response);
     });
 }
 
 function CheckUsername(username){
-    for(;username.length > 15;){ // Checks if username is above 15 chars (max).
-            alert("Max characters for a username is 15 characters long.");
-            username = prompt("Please enter your username");
-    }
+    // for(;username.length > 15;){ // Checks if username is above 15 chars (max).
+    //         await swalAlert("Max characters for a username is 15 characters long.");
+    //         username = await swalPrompt("Please enter your username");
+    // }
     return GetDBData(`{"Username":"${username}"}`, 1, true); // Basically ; if it returns an object/array, it is considered 'truthy'
 }
 

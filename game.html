@@ -7,15 +7,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="Assets/images/pngs/SyncopeIconMock.png">
         <link rel="stylesheet" href="css/gameStyle.css">
+        <script src="js/SwAl.js" defer></script>
         <script src="js/Entities/enemy/enemy.js" defer></script>
         <script src="js/Entities/player/player.js" defer></script>
         <script src="js/LocalStorage/localStorage.js" defer></script>
         <script src="js/playerFunctionality/attack.js" defer></script>
         <script src="js/playerFunctionality/api.js" defer></script>
         <script src="js/playerFunctionality/DOMInteraction.js" defer></script>
+        <script src="js/leaderboard.js" defer></script>
         <script src="js/playerFunctionality/main.js" defer></script>
         <script src="js/disableZoom.js" defer></script>
-        <script src="js/leaderboard.js" defer></script>
         <title>Syncope</title>
     </head>
 
@@ -36,9 +37,10 @@
                 </ul>
             </div>
             <div class="typingBox">
-                <input id="textInput" placeholder="Type here!" autofocus></input>
+                <input id="textInput" placeholder="Type here!" autofocus autocomplete= "off"></input>
             </div>
         </div>
+        <div id="swal-container"></div>
     </body>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

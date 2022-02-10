@@ -30,13 +30,13 @@ function CalculateCombo(comboList){
 }
 
 function CalculateWordsPerMin(userInput, diffTime, timeLeft){
-    let timeTaken = diffTime - timeLeft - 0.5;
-    return Math.ceil(((userInput.length/timeTaken)*60)/5);
+    let timeTaken = diffTime - timeLeft - 0.4;
+    return Math.ceil(((userInput.length/timeTaken)*60)/7);
 }
 
 function CalculateDamage(baseAttack, comboList, typeSpeed) {
     const comboBonus = CalculateCombo(comboList);
-    return Math.floor(baseAttack * (typeSpeed / 40) * comboBonus);
+    return Math.floor(baseAttack * (typeSpeed / 50) * comboBonus);
 }
 
 /**

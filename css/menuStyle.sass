@@ -18,12 +18,15 @@
     margin: 0
     user-select: none
 
+*:focus
+    outline: none
+
 ::-webkit-scrollbar
     display: none
 
 html
     height: 100%
-    cursor: url("../Assets/images/pngs/Cursor.png"), auto
+    cursor: url("/Assets/images/pngs/Cursor.png"), auto
 
 ul
     width: 100%
@@ -41,6 +44,9 @@ li
     padding-top: 1em
     margin: auto
     width: fit-content
+
+span
+    color: #888
 
 .title-image
     display: block
@@ -60,20 +66,6 @@ li
             content: url("../Assets/images/pngs/PointerLeft.png")
         &::after
             content: url("../Assets/images/pngs/PointerRight.png")
-
-.help-container
-    display: none
-    
-    position: fixed
-    justify-content: center
-    align-items: center
-    top: 0
-    left: 0
-
-    background-color: rgba(0, 0, 0, 0.8)
-
-    width: 100%
-    height: 100%
 
 .prev
     z-index: 999
@@ -97,10 +89,7 @@ li
     font-size: 1.5em
     text-align: center
 
-.help-body
-    background-color: rgba(255, 255, 255, 0.0)
-
-    animation: zoom 0.5s
+    cursor: url("/Assets/images/pngs/Cursor.png"), auto
 
 .game-saveMenu 
     display: none
@@ -115,6 +104,22 @@ li
 
     width: 100%
     height: 100%
+
+#swal-container 
+    position: absolute
+    top: 0
+    left: 0
+
+    display: none
+    justify-content: center
+    align-items: center
+
+    height: 100%
+    width: 100%
+
+    text-align: center
+
+    background-color: rgba(0, 0, 0, 0.8)
 
 @keyframes zoom
     from

@@ -7,22 +7,15 @@ let entityList = [];
 let enemy = new Enemy();
 let player = new Player();
 
-const retrievedDifficulty = window.localStorage.getItem('difficulty');
-
-const delay = timeInMilli => new Promise((resolve, reject) => {
-    setTimeout(_ => resolve(), timeInMilli)
-  });
-
 async function LevelComplete(win){
     if(win){
-        alert("You Won!");
-        UpdateLeaderboard();
-        await delay(5000);
+        await swalAlert("You Won!");
+        await UpdateLeaderboard();
         window.location.replace(`/`);   
     }
     else{
-        alert("You Lost... Try again next time Soldier 07");
-        window.location.replace(`/`); // Returns to main menu.
+        await swalAlert("You Lost...", "Try again next time Soldier 07");
+        window.location.replace(`/`);
     } 
 }
 
@@ -59,13 +52,13 @@ async function GameLogic() {
 
     let timeLeft = wordTime;
 
-    // --- Runs Timer ---
     let timerID = setInterval(() => {
         const x = UpdateTimer(timeLeft);         // Calls Timer function and returns the time remaining to a temporary variable called 'x'
         totalTimeElapsed ++;
         timeLeft = Math.ceil(x);                 // Reassigns timeLeft to the value of x (Math.ceil = Rounds up to next largest int)
+        if (isFinished) clearInterval(timerID);
         if (timeLeft <= 0) clearInterval(timerID);
-    }, 1000, timeLeft);                          // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
+    }, 999, timeLeft);                          // when the interval function iterates (every 1000ms/1s), a new value of timeLeft (aka 'x') is passed in and updated.
 
     // Detect change in input
     $("#textInput").on("keyup", () => {
@@ -97,7 +90,6 @@ async function GameLogic() {
             enemy.damage(damageDealt);
 
             // --- Prepare for next round! ---
-            clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
             if (enemy.Health <= 0) return LevelComplete(true);
@@ -109,7 +101,6 @@ async function GameLogic() {
             player.damage(enemy.FailureDamage);
 
             // --- Prepare for next round! ---
-            clearInterval(timerID);              // Stops the Timer setInterval from iterating. (breaks)
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
             if (player.Health <= 0) return LevelComplete(false);

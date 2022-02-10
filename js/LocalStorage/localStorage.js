@@ -1,5 +1,5 @@
-const levelJSON = "/static/levels.json";
-const bossJSON = "/static/bosses.json";
+const levelJSON = "../static/levels.json";
+const bossJSON = "../static/bosses.json";
 
 function localStorageSpace() {
     var allStrings = '';
@@ -13,7 +13,7 @@ function localStorageSpace() {
 
 function retrieveLocalStorage(){
     const retrievedDifficulty = window.localStorage.getItem('difficulty'),
-          retrievedLevelData = window.localStorage.getItem('levelData'),
+          retrievedLevelData  = window.localStorage.getItem('levelData'),
           retrievedPlayerData = window.localStorage.getItem('playerData');
 
     return {retrievedDifficulty, retrievedLevelData, retrievedPlayerData};
