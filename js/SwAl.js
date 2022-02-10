@@ -4,30 +4,39 @@ const delay = (timeInMilli) =>
         setTimeout((_) => resolve(), timeInMilli);
     });
 
-async function swal(options, refreshTime, isReverseDefault = false, userInput = "",) {
+async function swal(options, refreshTime, userInput = "") {
+    // #region SwAl Elements
     const swalCont = $("#swal-container");
     const modalObj = `<div class="swal-modal"></div>`;
     const contentObj = `<div class="swal-content"></div>`;
     const subTextObj = `<br><br><span class="swal-sub">${options.subtext || ''}</span>`;
     const buttonContObj = `<div class="swal-button-container"></div>`;
     const inputObj = `<input class="swal-input" value="${userInput}" readonly autofocus></input>`;
+    // #endregion
 
-    // #region SwAl StyleSheets
+    // #region SwAl StyleSheets & Options
+    // #region Options
     const docHeight = document.documentElement.scrollHeight;
     const alertHeight = Math.ceil(docHeight * 0.92);
     const alertWidth = Math.ceil(alertHeight * (8 / 9));
 
     const width = options.width || alertWidth;
     const height = options.height || alertHeight;
-    const bg = options.background || `url("Assets/images/pngs/FrameDesign1.png")`;
+    const frame = options.background || `url("Assets/images/pngs/FrameDesign1.png")`;
     const textCol = options.textColor || "#fff";
 
     const buttons = options.buttons || [true, false];
 
+    const hasEscape = options.escape || true;
+    const hasInput = options.input || false;
+    const takeLastButtonVal = options.reverse || false;
+    // #endregion
+
+    // #region StyleSheets
     const modalStyle = {
         width: `${width}px`,
         height: `${height}px`,
-        background: bg,
+        background: frame,
         "background-size": "cover",
         color: textCol,
     };
@@ -72,58 +81,63 @@ async function swal(options, refreshTime, isReverseDefault = false, userInput = 
     const imgStyle = {
         width: `${docHeight * 0.419}px`,
         height: `${docHeight * 0.419}px`
-    }
+    };
 
     const subtTextStyle = {
         "font-size": `${height * 0.032}px`
-    }
+    };
+    // #endregion
     // #endregion
 
+    // #region SwAl Element Creation
     swalCont.append(modalObj);
-    swalCont.css("display", "flex");
 
     let modal = $(".swal-modal");
 
-    modal.append(buttonContObj);
-    modal.append(inputObj);
-    modal.append(contentObj);
+    modal.append(buttonContObj)
+         .append(inputObj)
+         .append(contentObj);
 
     let content = $(".swal-content");
-    let input = $(".swal-input");
     let buttonCont = $(".swal-button-container");
 
-    if (options.input)
-        input.attr({
-            placeholder: "Type here!",
-            readonly: false,
-        });
-
-    buttonCont.css(buttonContStyle);
-
     for (let i = 0; i < buttons.length; i++) {
-        buttonCont.append(
-            `<div class="swal-button ${i}"></div>`
-        );
-        if (buttons[i] === true)
-            $(`.swal-button.${i}`).text("Yes").css(buttonStyle);
-        else if (buttons[i] === false)
-            $(`.swal-button.${i}`).text("No").css(buttonStyle);
-        else $(`.swal-button.${i}`).text(buttons[i]).css(buttonStyle);
+        buttonCont.append(`<div class="swal-button ${i}"></div>`);
+        if (buttons[i] === true) $(`.swal-button.${i}`).text("Yes")
+        else if (buttons[i] === false) $(`.swal-button.${i}`).text("No")
+        else $(`.swal-button.${i}`).text(buttons[i])
     }
 
-    input.css(inputStyle);
+    content.html(options.content)
+           .append(subTextObj)
 
-    content.html(options.content).css(contentStyle);
-    content.append(subTextObj)
-    $(".swal-sub").css(subtTextStyle);
-    $(".swal-gallery").css(imgStyle);
+    let button = $('.swal-button')
+    let input = $(".swal-input");
+    let subtext = $(".swal-sub");
+    let gallery = $(".swal-gallery");
+
+    // #endregion
+    
+    // #region SwAl Element Styling
+    swalCont.css("display", "flex");
     modal.css(modalStyle);
+    buttonCont.css(buttonContStyle);
+    input.css(inputStyle);
+    content.css(contentStyle);
+    subtext.css(subtTextStyle);
+    gallery.css(imgStyle);
+    
+    if (hasInput) input.attr({  placeholder: "Type here!", readonly: false});
 
-    let returnVal = null;
+    button.each(function() { $(this).css(buttonStyle); })
+    // #endregion
 
     // #region Event listeners & handlers
-    $(".swal-button").on("click", function () {
-        returnVal = buttons[parseInt($(this).attr("class").slice(-1))];
+    let returnVal = null;
+    
+    button.on("click", function () {
+        const buttonNo = parseInt($(this).attr("class").slice(-1))
+        returnVal = buttons[buttonNo];
     });
 
     input.on("keyup", function (e) {
@@ -134,39 +148,32 @@ async function swal(options, refreshTime, isReverseDefault = false, userInput = 
     });
 
     $(document).on("keyup", function (e) {
-        if (e.key === "Enter") {
-            if (buttons.length > 0) {
-                if (isReverseDefault){
-                    returnVal = buttons[buttons.length - 1];
-                }
-                else {
-                    returnVal = buttons[0];
-                }
-            }
-        }
-    })
-
-    $(document).on("keyup", function (e) {
-        if (e.key === "Escape") {
-            returnVal = "Escape";
-        }
+        if (e.key === "Enter" && buttons.length > 0) returnVal = onEnterVal(buttons, takeLastButtonVal);
+        if (e.key === "Escape") if(hasEscape) returnVal = "Escape";
     })
     // #endregion
 
+    // #region Handle return and refresh
     await delay(refreshTime);
-    swalCont.empty();
-    swalCont.hide();
-    if (returnVal == null) return swal(options, refreshTime, isReverseDefault, input.val());
-    console.log(returnVal);
+    swalCont.empty()
+            .hide();
+    if (returnVal == null) return swal(options, refreshTime, input.val());
     return returnVal;
+    // #endregion
 }
 // #endregion
+
+function onEnterVal(buttons, takeLastButtonVal) {
+    if (takeLastButtonVal) return buttons[buttons.length - 1];
+    return buttons[0];
+}
 
 // #region SwAl Templates
 async function swalConfirm(text, subText = "", refreshTime = 1500){
     result = await swal(
         {
             content: text,
+            textColor: "green",
             subtext: subText
         },
         refreshTime
@@ -181,7 +188,8 @@ async function swalPrompt(text, subText = "", refreshTime = 8000){
             content: text,
             buttons: [],
             input: true,
-            subtext: subText
+            subtext: subText,
+            escape: false
         },
         refreshTime
     );
@@ -205,15 +213,15 @@ async function swalAlert(text, subText = "", refreshTime = 1500){
 async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`, isFirstOrLast = "", refreshTime = 1500){ // Limit Image size to 410px and then downscale
     if (isFirstOrLast === "First") buttons = ["Next"]
     if (isFirstOrLast === "") buttons = ["Previous","Next"]
-    if (isFirstOrLast === "Last") buttons = ["Previous"]
+    if (isFirstOrLast === "Last") buttons = ["Previous","Done"]
 
     result = await swal(
         {
             content: img,
             buttons: buttons,
+            reverse: true
         },
-        refreshTime,
-        true
+        refreshTime
     );
 
     return result;

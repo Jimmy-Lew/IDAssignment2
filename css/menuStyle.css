@@ -96,7 +96,7 @@ span {
   content: url("../Assets/images/pngs/PointerRight.png");
 }
 
-.help-button {
+#Help {
   position: fixed;
   right: 10px;
   bottom: 10px;
@@ -106,7 +106,7 @@ span {
   border-radius: 50%;
   font-size: 1.5em;
   text-align: center;
-  cursor: url("../Assets/images/pngs/Cursor.png"), auto;
+  cursor: url("../Assets/images/pngs/Cursor.png");
 }
 
 .game-saveMenu {

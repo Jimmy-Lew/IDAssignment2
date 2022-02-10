@@ -11,11 +11,11 @@ async function LevelComplete(win){
     if(win){
         await swalAlert("You Won!");
         await UpdateLeaderboard();
-        window.location.replace(`/`);   
+        window.location.href = "index.html";;   
     }
     else{
-        await swalAlert("You Lost...", "Try again next time Soldier 07");
-        window.location.replace(`/`);
+        await swalAlert("You Lost...", "Try again next time Soldier o7");
+        window.location.href = "index.html";;
     } 
 }
 
@@ -54,7 +54,6 @@ async function GameLogic() {
 
     let timerID = setInterval(() => {
         const x = UpdateTimer(timeLeft);         // Calls Timer function and returns the time remaining to a temporary variable called 'x'
-        totalTimeElapsed ++;
         timeLeft = Math.ceil(x);                 // Reassigns timeLeft to the value of x (Math.ceil = Rounds up to next largest int)
         if (isFinished) clearInterval(timerID);
         if (timeLeft <= 0) clearInterval(timerID);
@@ -75,8 +74,8 @@ async function GameLogic() {
         renderUserInputText(predictedWord, wordMap, userInput);
     });
 
-    // Makeshift "Loop" (called every 100ms)
     var check = setInterval(() => {
+        totalTimeElapsed += 0.1;
         if (isFinished && timeLeft !== 0) {
             console.log('%c>> Moving To Next Stage...', 'color: #1aacf0;');
 

@@ -66,8 +66,9 @@ function renderUserInputText(match, wordMap, userInput){
                                       "font-size" : "2.5em"});
 
     for(let charIndex = 1; charIndex <= userInput.length; charIndex++){
-        if (userInput[charIndex - 1] === $(`.wordSelection-${index} .char-${charIndex}`).text()) $(`.wordSelection-${index} .char-${charIndex}`).css({"color" : "#fff", 
-                                                                                                                                                      "text-shadow" : "0 0 1px #fff, 0px 0px 1px #fff"})
+        if (userInput[charIndex - 1] === $(`.wordSelection-${index} .char-${charIndex}`).text()) 
+            $(`.wordSelection-${index} .char-${charIndex}`).css({"color" : "#fff", 
+                                                                "text-shadow" : "0 0 1px #fff, 0px 0px 1px #fff"})
     }
 }
 

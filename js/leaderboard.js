@@ -2,17 +2,17 @@ const key = "620138721b941c73ff39795b"
 
 async function UpdateLeaderboard(){
     let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
-    if(!hasUpdate) return window.location.replace(`/`);
+    if(!hasUpdate) return window.location.href = "index.html";;
 
-    let username = await swalPrompt("Please enter your username", "Enter to submit");
+    let username = window.localStorage.getItem("username");
     if(!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
 
     for(; ;){
-        let secretCode = await swalPrompt("Please enter your secret code", "Enter to submit");
+        let secretCode = await swalPrompt("Please enter your secret code", "[Enter] to submit");
         if (CheckSecretCode(secretCode, username)) return UpdatePlayer(username,totalTimeElapsed,secretCode);
         await swalAlert("Invalid code")
         let isRetry = await swalConfirm("Would you like to try again?");
-        if (!isRetry) return window.location.replace(`/`);
+        if (!isRetry) return window.location.href = "index.html";;
         console.log("Retrying...")
     }
 }
@@ -62,7 +62,7 @@ async function NewPlayer(username,totalTimeElapsed){
  * @param {string} secretCode 6 chars long
  * @returns {bool} Returns true if username already exists.
  */
- function UpdatePlayer(username,totalTimeElapsed,secretCode){
+async function UpdatePlayer(username,totalTimeElapsed,secretCode){
     
     // Get Object ID
     const userID = GetDBData(`{"Username":"${username}"}`, 1, true)[0]._id;
@@ -84,15 +84,12 @@ async function NewPlayer(username,totalTimeElapsed){
     }
 
     $.ajax(settings).done(function (response) {
-    // console.log(response);
+        // console.log(response);
     });
+    await swalAlert(`${username} has been updated`);
 }
 
 function CheckUsername(username){
-    // for(;username.length > 15;){ // Checks if username is above 15 chars (max).
-    //         await swalAlert("Max characters for a username is 15 characters long.");
-    //         username = await swalPrompt("Please enter your username");
-    // }
     return GetDBData(`{"Username":"${username}"}`, 1, true); // Basically ; if it returns an object/array, it is considered 'truthy'
 }
 

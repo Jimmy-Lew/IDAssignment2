@@ -46,8 +46,6 @@ function CalculateDamage(baseAttack, comboList, typeSpeed) {
  * @returns {string | undefined} Predicted word user wishes to input
  */
 function AutoPredict(userInput, wordMap){
-    // console.log('%c>> Running AutoPredict...', 'color: #1aacf0;');
-    
     // Read Through Dictionary Words
     let wordList = [];
     wordMap.forEach((value, key) => {
@@ -75,7 +73,6 @@ function CompareWords(userInput, wordToCompare) {
 }
 
 function IsComplete(userInput,predictedWord){
-    // console.log('%c>> Running Check...', 'color: #1af08c;');
     if(userInput.join("") === predictedWord) return true;
     return false;
 }
