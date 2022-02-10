@@ -72,14 +72,42 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 </details> <br>
 
 ### Testing
-
-Possible Test Scenerios
-
+1. Creating a new user (Username Restrictions + Generate Secret Code)
+   - Start Game
+   - Override previous game
+   - Defeat enemy
+   - Submit time to leaderboard (yes)
+   - Spam your keyboard (More than 15 chars)
+   - Should be prompted to retype Username (something less than 15 chars)
+   - A secret code would be generated for the user (6 chars long) 
+<br><br>
+2. Updating Personal score
+   - Start Game
+   - Override previous game
+   - Defeat enemy
+   - Submit time to leaderboard (yes)
+   - Enter an existing Username
+   - User would be prompted to enter the secret key given when creating a user
+   - If key is incorrect, user will be prompted if they would like to try again. (no = return to main menu)
+   - If key is correct, time will be updated. 
+<br><br>
+3. Gameplay
+   - Start Game
+   - Override previous game
+   - Typing a letter that corresponds with one of the letters will cause the word to be "selected" (based on auto prediction)
+   - The letters of the selected word would be highlighted as the user continues to enter the correct characters (in correct sequence + case sensitive)
+   - There will be a penalty (time reduction) for every typo made by the user
+<br><br>
+4. Leaderboard
+   - Click on leaderboard in main menu
+   - Leaderboard would appear in the middle of the screen
+   - Top 10 players would be displayed (Based on different difficulty, levels & time taken)
+   - Close the leaderboard
+   - Spam the leaderboard button again
+   - Leaderboard should be fine and should not updated/append anymore after the first initalization.
 
 ### Bugs / Problems
-
-Any intersting bugs/Problems faced during our development?
-
+[Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
 
 
 ## Credits

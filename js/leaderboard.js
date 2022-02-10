@@ -155,3 +155,28 @@ function GetDBData(query = "", noOfResults = "", isSpecific = false){
     return results?.length ? results 
                            : false;
 }
+
+function PopulateLeaderboard(){
+
+    // Sort Data (Converts String to Date obj, compare and sort)
+    const data = GetDBData("","", false);
+    console.log(data);
+    const sortedData = data.sort(function(a,b){
+        var dateA = new Date(a.Time);
+        var dateB = new Date(b.Time);
+        return dateA - dateB;
+    });
+
+    // Populate Leaderboard (Only get top 10)
+    for (let index = 0; index < 10; index++) {
+        var html = '<div class="l-user">' +
+                    `<p class="pNumber">${index + 1}.</p>` +
+                        '<div class="user-data">' +
+                            `<p class="username">${sortedData[index].Username}</p>` +
+                            `<p class="time">${new Date(sortedData[index].Time).getMilliseconds()}s</p>`+
+                        '</div>' +
+                    '</div>';
+        
+        $('#leaderboard-container').append(html);
+    }
+}
