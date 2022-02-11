@@ -1,14 +1,32 @@
 var difficulties = ["Easy", "Medium", "Hard", "Syncope"];
 var difficultyRating = 0;
 
-async function startGame() {
-    let isNewGame = await swalConfirm("Start new game?", "Overrides previous game")
+async function startGameWithExistingSession() {
+    let isNewGame = await swalConfirm("Start new game?<br><br>", "Overrides previous game")
         
     if (isNewGame){
-        window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
-        window.localStorage.setItem('levelData', 1);
-        window.localStorage.setItem('playerData', "1");
+        window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
+                           .setItem('levelData', 1)
+                           .setItem('playerData', "1");
     }
+    window.location.href = "game.html";
+}
+
+async function startGameWithNoExistingSession(){
+    await swalAlert("Welcome to Syncope!");
+    await displayHelp();
+    let username = await swalPrompt("Please enter your username<br><br>", "[Enter] to submit");
+
+    for (; username.length > 15;){
+        await swalAlert("Username is too long<br><br>", "Must be less than 15 characters");
+        username = await swalPrompt("Please enter your username");
+    }
+
+    window.localStorage.setItem("username", username)
+                       .setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
+                       .setItem('levelData', 1)
+                       .setItem('playerData', "1");
+    
     window.location.href = "game.html";
 }
 
@@ -16,14 +34,16 @@ async function displayHelp() {
     const galleryImages = [
         `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/placeholder1.png" class="swal-gallery">`,
+        `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/placeholder2.png" class="swal-gallery">`
     ]
 
     let imageIndex = 0;
     let isFirstOrLast = "First"
+    let isRunning = true
 
     let isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
-    for (; isNextOrPreviousImage !== "Escape"; ){
+    for (; isRunning; ){
         if (isNextOrPreviousImage === "Next") imageIndex++;
         if (isNextOrPreviousImage === "Previous") imageIndex--;
         if (imageIndex === 0) isFirstOrLast = "First"
@@ -31,13 +51,13 @@ async function displayHelp() {
         else isFirstOrLast = ""
 
         isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
+        if (isNextOrPreviousImage === "Escape" || isNextOrPreviousImage === "Done") isRunning = false;
     }   
 }
 
-
-
 $("#Start").on("click", () => {
-    startGame();
+    if (window.localStorage.getItem("username")) startGameWithExistingSession();
+    else startGameWithNoExistingSession();
 });
 
 $("#Difficulty").on("click", () => {
@@ -48,30 +68,12 @@ $("#Difficulty").on("click", () => {
     $("#Difficulty").text(difficulties[difficultyRating]);
 });
 
-let populatedBool = true; // Temporary Fix to prevent Leaderboard to append HTML again if it already is populated.
 $("#Leaderboard").on("click", () => {
-    console.log("Leaderboard clicked");
-    $("#leaderboard-container").show();
-    
-    if (populatedBool){
-        PopulateLeaderboard();
-        // Adding a exit (close) button at the bottom after appending.
-        $('#leaderboard-container').append('<button id="close-leaderboard">Close</button>')
-        populatedBool = false;
-    }
-    
-    
-    $("#close-leaderboard").on("click", () => {
-        console.log("close");
-        $("#leaderboard-container").hide();
-    });
+    swalLeaderboard(`${$("#Difficulty").text()} Leaderboard<br>`,PopulateLeaderboard(), "Last");
 });
 
-
-
-
 $("#Credits").on("click", () => {
-    swalAlert('test');
+    
 });
 
 $("#Help").on("click", () => {

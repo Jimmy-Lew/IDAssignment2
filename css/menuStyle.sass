@@ -75,7 +75,7 @@ span
     z-index: 999
     content: url("../Assets/images/pngs/PointerRight.png")
 
-.help-button 
+#Help
     position: fixed
     right: 10px
     bottom: 10px
@@ -89,7 +89,7 @@ span
     font-size: 1.5em
     text-align: center
 
-    cursor: url("../Assets/images/pngs/Cursor.png"), auto
+    cursor: url("../Assets/images/pngs/Cursor.png")
 
 .game-saveMenu 
     display: none
@@ -104,6 +104,21 @@ span
 
     width: 100%
     height: 100%
+
+.l-user
+    display: flex
+    width: 80%
+    justify-content: space-between
+    margin: 1.4% auto
+    background-color: rgba(0, 0, 0, 0.0)
+
+.l-header
+    margin-top: 1.5em
+
+.user-data
+    display: flex
+    flex-basis: 65%
+    justify-content: space-between
 
 #swal-container 
     position: absolute
@@ -126,3 +141,14 @@ span
         transform: scale(0)
     to
         transform: scale(1)
+
+@media only screen and (max-width: 800px) // Width subject to change
+    li
+        font-size: 1.65em
+
+    .title-image
+        width: 80%
+
+    .raise-on-hover
+        &:hover
+            font-size: 1.8em
