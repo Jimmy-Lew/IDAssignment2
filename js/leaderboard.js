@@ -8,7 +8,7 @@ async function UpdateLeaderboard(){
     if(!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
 
     for(; ;){
-        let secretCode = await swalPrompt("Please enter your secret code", "[Enter] to submit");
+        let secretCode = await swalPrompt("Please enter your secret code<br><br>", "[Enter] to submit");
         if (CheckSecretCode(secretCode, username)) return UpdatePlayer(username,totalTimeElapsed,secretCode);
         await swalAlert("Invalid code")
         let isRetry = await swalConfirm("Would you like to try again?");
@@ -52,7 +52,7 @@ async function NewPlayer(username,totalTimeElapsed){
     Note the following information below<br><br>
     
     Username: ${username} <br>
-    Secret Code: ${secretCode}
+    Secret Code: ${secretCode}<br><br>
     `, "Code used to update profile")
 }
 
@@ -156,27 +156,35 @@ function GetDBData(query = "", noOfResults = "", isSpecific = false){
                            : false;
 }
 
-function PopulateLeaderboard(){
-
+function PopulateLeaderboard(query = ""){
     // Sort Data (Converts String to Date obj, compare and sort)
-    const data = GetDBData("","", false);
-    console.log(data);
-    const sortedData = data.sort(function(a,b){
+    const data = GetDBData(query);
+    const sortedData = data.sort( function(a,b){
         var dateA = new Date(a.Time);
         var dateB = new Date(b.Time);
         return dateA - dateB;
     });
 
+    let content =   '<div class="l-user l-header">' +
+                        `<p>Pos.</p>` +
+                        '<div class="user-data">' +
+                            `<p>Username</p>` +
+                            `<p>Time</p>`+
+                        '</div>' +
+                    '</div>';
+
     // Populate Leaderboard (Only get top 10)
     for (let index = 0; index < 10; index++) {
         var html = '<div class="l-user">' +
-                    `<p class="pNumber">${index + 1}.</p>` +
+                        `<p>${index + 1}.</p>` +
                         '<div class="user-data">' +
-                            `<p class="username">${sortedData[index].Username}</p>` +
-                            `<p class="time">${new Date(sortedData[index].Time).getMilliseconds()}s</p>`+
+                            `<p>${sortedData[index].Username}</p>` +
+                            `<p>${new Date(sortedData[index].Time).getMilliseconds()}s</p>`+
                         '</div>' +
                     '</div>';
         
-        $('#leaderboard-container').append(html);
+        content += html;
     }
+
+    return content;
 }

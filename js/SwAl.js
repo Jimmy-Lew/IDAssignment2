@@ -9,27 +9,44 @@ async function swal(options, refreshTime, userInput = "") {
     const swalCont = $("#swal-container");
     const modalObj = `<div class="swal-modal"></div>`;
     const contentObj = `<div class="swal-content"></div>`;
-    const subTextObj = `<br><br><span class="swal-sub">${options.subtext || ''}</span>`;
+    const subTextObj = `<span class="swal-sub">${options.subtext || ''}</span>`;
     const buttonContObj = `<div class="swal-button-container"></div>`;
     const inputObj = `<input class="swal-input" value="${userInput}" readonly autofocus></input>`;
     // #endregion
 
     // #region SwAl StyleSheets & Options
     // #region Options
-    const docHeight = document.documentElement.scrollHeight;
-    const alertHeight = Math.ceil(docHeight * 0.92);
-    const alertWidth = Math.ceil(alertHeight * (8 / 9));
+    let isMobile = false;
+    const docHeight = window.innerHeight;
+    const docWidth = window.innerWidth;
 
+    let alertHeight; 
+    let alertWidth; 
+
+    if (docHeight / docWidth > 1) isMobile = true
+    if (isMobile){
+        alertWidth = Math.ceil(docWidth * 0.92);
+        alertHeight = Math.ceil(alertWidth * (9/8));
+    }
+    else{
+        alertHeight = Math.ceil(docHeight * 0.92);
+        alertWidth = Math.ceil(alertHeight * (8 / 9));
+    }
     const width = options.width || alertWidth;
     const height = options.height || alertHeight;
     const frame = options.background || `url("Assets/images/pngs/FrameDesign1.png")`;
     const textCol = options.textColor || "#fff";
 
+    const contentTextScale =  options.textSize || 0.047;
+    const subTextScale = options.subTextSize || 0.032;
+    const contentStart = options.contentStart || 0.12
+
     const buttons = options.buttons || [true, false];
 
-    const hasEscape = options.escape || true;
+    const hasEscape = options.escape || false;
     const hasInput = options.input || false;
     const takeLastButtonVal = options.reverse || false;
+
     // #endregion
 
     // #region StyleSheets
@@ -39,15 +56,16 @@ async function swal(options, refreshTime, userInput = "") {
         background: frame,
         "background-size": "cover",
         color: textCol,
+        "z-index": 999,
     };
 
     const contentStyle = {
-        "font-size": `${height * 0.047}px`,
+        "font-size": `${height * contentTextScale}px`,
         width: `${width * 0.75}px`,
         margin: "auto",
         background: "#000",
         position: "relative",
-        top: `${height * 0.12}px`
+        top: `${height * contentStart}px`
     };
 
     const buttonContStyle = {
@@ -56,12 +74,13 @@ async function swal(options, refreshTime, userInput = "") {
         position: "relative",
         top: `${height * 0.75}px`,
         height: `${height * 0.038}px`,
-        "background-color": "rgba(255, 255, 255, 0.0)"
+        "background-color": "rgba(255, 255, 255, 0.0)",
+        "z-index": "999"
     };
 
     const buttonStyle = {
         display: "inline-table",
-        margin: `0 ${width * 0.1}px`,
+        width: `${width * 0.25}px`,
         "font-size": `${height * 0.038}px`,
     };
 
@@ -79,12 +98,12 @@ async function swal(options, refreshTime, userInput = "") {
     };
 
     const imgStyle = {
-        width: `${docHeight * 0.419}px`,
-        height: `${docHeight * 0.419}px`
+        width: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.419}px`,
+        height: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.419}px`,
     };
 
     const subtTextStyle = {
-        "font-size": `${height * 0.032}px`
+        "font-size": `${height * subTextScale}px`
     };
     // #endregion
     // #endregion
@@ -149,7 +168,7 @@ async function swal(options, refreshTime, userInput = "") {
 
     $(document).on("keyup", function (e) {
         if (e.key === "Enter" && buttons.length > 0) returnVal = onEnterVal(buttons, takeLastButtonVal);
-        if (e.key === "Escape") if(hasEscape) returnVal = "Escape";
+        if (e.key === "Escape" && !hasEscape) returnVal = "Escape";
     })
     // #endregion
 
@@ -189,7 +208,7 @@ async function swalPrompt(text, subText = "", refreshTime = 8000){
             buttons: [],
             input: true,
             subtext: subText,
-            escape: false
+            escape: true
         },
         refreshTime
     );
@@ -226,4 +245,24 @@ async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" 
 
     return result;
 }
+
+async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTime = 1500){
+    if (isFirstOrLast === "First") buttons = [">"]
+    if (isFirstOrLast === "") buttons = ["<",">"]
+    if (isFirstOrLast === "Last") buttons = ["<"]
+
+    result = await swal(
+        {
+            content: text,
+            subTextSize: 0.026,
+            buttons: buttons,
+            subtext: subText,
+            contentStart: 0.08
+        },
+        refreshTime
+    );
+
+    return result;
+}
+
 // #endregion
