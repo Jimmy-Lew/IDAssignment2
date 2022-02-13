@@ -238,7 +238,8 @@ async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" 
         {
             content: img,
             buttons: buttons,
-            reverse: true
+            reverse: true,
+            background: `url("Assets/images/pngs/HelpFrame.png")`,
         },
         refreshTime
     );
@@ -257,6 +258,7 @@ async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTi
             subTextSize: 0.026,
             buttons: buttons,
             subtext: subText,
+            background: `url("Assets/images/pngs/${$("#Difficulty").text()}Frame.png")`,
             contentStart: 0.08
         },
         refreshTime

@@ -21,23 +21,31 @@
     </head>
 
     <body>
-        <div class="bossEntity" id="bossEntity">
+        <div class="bossContainer">
+            <img src="Assets/images/pngs/BossFrame.png" alt="" class="bossFrame">
             <!-- Lottie Player -->
         </div>
-        <div class="info">
-            <!-- Contains Info such as; time left & Progress -->
+        <!-- <div class="info">
             <p id="time">Time: 000s</p>
-            <p id="pHealth">Player_Health: </p> <!-- Player Health -->
-            <p id="pWPM">Player_WPM: </p> <!-- Player WPM -->
-            <p id="eHealth">Enemy_Health: </p> <!-- Enemy Health -->
-        </div>
+            <p id="pHealth">Player_Health: </p> 
+            <p id="pWPM">Player_WPM: </p> 
+            <p id="eHealth">Enemy_Health: </p>
+        </div> -->
         <div class="typingContainer">
             <div class="wordContainer" id="wordContainer">
                 <ul>
                 </ul>
             </div>
             <div class="typingBox">
+                <div class="decorator left">
+                    <img src="Assets/images/pngs/HealthGlobe.png" alt="" class="health globe">
+                    <img src="Assets/images/pngs/InputFrameLeft.png" alt="" class="input-frame left">
+                </div>
                 <input id="textInput" placeholder="Type here!" autofocus autocomplete= "off"></input>
+                <div class="decorator right">
+                    <img src="Assets/images/pngs/InputFrameRight.png" alt="" class="input-frame right">
+                    <img src="Assets/images/pngs/ManaGlobe.png" alt="" class="mana globe">
+                </div>
             </div>
         </div>
         <div id="swal-container"></div>

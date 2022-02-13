@@ -6,8 +6,8 @@ async function startGameWithExistingSession() {
         
     if (isNewGame){
         window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
-                           .setItem('levelData', 1)
-                           .setItem('playerData', "1");
+        window.localStorage.setItem('levelData', 1)
+        window.localStorage.setItem('playerData', "1");
     }
     window.location.href = "game.html";
 }
@@ -23,9 +23,9 @@ async function startGameWithNoExistingSession(){
     }
 
     window.localStorage.setItem("username", username)
-                       .setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
-                       .setItem('levelData', 1)
-                       .setItem('playerData', "1");
+    window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
+    window.localStorage.setItem('levelData', 1)
+    window.localStorage.setItem('playerData', "1");
     
     window.location.href = "game.html";
 }
@@ -69,7 +69,7 @@ $("#Difficulty").on("click", () => {
 });
 
 $("#Leaderboard").on("click", () => {
-    swalLeaderboard(`${$("#Difficulty").text()} Leaderboard<br>`,PopulateLeaderboard(), "Last");
+    swalLeaderboard(`Level 1<br>`,PopulateLeaderboard(), "First");
 });
 
 $("#Credits").on("click", () => {
