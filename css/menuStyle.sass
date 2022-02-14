@@ -35,7 +35,7 @@ ul
 
 li 
     font-family: 'trajan-pro-bold'
-    font-size: 2.2em
+    font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px)
     color: #fff
     background: none
 
@@ -60,7 +60,7 @@ span
 
     &:hover
         transform: translateY(-.2em)
-        font-size: 2.6em
+        font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px)
 
         &::before
             content: url("../Assets/images/pngs/PointerLeft.png")
@@ -144,11 +144,11 @@ span
 
 @media only screen and (max-width: 800px) // Width subject to change
     li
-        font-size: 1.65em
+        font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px)
 
     .title-image
         width: 80%
 
     .raise-on-hover
         &:hover
-            font-size: 1.8em
+            font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px)

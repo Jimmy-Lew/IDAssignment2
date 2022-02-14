@@ -63,18 +63,21 @@ function renderUserInputText(match, wordMap, userInput){
     if (notMatch > 2) return;
 
     $(`.wordSelection-${index}`).css({"transform" : "translateY(-.4em)",
-                                      "font-size" : "2.5em"});
+                                      "font-size" : "clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px)"});
 
     for(let charIndex = 1; charIndex <= userInput.length; charIndex++){
         if (userInput[charIndex - 1] === $(`.wordSelection-${index} .char-${charIndex}`).text()) 
             $(`.wordSelection-${index} .char-${charIndex}`).css({"color" : "#fff", 
-                                                                "text-shadow" : "0 0 1px #fff, 0px 0px 1px #fff"})
+                                                                 "text-shadow" : "0 0 1px #fff, 0px 0px 1px #fff"})
     }
 }
 
 function resetDisplayWords(){
     for (let i = 1; i < 4; i++){
         $(`.wordSelection-${i}`).css({"transform" : "",
-                                      "font-size" : "2em"})
+                                      "font-size" : "clamp(16px, calc(16px + (36 - 16) * ((100vw - 320px) / (1800 - 320))), 36px)"})
+        $(`.wordSelection-${i} span`).each(function() {
+            $(this).css("color", "#888");
+        })
     }
 }

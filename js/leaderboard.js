@@ -1,11 +1,13 @@
 const key = "620138721b941c73ff39795b"
 
 async function UpdateLeaderboard(){
-    let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
-    if(!hasUpdate) return window.location.href = "index.html";;
-
     let username = window.localStorage.getItem("username");
     if(!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
+    
+    if(!CheckTiming(username, totalTimeElapsed)) return window.location.href = "index.html";
+
+    let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
+    if(!hasUpdate) return window.location.href = "index.html";
 
     for(; ;){
         let secretCode = await swalPrompt("Please enter your secret code<br><br>", "[Enter] to submit");
@@ -87,6 +89,12 @@ async function UpdatePlayer(username,totalTimeElapsed,secretCode){
         // console.log(response);
     });
     await swalAlert(`${username} has been updated`);
+}
+
+function CheckTiming(username, totalTimeElapsed){
+    const response = GetDBData(`{"Username":"${username}"}`, 1, true)
+    if (response[0].Time >= totalTimeElapsed) return false;
+    return true;
 }
 
 function CheckUsername(username){

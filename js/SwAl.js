@@ -177,6 +177,7 @@ async function swal(options, refreshTime, userInput = "") {
     swalCont.empty()
             .hide();
     if (returnVal == null) return swal(options, refreshTime, input.val());
+    console.log(returnVal);
     return returnVal;
     // #endregion
 }

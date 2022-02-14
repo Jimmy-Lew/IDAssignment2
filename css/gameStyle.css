@@ -175,4 +175,10 @@ span {
   background-color: rgba(0, 0, 0, 0.7);
   cursor: url("../Assets/images/pngs/Cursor.png"), auto;
 }
+
+@media only screen and (max-width: 800px) {
+  .input-frame {
+    display: none;
+  }
+}
 /*# sourceMappingURL=gameStyle.css.map */

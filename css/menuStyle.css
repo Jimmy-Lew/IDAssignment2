@@ -45,7 +45,7 @@ ul {
 
 li {
   font-family: 'trajan-pro-bold';
-  font-size: 2.2em;
+  font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px);
   color: #fff;
   background: none;
   list-style-type: none;
@@ -75,7 +75,7 @@ span {
 .raise-on-hover:hover {
   -webkit-transform: translateY(-0.2em);
           transform: translateY(-0.2em);
-  font-size: 2.6em;
+  font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px);
 }
 
 .raise-on-hover:hover::before {
@@ -193,13 +193,13 @@ span {
 
 @media only screen and (max-width: 800px) {
   li {
-    font-size: 1.65em;
+    font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px);
   }
   .title-image {
     width: 80%;
   }
   .raise-on-hover:hover {
-    font-size: 1.8em;
+    font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px);
   }
 }
 /*# sourceMappingURL=menuStyle.css.map */
