@@ -8,10 +8,11 @@ let enemy = new Enemy();
 let player = new Player();
 
 //-- Audio --
-const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
 const eGrowl = new Audio('Assets/audio/EnemyGrowl.wav')
 const eDeath = new Audio('Assets/audio/EnemyDeath.wav')
+const eAttack = new Audio('Assets/audio/EnemyAttack.wav')
 const pAttack = new Audio('Assets/audio/PlayerAttack.wav')
+const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
 
 async function LevelComplete(win){
     if(win){
@@ -116,7 +117,8 @@ async function GameLogic() {
             player.damage(enemy.FailureDamage);
 
             // Play player damage audio
-
+            eAttack.volume = 0.3;
+            eAttack.play();
 
             // --- Prepare for next round! ---
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
