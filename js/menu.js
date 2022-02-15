@@ -79,3 +79,24 @@ $("#Credits").on("click", () => {
 $("#Help").on("click", () => {
     displayHelp();
 });
+
+// --- Audio Stuff --- 
+var ost = new Audio('../Assets/audio/SyncopeOST.wav');
+var option = new Audio('../Assets/audio/OptionHover.wav')
+var selected = new Audio('../Assets/audio/OptionSelect.wav')
+
+ost.volume = 0.3;   // Adjust Audio Volume
+ost.play();         // Needs user interaction to enable audio...
+
+// Hover Over Options
+$('li').mouseover(function(){
+    const newOption = option.cloneNode() // Duplicates the audio (Allow for overlapping audio)
+    newOption.volume = 0.2;              // Adjust Audio Volume
+    newOption.play()                     // Plays Audio when hovered over
+})
+
+// MouseClick on Options
+$('li,#Help',).mousedown(function(){
+    const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
+    newSelected.play();                      // Plays Audio when clicked
+})

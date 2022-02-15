@@ -7,6 +7,12 @@ let entityList = [];
 let enemy = new Enemy();
 let player = new Player();
 
+//-- Audio --
+const pDeath = new Audio('../../Assets/audio/PlayerDeath.wav')
+const eGrowl = new Audio('../../Assets/audio/EnemyGrowl.wav')
+const eDeath = new Audio('../../Assets/audio/EnemyDeath.wav')
+const pAttack = new Audio('../../Assets/audio/PlayerAttack.wav')
+
 async function LevelComplete(win){
     if(win){
         await swalAlert("You Won!");
@@ -85,13 +91,23 @@ async function GameLogic() {
             const damageDealt = CalculateDamage(player.Damage, comboList, WPM);
             // #endregion
             DisplayWPM(WPM);
-
             enemy.damage(damageDealt);
+
+            // Play Audio when player attacks
+            if (damageDealt > 0){
+                const attack = pAttack.cloneNode()
+                attack.volume = 0.2;
+                attack.play();
+            }
 
             // --- Prepare for next round! ---
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
-            if (enemy.Health <= 0) return LevelComplete(true);
+            if (enemy.Health <= 0){
+                eDeath.volume = 0.3;
+                eDeath.play();
+                return LevelComplete(true);
+            }
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
 
@@ -99,10 +115,16 @@ async function GameLogic() {
             // Calculate Enemy Damage to Player  
             player.damage(enemy.FailureDamage);
 
+            // Play player damage audio
+
+
             // --- Prepare for next round! ---
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
-
-            if (player.Health <= 0) return LevelComplete(false);
+            if (player.Health <= 0){
+                pDeath.volume = 0.3;
+                pDeath.play();
+                return LevelComplete(false);
+            }
             GameLogic();                         // Recalls function to call API and update new words and stuff
         }
     }, 100);
@@ -110,4 +132,6 @@ async function GameLogic() {
 // #endregion
 
 console.log(localStorageSpace());
+eGrowl.volume = 0.3;
+eGrowl.play(); // Only when enemy is introduced.
 GameLogic();
