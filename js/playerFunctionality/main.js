@@ -8,10 +8,10 @@ let enemy = new Enemy();
 let player = new Player();
 
 //-- Audio --
-const pDeath = new Audio('../../Assets/audio/PlayerDeath.wav')
-const eGrowl = new Audio('../../Assets/audio/EnemyGrowl.wav')
-const eDeath = new Audio('../../Assets/audio/EnemyDeath.wav')
-const pAttack = new Audio('../../Assets/audio/PlayerAttack.wav')
+const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
+const eGrowl = new Audio('Assets/audio/EnemyGrowl.wav')
+const eDeath = new Audio('Assets/audio/EnemyDeath.wav')
+const pAttack = new Audio('Assets/audio/PlayerAttack.wav')
 
 async function LevelComplete(win){
     if(win){

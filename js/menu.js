@@ -81,9 +81,9 @@ $("#Help").on("click", () => {
 });
 
 // --- Audio Stuff --- 
-var ost = new Audio('../Assets/audio/SyncopeOST.wav');
-var option = new Audio('../Assets/audio/OptionHover.wav')
-var selected = new Audio('../Assets/audio/OptionSelect.wav')
+var ost = new Audio('Assets/audio/SyncopeOST.wav');
+var option = new Audio('Assets/audio/OptionHover.wav')
+var selected = new Audio('Assets/audio/OptionSelect.wav')
 
 ost.volume = 0.3;   // Adjust Audio Volume
 ost.play();         // Needs user interaction to enable audio...
