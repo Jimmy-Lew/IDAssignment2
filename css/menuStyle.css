@@ -74,6 +74,14 @@ span {
           transform: translateY(-75%);
 }
 
+#splash-credits {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px);
+  position: absolute;
+}
+
 .splash-content {
   width: 100%;
   text-align: center;
