@@ -44,14 +44,14 @@ async function displayHelp() {
 
     let isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
     for (; isRunning; ){
-        if (isNextOrPreviousImage === "Next") imageIndex++;
-        if (isNextOrPreviousImage === "Previous") imageIndex--;
+        if (isNextOrPreviousImage === ">") imageIndex++;
+        if (isNextOrPreviousImage === "<") imageIndex--;
         if (imageIndex === 0) isFirstOrLast = "First"
         else if (imageIndex === galleryImages.length - 1) isFirstOrLast = "Last"
         else isFirstOrLast = ""
 
         isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
-        if (isNextOrPreviousImage === "Escape" || isNextOrPreviousImage === "Done") isRunning = false;
+        if (isNextOrPreviousImage === "Escape" || isNextOrPreviousImage === "X") isRunning = false;
     }   
 }
 
@@ -80,12 +80,13 @@ $("#Help").on("click", () => {
     displayHelp();
 });
 
-// --- Audio Stuff --- 
+// --- Audio Stuff ---
 var ost = new Audio('Assets/audio/SyncopeOST.wav');
-var option = new Audio('Assets/audio/OptionHover.wav')
-var selected = new Audio('Assets/audio/OptionSelect.wav')
+var option = new Audio('Assets/audio/OptionHover.wav');
+var selected = new Audio('Assets/audio/OptionSelect.wav');
 
 ost.volume = 0.3;   // Adjust Audio Volume
+ost.loop = true;
 ost.play();         // Needs user interaction to enable audio...
 
 // Hover Over Options
@@ -96,7 +97,7 @@ $('li').mouseover(function(){
 })
 
 // MouseClick on Options
-$('li,#Help',).mousedown(function(){
+$(document).on('click', function(){
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newSelected.play();                      // Plays Audio when clicked
 })
