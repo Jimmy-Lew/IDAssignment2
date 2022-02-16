@@ -16,6 +16,7 @@ const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
 var selected = new Audio('Assets/audio/OptionSelect.wav');
 
 async function LevelComplete(win){
+    await delay(2500);
     if(win){
         await swalAlert("You Won!");
         await UpdateLeaderboard();
@@ -25,6 +26,20 @@ async function LevelComplete(win){
         await swalAlert("You Lost...", "Try again next time Soldier o7");
         window.location.href = "menu.html";
     } 
+}
+
+function playAnimation(animName, duration){
+    const animation = $(`lottie-player.bossAnim.${animName}`);
+
+    animation.css("display", "block");
+    setTimeout(() => {
+        if(animName === "death"){
+            animation.removeAttr("loop autoplay")
+        }
+        else{
+            animation.css("display", "none")
+        }
+    }, duration);
 }
 
 async function parseLocalStorageData(){
@@ -95,6 +110,8 @@ async function GameLogic() {
             DisplayWPM(WPM);
             enemy.damage(damageDealt);
 
+            playAnimation("damage", 900);
+
             // Play Audio when player attacks
             if (isFinished){
                 const attack = pAttack.cloneNode()
@@ -106,6 +123,7 @@ async function GameLogic() {
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
             if (enemy.Health <= 0){
+                playAnimation("death", 600);
                 eDeath.volume = 0.3;
                 eDeath.play();
                 return LevelComplete(true);
@@ -116,6 +134,8 @@ async function GameLogic() {
         else if (timeLeft <= 0) {
             // Calculate Enemy Damage to Player  
             player.damage(enemy.FailureDamage);
+
+            playAnimation("attack", 600);
 
             // Play player damage audio
             eAttack.volume = 0.3;

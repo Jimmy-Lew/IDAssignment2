@@ -1,6 +1,6 @@
 {
     "Father Gn-ynda": {
-        "Health": 20,
+        "Health": 10,
         "FailureDamage": 25,
         "ConstantDamage": 0,
         "APICalls": 3

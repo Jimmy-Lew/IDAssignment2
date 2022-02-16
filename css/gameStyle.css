@@ -75,15 +75,28 @@ span {
   margin: auto;
 }
 
-.bossAnim {
+.bossFrame {
+  position: relative;
   margin: auto;
 }
 
-.bossFrame {
+.bossAnim {
   position: absolute;
   top: 0;
   left: 0;
   width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
+}
+
+.bossAnim.attack {
+  display: none;
+}
+
+.bossAnim.damage {
+  display: none;
+}
+
+.bossAnim.death {
+  display: none;
 }
 
 .typingBox {
