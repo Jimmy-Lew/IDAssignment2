@@ -4,17 +4,17 @@ async function UpdateLeaderboard(){
     let username = window.localStorage.getItem("username");
     if(!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
     
-    if(!CheckTiming(username, totalTimeElapsed)) return window.location.href = "index.html";
+    if(!CheckTiming(username, totalTimeElapsed)) return window.location.href = "menu.html";
 
     let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
-    if(!hasUpdate) return window.location.href = "index.html";
+    if(!hasUpdate) return window.location.href = "menu.html";
 
     for(; ;){
         let secretCode = await swalPrompt("Please enter your secret code<br><br>", "[Enter] to submit");
         if (CheckSecretCode(secretCode, username)) return UpdatePlayer(username,totalTimeElapsed,secretCode);
         await swalAlert("Invalid code")
         let isRetry = await swalConfirm("Would you like to try again?");
-        if (!isRetry) return window.location.href = "index.html";;
+        if (!isRetry) return window.location.href = "menu.html";;
         console.log("Retrying...")
     }
 }

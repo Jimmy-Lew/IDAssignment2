@@ -18,11 +18,11 @@ async function LevelComplete(win){
     if(win){
         await swalAlert("You Won!");
         await UpdateLeaderboard();
-        window.location.href = "index.html";;   
+        window.location.href = "menu.html";
     }
     else{
         await swalAlert("You Lost...", "Try again next time Soldier o7");
-        window.location.href = "index.html";;
+        window.location.href = "menu.html";
     } 
 }
 

@@ -24,7 +24,7 @@
 ::-webkit-scrollbar
     display: none
 
-html
+html, body
     height: 100%
     cursor: url("../Assets/images/pngs/Cursor.png"), auto
 
@@ -54,6 +54,19 @@ span
     width: 50%  
 
     padding-top: 1em
+
+.splash
+    position: relative
+    top: 50%    
+    transform: translateY(-75%)
+
+.splash-content
+    width: 100%
+    text-align: center
+    font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px)
+    position: absolute
+    bottom: 10px
+    animation: glow 8000ms infinite
 
 .raise-on-hover
     transition: all .75s ease
@@ -136,11 +149,15 @@ span
 
     background-color: rgba(0, 0, 0, 0.8)
 
-@keyframes zoom
-    from
-        transform: scale(0)
-    to
-        transform: scale(1)
+@keyframes glow
+    0%
+        text-shadow: 0 0 10px #fff, 0 0 0px #fff
+    
+    50%
+        text-shadow: 0 0 10px #fff, 0 0 50px #fff, 0 0 20px #fff
+
+    100%
+        text-shadow: 0 0 10px #fff, 0 0 0px #fff
 
 @media only screen and (max-width: 800px) // Width subject to change
     li
