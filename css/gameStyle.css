@@ -36,10 +36,6 @@
   outline: none;
 }
 
-html {
-  cursor: none;
-}
-
 img {
   background: transparent;
 }
@@ -74,15 +70,19 @@ span {
 }
 
 .bossContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  position: relative;
+  width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
+  margin: auto;
+}
+
+.bossAnim {
+  margin: auto;
 }
 
 .bossFrame {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
 }
 

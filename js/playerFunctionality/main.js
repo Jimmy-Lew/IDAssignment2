@@ -13,6 +13,7 @@ const eDeath = new Audio('Assets/audio/EnemyDeath.wav')
 const eAttack = new Audio('Assets/audio/EnemyAttack.wav')
 const pAttack = new Audio('Assets/audio/PlayerAttack.wav')
 const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
+var selected = new Audio('Assets/audio/OptionSelect.wav');
 
 async function LevelComplete(win){
     if(win){
@@ -95,7 +96,7 @@ async function GameLogic() {
             enemy.damage(damageDealt);
 
             // Play Audio when player attacks
-            if (damageDealt > 0){
+            if (isFinished){
                 const attack = pAttack.cloneNode()
                 attack.volume = 0.2;
                 attack.play();
@@ -137,3 +138,8 @@ console.log(localStorageSpace());
 eGrowl.volume = 0.3;
 eGrowl.play(); // Only when enemy is introduced.
 GameLogic();
+
+$(document).on('click', function(){
+    const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
+    newSelected.play();                      // Plays Audio when clicked
+})

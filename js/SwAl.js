@@ -233,7 +233,7 @@ async function swalAlert(text, subText = "", refreshTime = 1500){
 async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`, isFirstOrLast = "", refreshTime = 1500){ // Limit Image size to 410px and then downscale
     if (isFirstOrLast === "First") buttons = [">"]
     if (isFirstOrLast === "") buttons = ["<",">"]
-    if (isFirstOrLast === "Last") buttons = ["<", "X"]
+    if (isFirstOrLast === "Last") buttons = ["X"]
 
     result = await swal(
         {
@@ -251,7 +251,7 @@ async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" 
 async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTime = 1500){
     if (isFirstOrLast === "First") buttons = ["X"]
     if (isFirstOrLast === "") buttons = ["<",">"]
-    if (isFirstOrLast === "Last") buttons = ["<", "X"]
+    if (isFirstOrLast === "Last") buttons = ["X"]
 
     result = await swal(
         {
