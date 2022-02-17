@@ -112,13 +112,52 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 
 ## Credits
 
-### Content
+### Contributions
+<details>
+<summary>Jimmy Lew (Mainly Front End)</summary>
+- > index.html <br>
+- > menu.html <br>
+- > game.html <br>
+- > CSS Files <br>
+- > SASS Files <br>
+- > disableZoom.js
+- > * JS Code Cleaner (Helps to Simplify & Clean Up JS Functions) [Mostly after Addison Implements Functions] <br>
+- > SWAL.js <br>
+- > menu.js (Everything except sound part) <br>
+- > LocalStorage.js <br>
+- > Helped with ComboChaining (attack.js) <br>
+- > Helped with .json + enemy,js & player.js constructors <br>
+- > Artist & Art Designer <br>
+---
+</details>
 
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+<details>
+<summary>Addison Chua (Mainly Backend End)</summary>
+- > api.js <br>
+- > attack.js <br>
+- > DOMInteraction.js <br>
+- > main.js <br>
+- > leaderboard.js + HTML <br>
+- > menu.js (Only audio part) <br>
+- > enemy.js <br>
+- > player.js <br>
+- > bosses.json <br>
+- > levels.json <br>
+- > Helped with DefineWordTime (localStorage.js) <br>
+- > Wireframe Designs (Both High Fidelity & Low Fidelity) <br>
+- > README.md <br>
+- > Assist Jimmy In Front End <br>
+- > Music / Audio Producer <br>
+---
+</details> <br>
+
+### Content
+* NO Text Content Was Copied From Any External Source
 
 ### Media
-
-- The photos used in this site were obtained from ...
+* **ALL ART ASSETS** were done by : **Jimmy Lew**
+** <details><summary>PROOF OF WORK</summary></details> <br>
+* **ALL AUDIO ASSETS** were done by : **Addison Chua**
 
 ### API
 
@@ -128,4 +167,4 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 
 - [MonkeyType](https://monkeytype.com/) - WPM Calculator to test how fast a user can type
 - [TypeRacer](https://play.typeracer.com/) - A competitive typing game where the user with the highest WPM wins a race
-- [Pokemon](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for Player Attack UI
+- [Hollow Knights](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for Player Attack UI
