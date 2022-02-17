@@ -32,8 +32,8 @@ async function startGameWithNoExistingSession(){
 
 async function displayHelp() {
     const galleryImages = [
-        `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
-        `<img src="Assets/images/pngs/placeholder1.png" class="swal-gallery">`,
+        `<img src="Assets/images/pngs/Help-1.png" class="swal-gallery">`,
+        `<img src="Assets/images/pngs/Help-2.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/placeholder2.png" class="swal-gallery">`
     ]

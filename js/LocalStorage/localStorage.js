@@ -27,7 +27,7 @@ function DefineWordTime(retrievedDifficulty, difficultyTimings) {
 }
 
 function parsePlayerData(playerData){
-    if (playerData[0] === "1") return new Player(10000, 5);
+    if (playerData[0] === "1") return new Player(100, 5);
 }
 
 async function getLevelJSON(retrievedLevelData){

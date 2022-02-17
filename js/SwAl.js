@@ -1,8 +1,5 @@
 // #region SwAl parent structure
-const delay = (timeInMilli) =>
-    new Promise((resolve, reject) => {
-        setTimeout((_) => resolve(), timeInMilli);
-    });
+const delay = (timeInMilli) => new Promise((resolve, reject) => {setTimeout((_) => resolve(), timeInMilli);});
 
 async function swal(options, refreshTime, userInput = "") {
     // #region SwAl Elements
@@ -98,8 +95,8 @@ async function swal(options, refreshTime, userInput = "") {
     };
 
     const imgStyle = {
-        width: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.419}px`,
-        height: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.419}px`,
+        width: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.563}px`,
+        height: isMobile ? `${docWidth * 0.5}px` : `${docHeight * 0.563}px`,
     };
 
     const subtTextStyle = {
@@ -189,7 +186,7 @@ function onEnterVal(buttons, takeLastButtonVal) {
 }
 
 // #region SwAl Templates
-async function swalConfirm(text, subText = "", refreshTime = 1500){
+async function swalConfirm(text, subText = "", refreshTime = 1000){
     result = await swal(
         {
             content: text,
@@ -201,8 +198,7 @@ async function swalConfirm(text, subText = "", refreshTime = 1500){
 
     return result;
 }
-
-async function swalPrompt(text, subText = "", refreshTime = 8000){
+async function swalPrompt(text, subText = "", refreshTime = 6000){
     result = await swal(
         {
             content: text,
@@ -216,8 +212,7 @@ async function swalPrompt(text, subText = "", refreshTime = 8000){
 
     return result;
 }
-
-async function swalAlert(text, subText = "", refreshTime = 1500){
+async function swalAlert(text, subText = "", refreshTime = 1000){
     result = await swal(
         {
             content: text,
@@ -229,7 +224,6 @@ async function swalAlert(text, subText = "", refreshTime = 1500){
 
     return result;
 }
-
 async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`, isFirstOrLast = "", refreshTime = 1500){ // Limit Image size to 410px and then downscale
     if (isFirstOrLast === "First") buttons = [">"]
     if (isFirstOrLast === "") buttons = ["<",">"]
@@ -241,14 +235,14 @@ async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" 
             buttons: buttons,
             reverse: true,
             background: `url("Assets/images/pngs/HelpFrame.png")`,
+            contentStart: 0.06
         },
         refreshTime
     );
 
     return result;
 }
-
-async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTime = 1500){
+async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTime = 1000){
     if (isFirstOrLast === "First") buttons = ["X"]
     if (isFirstOrLast === "") buttons = ["<",">"]
     if (isFirstOrLast === "Last") buttons = ["X"]
@@ -267,5 +261,4 @@ async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTi
 
     return result;
 }
-
 // #endregion

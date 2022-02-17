@@ -13,14 +13,14 @@
 }
 
 @font-face {
-  font-family: 'antiqua';
-  src: url(../Assets/fonts/Antiqua.woff) format("woff");
+  font-family: 'amethysta';
+  src: url(../Assets/fonts/Amethysta.woff) format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 * {
-  font-family: 'antiqua';
+  font-family: 'amethysta';
   background: #000;
   color: #fff;
   font-weight: bold;
@@ -36,6 +36,13 @@
   outline: none;
 }
 
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  cursor: url("../Assets/images/pngs/Cursor.png"), auto;
+}
+
 img {
   background: transparent;
 }
@@ -48,8 +55,7 @@ ul {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding-top: 1.5em;
-  height: 50px;
+  height: 36px;
 }
 
 li {
@@ -72,12 +78,15 @@ span {
 .bossContainer {
   position: relative;
   width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
+  aspect-ratio: 973 / 673;
   margin: auto;
 }
 
 .bossFrame {
   position: relative;
   margin: auto;
+  width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
+  aspect-ratio: 973 / 673;
 }
 
 .bossAnim {
@@ -85,6 +94,7 @@ span {
   top: 0;
   left: 0;
   width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px);
+  aspect-ratio: 973 / 673;
 }
 
 .bossAnim.attack {
@@ -100,6 +110,7 @@ span {
 }
 
 .typingBox {
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -140,6 +151,44 @@ span {
 .globe.mana {
   -webkit-transform: translateX(-25%);
           transform: translateX(-25%);
+}
+
+.fill {
+  position: absolute;
+  width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.fill.health {
+  background-color: #780909;
+  -webkit-transform: translate(63%, 25%);
+          transform: translate(63%, 25%);
+}
+
+.fill.health .cover {
+  position: absolute;
+  content: '';
+  display: inline-block;
+  background-color: #000;
+  width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
+  height: calc(clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px) * 0);
+}
+
+.fill.mana {
+  right: 0;
+  background-color: #0d2f65;
+  -webkit-transform: translate(-63%, 25%);
+          transform: translate(-63%, 25%);
+}
+
+.fill.mana .cover {
+  position: absolute;
+  content: '';
+  display: inline-block;
+  background-color: #000;
+  width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
+  height: calc(clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px) * 0);
 }
 
 .input-frame {

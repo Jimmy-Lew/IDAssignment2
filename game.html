@@ -23,10 +23,10 @@
     <body>
         <div class="bossContainer">
             <!-- Lottie Player -->
-            <lottie-player src="Assets/Animations/Boss1IdleLottie.json" class="bossAnim idle" speed="1" style="height: 673px;" loop autoplay></lottie-player>
-            <lottie-player src="Assets/Animations/Boss1AttackLottie.json" class="bossAnim attack" speed="1" style="height: 673px;" loop autoplay></lottie-player>
-            <lottie-player src="Assets/Animations/Boss1DamageLottie.json" class="bossAnim damage" speed="1" style="height: 673px;" loop autoplay></lottie-player>
-            <lottie-player src="Assets/Animations/Boss1DeathLottie.json" class="bossAnim death" speed="1" style="height: 673px;" loop autoplay></lottie-player>
+            <lottie-player src="Assets/Animations/LottieJson/Boss1IdleLottie.json" class="bossAnim idle" speed="1" loop autoplay></lottie-player>
+            <lottie-player src="Assets/Animations/LottieJson/Boss1AttackLottie.json" class="bossAnim attack" speed="1" loop autoplay></lottie-player>
+            <lottie-player src="Assets/Animations/LottieJson/Boss1DamageLottie.json" class="bossAnim damage" speed="1" loop autoplay></lottie-player>
+            <lottie-player src="Assets/Animations/LottieJson/Boss1DeathLottie.json" class="bossAnim death" speed="1" loop autoplay></lottie-player>
             <img src="Assets/images/pngs/BossFrame.png" alt="" class="bossFrame">
         </div>
         <!-- <div class="info">
@@ -42,11 +42,17 @@
             </div>
             <div class="typingBox">
                 <div class="decorator left">
+                    <div class="health fill">
+                        <div class="cover"></div>
+                    </div>
                     <img src="Assets/images/pngs/HealthGlobe.png" alt="" class="health globe">
                     <img src="Assets/images/pngs/InputFrameLeft.png" alt="" class="input-frame left">
                 </div>
                 <input id="textInput" placeholder="Type here!" autofocus autocomplete= "off"></input>
                 <div class="decorator right">
+                    <div class="mana fill">
+                        <div class="cover"></div>
+                    </div>
                     <img src="Assets/images/pngs/InputFrameRight.png" alt="" class="input-frame right">
                     <img src="Assets/images/pngs/ManaGlobe.png" alt="" class="mana globe">
                 </div>

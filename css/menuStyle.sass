@@ -21,11 +21,10 @@
 *:focus
     outline: none
 
-::-webkit-scrollbar
-    display: none
-
 html, body
+    margin: 0
     height: 100%
+    overflow: hidden
     cursor: url("../Assets/images/pngs/Cursor.png"), auto
 
 ul
@@ -60,10 +59,16 @@ span
     top: 50%    
     transform: translateY(-75%)
 
+.splash-text
+  width: 100%
+  text-align: center
+  margin-bottom: 10px
+  font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px)
+
 .splash-content
     width: 100%
     text-align: center
-    font-size: clamp(18px, calc(18px + (36 - 18) * ((100vw - 320px) / (1800 - 320))), 36px)
+    font-size: clamp(6px, calc(6px + (12 - 6) * ((100vw - 320px) / (1800 - 320))), 12px)
     position: absolute
     bottom: 10px
     animation: glow 8000ms infinite
@@ -74,19 +79,6 @@ span
     &:hover
         transform: translateY(-.2em)
         font-size: clamp(18px, calc(18px + (41.6 - 18) * ((100vw - 320px) / (1800 - 320))), 41.6px)
-
-        &::before
-            content: url("../Assets/images/pngs/PointerLeft.png")
-        &::after
-            content: url("../Assets/images/pngs/PointerRight.png")
-
-.prev
-    z-index: 999
-    content: url("../Assets/images/pngs/PointerLeft.png")
-
-.next
-    z-index: 999
-    content: url("../Assets/images/pngs/PointerRight.png")
 
 #Help
     position: fixed

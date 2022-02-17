@@ -12,9 +12,16 @@
 <body>
     <div class="splash">
         <img src="Assets/images/pngs/Title.png" alt="" class="title-image" draggable="false">
-        <p id="splash-credits">Made by Jimmy Lew & Addison Chua</p>
     </div>
-    <div id="EnterMainMenu" class="splash-content">Click anywhere</div>
+    <div id="EnterMainMenu" class="splash-content">
+        <p class="splash-text">Click anywhere</p>
+        Made by Jimmy Lew & Addison Chua
+    </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).on("click", () => {
+    window.location.href = "menu.html";
+    })
+</script>
 </html>
