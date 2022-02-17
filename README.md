@@ -127,7 +127,8 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 - > LocalStorage.js <br>
 - > Helped with ComboChaining (attack.js) <br>
 - > Helped with .json + enemy,js & player.js constructors <br>
-- > Artist & Art Designer <br>
+- > Artist & Art Designer
+
 ---
 </details>
 
@@ -147,7 +148,8 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 - > Wireframe Designs (Both High Fidelity & Low Fidelity) <br>
 - > README.md <br>
 - > Assist Jimmy In Front End <br>
-- > Music / Audio Producer <br>
+- > Music / Audio Producer
+
 ---
 </details> <br>
 
@@ -158,6 +160,7 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 * **ALL ART ASSETS** were done by : **Jimmy Lew**
 ** <details><summary>PROOF OF WORK</summary></details> <br>
 * **ALL AUDIO ASSETS** were done by : **Addison Chua**
+* ** <details><summary>PROOF OF WORK</summary></details> <br>
 
 ### API
 
