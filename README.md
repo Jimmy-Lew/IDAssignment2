@@ -107,8 +107,10 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
    - Leaderboard should be fine and should not updated/append anymore after the first initalization.
 
 ### Bugs / Problems
-[Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
-
+- [Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
+- Markdown Dropdown can't embed URL / Styles
+- swAL.js delay
+- Long loading times to get restDB Data (Depends on the speed of RestDB)
 
 ## Credits
 
@@ -148,7 +150,9 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 - > Wireframe Designs (Both High Fidelity & Low Fidelity) <br>
 - > README.md <br>
 - > Assist Jimmy In Front End <br>
-- > Music / Audio Producer
+- > Music / Audio Producer <br> <br>
+Live Wakatime Contribution (Last 30 Days) : https://wakatime.com/@NotAddison/projects/sdydmimyop?start=2022-02-11&end=2022-02-17 <br>
+Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51ETz_gtX2W-BSd1x1jUNpwxrk?usp=sharing <br>
 
 ---
 </details> <br>
