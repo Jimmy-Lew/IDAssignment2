@@ -107,18 +107,62 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
    - Leaderboard should be fine and should not updated/append anymore after the first initalization.
 
 ### Bugs / Problems
-[Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
-
+- [Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
+- Markdown Dropdown can't embed URL / Styles
+- swAL.js delay
+- Long loading times to get restDB Data (Depends on the speed of RestDB)
 
 ## Credits
 
-### Content
+### Contributions
+<details>
+<summary>Jimmy Lew (Mainly Front End)</summary>
+- > index.html <br>
+- > menu.html <br>
+- > game.html <br>
+- > CSS Files <br>
+- > SASS Files <br>
+- > disableZoom.js
+- > * JS Code Cleaner (Helps to Simplify & Clean Up JS Functions) [Mostly after Addison Implements Functions] <br>
+- > SWAL.js <br>
+- > menu.js (Everything except sound part) <br>
+- > LocalStorage.js <br>
+- > Helped with ComboChaining (attack.js) <br>
+- > Helped with .json + enemy,js & player.js constructors <br>
+- > Artist & Art Designer
 
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+---
+</details>
+
+<details>
+<summary>Addison Chua (Mainly Backend End)</summary>
+- > api.js <br>
+- > attack.js <br>
+- > DOMInteraction.js <br>
+- > main.js <br>
+- > leaderboard.js + HTML <br>
+- > menu.js (Only audio part) <br>
+- > enemy.js <br>
+- > player.js <br>
+- > bosses.json <br>
+- > levels.json <br>
+- > Helped with DefineWordTime (localStorage.js) <br>
+- > Wireframe Designs (Both High Fidelity & Low Fidelity) <br>
+- > README.md <br>
+- > Assist Jimmy In Front End <br>
+- > Music / Audio Producer <br> <br>
+Live Wakatime Contribution (Last 30 Days) : https://wakatime.com/@NotAddison/projects/sdydmimyop?start=2022-02-11&end=2022-02-17 <br>
+Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51ETz_gtX2W-BSd1x1jUNpwxrk?usp=sharing <br>
+
+---
+</details> <br>
+
+### Content
+* NO Text Content Was Copied From Any External Source
 
 ### Media
-
-- The photos used in this site were obtained from ...
+* **ALL ART ASSETS** were done by : **Jimmy Lew**
+* **ALL AUDIO ASSETS** were done by : **Addison Chua**
 
 ### API
 
@@ -128,4 +172,4 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 
 - [MonkeyType](https://monkeytype.com/) - WPM Calculator to test how fast a user can type
 - [TypeRacer](https://play.typeracer.com/) - A competitive typing game where the user with the highest WPM wins a race
-- [Pokemon](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for Player Attack UI
+- [Hollow Knights](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for Player Attack UI
