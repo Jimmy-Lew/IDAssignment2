@@ -162,9 +162,7 @@ Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51
 
 ### Media
 * **ALL ART ASSETS** were done by : **Jimmy Lew**
-** <details><summary>PROOF OF WORK</summary></details> <br>
 * **ALL AUDIO ASSETS** were done by : **Addison Chua**
-* ** <details><summary>PROOF OF WORK</summary></details> <br>
 
 ### API
 
