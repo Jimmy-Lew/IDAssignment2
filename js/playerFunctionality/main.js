@@ -14,6 +14,7 @@ const eAttack = new Audio('Assets/audio/EnemyAttack.wav')
 const pAttack = new Audio('Assets/audio/PlayerAttack.wav')
 const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
 var selected = new Audio('Assets/audio/OptionSelect.wav');
+var battleOST = new Audio('Assets/audio/SyncopeBattleOST.wav');
 
 async function LevelComplete(win){
     await delay(2500);
@@ -42,6 +43,18 @@ function playAnimation(animName, duration){
     }, duration);
 }
 
+function FadeAudio(name,threshold){
+    console.log('>> Fading Audio')
+    let fade = setInterval(() => {
+        name.volume -= 0.015;
+
+        if (name.volume <= threshold) {
+            console.log('>> Stopping Audio Fade (Threashold Reached)')
+            clearInterval(fade);
+        }
+    }, 1000);
+}
+
 async function parseLocalStorageData(){
     const {retrievedDifficulty, retrievedLevelData, retrievedPlayerData} = retrieveLocalStorage();
 
@@ -53,7 +66,7 @@ async function parseLocalStorageData(){
     enemy = entityList[0];
 }
 
-// #region Main
+// #region Main Game
 async function GameLogic() {
     let userInput;
     let predictedWord;
@@ -126,6 +139,7 @@ async function GameLogic() {
                 playAnimation("death", 600);
                 eDeath.volume = 0.3;
                 eDeath.play();
+                FadeAudio(battleOST,0.1);
                 return LevelComplete(true);
             }
             GameLogic();                         // Recalls function to call API and update new words and stuff
@@ -146,6 +160,7 @@ async function GameLogic() {
             if (player.Health <= 0){
                 pDeath.volume = 0.3;
                 pDeath.play();
+                FadeAudio(battleOST,0.1);
                 return LevelComplete(false);
             }
             GameLogic();                         // Recalls function to call API and update new words and stuff
@@ -155,11 +170,23 @@ async function GameLogic() {
 // #endregion
 
 console.log(localStorageSpace());
+
+// #region Initialize Audio
 eGrowl.volume = 0.3;
-eGrowl.play(); // Only when enemy is introduced.
-GameLogic();
+battleOST.volume = 0.3;
+battleOST.loop = true;
+
+eGrowl.play();  // Only when enemy is introduced.
+
+setTimeout(() => {  // Wait for growl to finish
+    battleOST.play();
+}, 500);
 
 $(document).on('click', function(){
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newSelected.play();                      // Plays Audio when clicked
 })
+
+// #endregion
+
+GameLogic();
