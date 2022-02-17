@@ -31,15 +31,11 @@ async function LevelComplete(win){
 
 function playAnimation(animName, duration){
     const animation = $(`lottie-player.bossAnim.${animName}`);
-
     animation.css("display", "block");
+
     setTimeout(() => {
-        if(animName === "death"){
-            animation.removeAttr("loop autoplay")
-        }
-        else{
-            animation.css("display", "none")
-        }
+        if(animName === "death") animation.removeAttr("loop autoplay")
+        else animation.css("display", "none")
     }, duration);
 }
 
@@ -128,7 +124,7 @@ async function GameLogic() {
             // Play Audio when player attacks
             if (isFinished){
                 const attack = pAttack.cloneNode()
-                attack.volume = 0.2;
+                attack.volume = 0.35;
                 attack.play();
             }
 
@@ -137,7 +133,7 @@ async function GameLogic() {
 
             if (enemy.Health <= 0){
                 playAnimation("death", 600);
-                eDeath.volume = 0.3;
+                eDeath.volume = 0.35;
                 eDeath.play();
                 FadeAudio(battleOST,0.1);
                 return LevelComplete(true);
@@ -152,13 +148,13 @@ async function GameLogic() {
             playAnimation("attack", 600);
 
             // Play player damage audio
-            eAttack.volume = 0.3;
+            eAttack.volume = 0.35;
             eAttack.play();
 
             // --- Prepare for next round! ---
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
             if (player.Health <= 0){
-                pDeath.volume = 0.3;
+                pDeath.volume = 0.35;
                 pDeath.play();
                 FadeAudio(battleOST,0.1);
                 return LevelComplete(false);
@@ -173,7 +169,7 @@ console.log(localStorageSpace());
 
 // #region Initialize Audio
 eGrowl.volume = 0.3;
-battleOST.volume = 0.3;
+battleOST.volume = 0.25;
 battleOST.loop = true;
 
 eGrowl.play();  // Only when enemy is introduced.

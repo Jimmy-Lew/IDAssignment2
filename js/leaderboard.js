@@ -6,6 +6,7 @@ async function UpdateLeaderboard(){
     
     if(!CheckTiming(username, totalTimeElapsed)) return window.location.href = "menu.html";
 
+    await delay(800);
     let hasUpdate = await swalConfirm("Would you like to submit/update your time to the leaderboard?")
     if(!hasUpdate) return window.location.href = "menu.html";
 
