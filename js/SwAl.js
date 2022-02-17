@@ -1,12 +1,15 @@
 // #region SwAl parent structure
-const delay = (timeInMilli) => new Promise((resolve, reject) => {setTimeout((_) => resolve(), timeInMilli);});
+const delay = (timeInMilli) =>
+    new Promise((resolve, reject) => {
+        setTimeout((_) => resolve(), timeInMilli);
+    });
 
 async function swal(options, refreshTime, userInput = "") {
     // #region SwAl Elements
     const swalCont = $("#swal-container");
     const modalObj = `<div class="swal-modal"></div>`;
     const contentObj = `<div class="swal-content"></div>`;
-    const subTextObj = `<span class="swal-sub">${options.subtext || ''}</span>`;
+    const subTextObj = `<span class="swal-sub">${options.subtext || ""}</span>`;
     const buttonContObj = `<div class="swal-button-container"></div>`;
     const inputObj = `<input class="swal-input" value="${userInput}" readonly autofocus></input>`;
     // #endregion
@@ -17,26 +20,26 @@ async function swal(options, refreshTime, userInput = "") {
     const docHeight = window.innerHeight;
     const docWidth = window.innerWidth;
 
-    let alertHeight; 
-    let alertWidth; 
+    let alertHeight;
+    let alertWidth;
 
-    if (docHeight / docWidth > 1) isMobile = true
-    if (isMobile){
+    if (docHeight / docWidth > 1) isMobile = true;
+    if (isMobile) {
         alertWidth = Math.ceil(docWidth * 0.92);
-        alertHeight = Math.ceil(alertWidth * (9/8));
-    }
-    else{
+        alertHeight = Math.ceil(alertWidth * (9 / 8));
+    } else {
         alertHeight = Math.ceil(docHeight * 0.92);
         alertWidth = Math.ceil(alertHeight * (8 / 9));
     }
     const width = options.width || alertWidth;
     const height = options.height || alertHeight;
-    const frame = options.background || `url("Assets/images/pngs/FrameDesign1.png")`;
+    const frame =
+        options.background || `url("Assets/images/pngs/FrameDesign1.png")`;
     const textCol = options.textColor || "#fff";
 
-    const contentTextScale =  options.textSize || 0.047;
+    const contentTextScale = options.textSize || 0.047;
     const subTextScale = options.subTextSize || 0.032;
-    const contentStart = options.contentStart || 0.12
+    const contentStart = options.contentStart || 0.12;
 
     const buttons = options.buttons || [true, false];
 
@@ -62,7 +65,7 @@ async function swal(options, refreshTime, userInput = "") {
         margin: "auto",
         background: "#000",
         position: "relative",
-        top: `${height * contentStart}px`
+        top: `${height * contentStart}px`,
     };
 
     const buttonContStyle = {
@@ -72,7 +75,7 @@ async function swal(options, refreshTime, userInput = "") {
         top: `${height * 0.75}px`,
         height: `${height * 0.038}px`,
         "background-color": "rgba(255, 255, 255, 0.0)",
-        "z-index": "999"
+        "z-index": "999",
     };
 
     const buttonStyle = {
@@ -91,7 +94,7 @@ async function swal(options, refreshTime, userInput = "") {
         "background-color": "#000",
         position: "relative",
         top: `${height * 0.46}px`,
-        cursor: `url("Assets/images/pngs/Cursor.png"), auto`
+        cursor: `url("Assets/images/pngs/Cursor.png"), auto`,
     };
 
     const imgStyle = {
@@ -100,7 +103,7 @@ async function swal(options, refreshTime, userInput = "") {
     };
 
     const subtTextStyle = {
-        "font-size": `${height * subTextScale}px`
+        "font-size": `${height * subTextScale}px`,
     };
     // #endregion
     // #endregion
@@ -110,30 +113,26 @@ async function swal(options, refreshTime, userInput = "") {
 
     let modal = $(".swal-modal");
 
-    modal.append(buttonContObj)
-         .append(inputObj)
-         .append(contentObj);
+    modal.append(buttonContObj).append(inputObj).append(contentObj);
 
     let content = $(".swal-content");
     let buttonCont = $(".swal-button-container");
 
     for (let i = 0; i < buttons.length; i++) {
         buttonCont.append(`<div class="swal-button ${i}"></div>`);
-        if (buttons[i] === true) $(`.swal-button.${i}`).text("Yes")
-        else if (buttons[i] === false) $(`.swal-button.${i}`).text("No")
-        else $(`.swal-button.${i}`).text(buttons[i])
+        if (buttons[i] === true) $(`.swal-button.${i}`).text("Yes");
+        else if (buttons[i] === false) $(`.swal-button.${i}`).text("No");
+        else $(`.swal-button.${i}`).text(buttons[i]);
     }
 
-    content.html(options.content)
-           .append(subTextObj)
+    content.html(options.content).append(subTextObj);
 
-    let button = $('.swal-button')
+    let button = $(".swal-button");
     let input = $(".swal-input");
     let subtext = $(".swal-sub");
     let gallery = $(".swal-gallery");
-
     // #endregion
-    
+
     // #region SwAl Element Styling
     swalCont.css("display", "flex");
     modal.css(modalStyle);
@@ -142,92 +141,102 @@ async function swal(options, refreshTime, userInput = "") {
     content.css(contentStyle);
     subtext.css(subtTextStyle);
     gallery.css(imgStyle);
-    
-    if (hasInput) input.attr({  placeholder: "Type here!", readonly: false});
 
-    button.each(function() { $(this).css(buttonStyle); })
+    if (hasInput) input.attr({ placeholder: "Type here!", readonly: false });
+
+    button.each(function() {$(this).css(buttonStyle);});
     // #endregion
 
     // #region Event listeners & handlers
     let returnVal = null;
-    
+    let isTrigger = false;
+
     button.on("click", function () {
-        const buttonNo = parseInt($(this).attr("class").slice(-1))
+        const buttonNo = parseInt($(this).attr("class").slice(-1));
         returnVal = buttons[buttonNo];
+        refreshTime = 0;
     });
 
     input.on("keyup", function (e) {
         if (e.key === "Enter") {
             $(this).attr("readonly", true);
             returnVal = $(this).val();
+            refreshTime = 0;
         }
     });
 
     $(document).on("keyup", function (e) {
-        if (e.key === "Enter" && buttons.length > 0) returnVal = onEnterVal(buttons, takeLastButtonVal);
-        if (e.key === "Escape" && !hasEscape) returnVal = "Escape";
-    })
+        if (e.key === "Enter" && buttons.length > 0 && !isTrigger)
+            returnVal = onEnterVal(buttons, takeLastButtonVal);
+            isTrigger = true;
+            refreshTime = 0;
+        if (e.key === "Escape" && !hasEscape && !isTrigger)
+            returnVal = "Escape";
+            isTrigger = true;
+            refreshTime = 0;
+    });
     // #endregion
 
     // #region Handle return and refresh
     await delay(refreshTime);
-    swalCont.empty()
-            .hide();
+    swalCont.empty().hide();
     if (returnVal == null) return swal(options, refreshTime, input.val());
-    console.log(returnVal);
     return returnVal;
     // #endregion
 }
-// #endregion
 
-function onEnterVal(buttons, takeLastButtonVal) {
+async function onEnterVal(buttons, takeLastButtonVal) {
     if (takeLastButtonVal) return buttons[buttons.length - 1];
     return buttons[0];
 }
-
+// #endregion
 // #region SwAl Templates
-async function swalConfirm(text, subText = "", refreshTime = 1000){
+async function swalConfirm(text, subText = "", refreshTime = 200) {
     result = await swal(
         {
             content: text,
             textColor: "green",
-            subtext: subText
+            subtext: subText,
         },
         refreshTime
     );
 
     return result;
 }
-async function swalPrompt(text, subText = "", refreshTime = 6000){
+async function swalPrompt(text, subText = "", refreshTime = 6000) {
     result = await swal(
         {
             content: text,
             buttons: [],
             input: true,
             subtext: subText,
-            escape: true
+            escape: true,
         },
         refreshTime
     );
 
     return result;
 }
-async function swalAlert(text, subText = "", refreshTime = 1000){
+async function swalAlert(text, subText = "", refreshTime = 200) {
     result = await swal(
         {
             content: text,
             buttons: ["Ok"],
-            subtext: subText
+            subtext: subText,
         },
         refreshTime
     );
 
     return result;
 }
-async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`, isFirstOrLast = "", refreshTime = 1500){ // Limit Image size to 410px and then downscale
-    if (isFirstOrLast === "First") buttons = [">"]
-    if (isFirstOrLast === "") buttons = ["<",">"]
-    if (isFirstOrLast === "Last") buttons = ["X"]
+async function swalGallery(
+    img = `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
+    isFirstOrLast = "",
+    refreshTime = 200
+) {
+    if (isFirstOrLast === "First") buttons = [">"];
+    if (isFirstOrLast === "") buttons = ["<", ">"];
+    if (isFirstOrLast === "Last") buttons = ["X"];
 
     result = await swal(
         {
@@ -235,17 +244,22 @@ async function swalGallery(img = `<img src="Assets/images/pngs/placeholder.png" 
             buttons: buttons,
             reverse: true,
             background: `url("Assets/images/pngs/HelpFrame.png")`,
-            contentStart: 0.06
+            contentStart: 0.06,
         },
         refreshTime
     );
 
     return result;
 }
-async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTime = 1000){
-    if (isFirstOrLast === "First") buttons = ["X"]
-    if (isFirstOrLast === "") buttons = ["<",">"]
-    if (isFirstOrLast === "Last") buttons = ["X"]
+async function swalLeaderboard(
+    text,
+    subText = "",
+    isFirstOrLast = "",
+    refreshTime = 200
+) {
+    if (isFirstOrLast === "First") buttons = ["X"];
+    if (isFirstOrLast === "") buttons = ["<", ">"];
+    if (isFirstOrLast === "Last") buttons = ["X"];
 
     result = await swal(
         {
@@ -253,8 +267,10 @@ async function swalLeaderboard(text, subText = "", isFirstOrLast = "", refreshTi
             subTextSize: 0.026,
             buttons: buttons,
             subtext: subText,
-            background: `url("Assets/images/pngs/${$("#Difficulty").text()}Frame.png")`,
-            contentStart: 0.08
+            background: `url("Assets/images/pngs/${$(
+                "#Difficulty"
+            ).text()}Frame.png")`,
+            contentStart: 0.08,
         },
         refreshTime
     );
