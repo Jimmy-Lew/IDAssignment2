@@ -20,11 +20,20 @@ async function LevelComplete(win){
     await delay(2500);
     if(win){
         await swalAlert("You Won!");
-        await UpdateLeaderboard();
-        window.location.href = "menu.html";
+        const currentLevel = parseInt(window.localStorage.getItem('levelData'));
+        if (await getLevelJSON() === currentLevel) {
+            await UpdateLeaderboard();
+            localStorage.removeItem('timeElapsed'); //Remove Time Elapsed Storage (Rest time to 0 next run)
+            window.location.href = "menu.html";
+        }
+        else{
+            window.localStorage.setItem('levelData', currentLevel+1);
+            window.location.href = "game.html"; // reload page
+        }
+        
     }
     else{
-        await swalAlert("You Lost...", "Try again next time Soldier o7");
+        await swalAlert("You Lost...<br><br>", "Try again next time Soldier o7");
         window.location.href = "menu.html";
     } 
 }
@@ -137,6 +146,7 @@ async function LevelLogic() {
                 eDeath.volume = 0.35;
                 eDeath.play();
                 FadeAudio(battleOST,0.1);
+                TimeElapsedStorage(totalTimeElapsed)
                 return LevelComplete(true);
             }
             LevelLogic();                         // Recalls function to call API and update new words and stuff
