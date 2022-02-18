@@ -7,7 +7,7 @@
         },
         "Level-2": {
             "DifficultyTimings": [10, 7.5, 5, 3.5],
-            "Entities": ["Father Gn-Ynda"],
+            "Entities": ["Spider Boss 2"],
             "LevelID": 2
         }
     }
