@@ -79,6 +79,7 @@ async function LevelLogic() {
 
     if(isFirstRun) await parseLocalStorageData().then(() => {isFirstRun = false});
 
+    DisplayBossTitle(enemy.Name);
     resetDisplayWords();
     let wordMap = await GetWordsAndDefs(enemy.APICalls);
     DisplayWords(wordMap);

@@ -66,3 +66,9 @@ function resetDisplayWords(){
         })
     }
 }
+
+function DisplayBossTitle(title){
+    const titleElem = $(".bossTitle");
+    titleElem.text(title).css("top", "0em");
+    setTimeout(() => {titleElem.css("top", "-2.3em")}, 2000);
+}

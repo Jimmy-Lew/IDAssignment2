@@ -1,8 +1,8 @@
 {
     "Level": {
         "Level-1": {
-            "DifficultyTimings": [1000, 7.5, 5, 3.5],
-            "Entities": ["Spider Boss"],
+            "DifficultyTimings": [10, 7.5, 5, 3.5],
+            "Entities": ["Spooder"],
             "LevelID": 1
         },
         "Level-2": {
@@ -11,5 +11,4 @@
             "LevelID": 2
         }
     }
-
 }

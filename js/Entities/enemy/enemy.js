@@ -1,6 +1,7 @@
 class Enemy {
-    constructor(aHealth, aFailureDamage, aConstantDamage, aAPICalls){
+    constructor(aName, aHealth, aFailureDamage, aConstantDamage, aAPICalls){
 
+        this.Name = aName;
         this.Health = aHealth;
         this.MaxHealth = aHealth;
         this.FailureDamage = aFailureDamage;
