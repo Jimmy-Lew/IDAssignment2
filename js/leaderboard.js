@@ -178,8 +178,10 @@ function PopulateLeaderboard(query = ""){
     
     // Sort Data (Converts String to Date obj, compare and sort)
     const data = GetDBData(query);
-    if (data) {
-        const sortedData = data.sort( function(a,b){
+    const fData = FilterDifficulty(data)
+
+    if (data && fData.hasItem) {
+        const sortedData = fData.filter.sort( function(a,b){
             var dateA = new Date(a.Time);
             var dateB = new Date(b.Time);
             return dateA - dateB;
@@ -207,7 +209,33 @@ function PopulateLeaderboard(query = ""){
         var html = '<br><p> ! No Data In DataBase ! </p>';  
         content = '';
     }
-    
     content += html;
     return content;
+}
+
+function FilterDifficulty(data){
+    let filter = [];
+    let diffIndex = 0;
+    let hasItem = false;
+
+    // Get HTML Difficulty Option thingy
+    const diff = $("#Difficulty").text()
+    if (diff === "Medium") {  diffIndex = 1}
+    else if (diff === "Hard") {  diffIndex = 2}
+    else if (diff === "Syncope") {  diffIndex = 3}
+    
+    // Filter list
+    for (let index = 0; index < data.length; index++) {
+        console.log("Diff Index: "+ diffIndex);
+        console.log("Current Diff: "+ data[index].Difficulty)
+        console.log(parseInt(data[index].Difficulty) === diffIndex)
+        console.log("--------------------")
+
+        if(parseInt(data[index].Difficulty) === diffIndex) {
+            hasItem = true;
+            filter.push(data[index]);
+        }
+    }
+    // Return List
+    return {filter,hasItem};
 }
