@@ -19,7 +19,7 @@
 *
     font-family: 'amethysta'
 
-    background: #000
+    background: rgba(255, 255, 255, 0.0)
     color: #fff
     font-weight: bold
 
@@ -34,8 +34,9 @@
 html, body
     margin: 0
     height: 100%
+    background: url(../Assets/images/pngs/background1.png) no-repeat
     overflow: hidden
-    cursor: url("../Assets/images/pngs/Cursor.png"), auto
+    cursor: url(../Assets/images/pngs/Cursor.png), auto
 
 img
     background: transparent
@@ -68,31 +69,18 @@ span
 
 .bossContainer
     position: relative
+    background: transparent
     width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px)
     aspect-ratio: 973 / 673
     margin: auto
-
-.bossFrame
-    position: relative
-    margin: auto
-    width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px)
-    aspect-ratio: 973 / 673
 
 .bossAnim
     position: absolute
-    top: 0
-    left: 0
-    width: clamp(166px, calc(166px + (973 - 166) * ((100vw - 320px) / (1800 - 320))), 973px)
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+    width: clamp(166px, calc(166px + (613 - 166) * ((100vw - 320px) / (1800 - 320))), 613px)
     aspect-ratio: 973 / 673
-
-    &.attack
-        display: none
-
-    &.damage
-        display: none
-    
-    &.death
-        display: none
 
 .wordContainer
 
@@ -130,7 +118,7 @@ span
     border-radius: 50%
 
     &.health
-        background-color: #780909
+        background: linear-gradient(0deg, rgb(77,12,33) 0%, rgb(153,16,34) 100%)
         transform: translate(63%, 25%)
 
         .cover
@@ -144,7 +132,7 @@ span
 
     &.mana
         right: 0
-        background-color: #0d2f65
+        background: linear-gradient(0deg, rgb(27,3,70) 0%, rgb(18,89,156) 100%)
         transform: translate(-63%, 25%) 
 
         .cover

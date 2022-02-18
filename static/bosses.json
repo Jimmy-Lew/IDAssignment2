@@ -1,7 +1,13 @@
 {
-    "Father Gn-ynda": {
-        "Health": 10,
+    "Spider Boss": {
+        "Health": 180,
         "FailureDamage": 25,
+        "ConstantDamage": 0,
+        "APICalls": 3
+    },
+    "Father Gn-Ynda": {
+        "Health": 200,
+        "FailureDamage": 35,
         "ConstantDamage": 0,
         "APICalls": 3
     },

@@ -30,12 +30,13 @@ async function LevelComplete(win){
 }
 
 function playAnimation(animName, duration){
-    const animation = $(`lottie-player.bossAnim.${animName}`);
-    animation.css("display", "block");
+    const animation = $(`.bossAnim`);
+    const source = `Assets/Animations/Boss1${animName}.webm`
+    animation.attr("src", source);
 
     setTimeout(() => {
         if(animName === "death") animation.removeAttr("loop autoplay")
-        else animation.css("display", "none")
+        else animation.attr("src", `Assets/Animations/Boss1Idle.webm`)
     }, duration);
 }
 
@@ -63,7 +64,7 @@ async function parseLocalStorageData(){
 }
 
 // #region Main Game
-async function GameLogic() {
+async function LevelLogic() {
     let userInput;
     let predictedWord;
     let timeSubtracted = 0;
@@ -119,7 +120,7 @@ async function GameLogic() {
             DisplayWPM(WPM);
             enemy.damage(damageDealt);
 
-            playAnimation("damage", 900);
+            playAnimation("Damage", 900);
 
             // Play Audio when player attacks
             if (isFinished){
@@ -132,20 +133,20 @@ async function GameLogic() {
             clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
             if (enemy.Health <= 0){
-                playAnimation("death", 600);
+                playAnimation("Death", 600);
                 eDeath.volume = 0.35;
                 eDeath.play();
                 FadeAudio(battleOST,0.1);
                 return LevelComplete(true);
             }
-            GameLogic();                         // Recalls function to call API and update new words and stuff
+            LevelLogic();                         // Recalls function to call API and update new words and stuff
         }
 
         else if (timeLeft <= 0) {
             // Calculate Enemy Damage to Player  
             player.damage(enemy.FailureDamage);
 
-            playAnimation("attack", 600);
+            playAnimation("Attack", 600);
 
             // Play player damage audio
             eAttack.volume = 0.35;
@@ -159,7 +160,7 @@ async function GameLogic() {
                 FadeAudio(battleOST,0.1);
                 return LevelComplete(false);
             }
-            GameLogic();                         // Recalls function to call API and update new words and stuff
+            LevelLogic();                         // Recalls function to call API and update new words and stuff
         }
     }, 100);
 }
@@ -185,4 +186,4 @@ $(document).on('click', function(){
 
 // #endregion
 
-GameLogic();
+LevelLogic();
