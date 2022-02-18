@@ -15,23 +15,23 @@ function cullComboList(comboList) {
     return comboList;
 }
 
-function CalculateCombo(comboList){
+function CalculateCombo(comboList) {
     comboList = cullComboList(comboList);
 
     const lastIndex = comboList.length - 1
     let comboChain = 0;
 
-    for (let index = 1; comboList[lastIndex] === comboList[lastIndex - index] && index <= 3; ++index){
-        comboChain ++;
+    for (let index = 1; comboList[lastIndex] === comboList[lastIndex - index] && index <= 3; ++index) {
+        comboChain++;
     }
 
-    return (comboList[lastIndex] === 1) ? 1 + (0.1*comboChain)
-                                        : 1 + (0.15*comboChain);
+    return (comboList[lastIndex] === 1) ? 1 + (0.1 * comboChain)
+        : 1 + (0.15 * comboChain);
 }
 
-function CalculateWordsPerMin(userInput, diffTime, timeLeft){
+function CalculateWordsPerMin(userInput, diffTime, timeLeft) {
     let timeTaken = diffTime - timeLeft - 0.4;
-    return Math.ceil(((userInput.length/timeTaken)*60)/7);
+    return Math.ceil(((userInput.length / timeTaken) * 60) / 7);
 }
 
 function CalculateDamage(baseAttack, comboList, typeSpeed) {
@@ -45,7 +45,7 @@ function CalculateDamage(baseAttack, comboList, typeSpeed) {
  * @param {Map} wordMap dictionary of words and their definitions
  * @returns {string | undefined} Predicted word user wishes to input
  */
-function AutoPredict(userInput, wordMap){
+function AutoPredict(userInput, wordMap) {
     // Read Through Dictionary Words
     let wordList = [];
     wordMap.forEach((value, key) => {
@@ -54,7 +54,7 @@ function AutoPredict(userInput, wordMap){
 
     // Check each char at each position to see if they are the same (Prediction)
     if (userInput.length === 0) return;
-    for (word of wordList){
+    for (word of wordList) {
         if (CompareWords(userInput, word)) return word.join("");
     }
 }
@@ -72,8 +72,8 @@ function CompareWords(userInput, wordToCompare) {
     return true;
 }
 
-function IsComplete(userInput,predictedWord){
-    if(userInput.join("") === predictedWord) return true;
+function IsComplete(userInput, predictedWord) {
+    if (userInput.join("") === predictedWord) return true;
     return false;
 }
 
@@ -83,7 +83,7 @@ function IsComplete(userInput,predictedWord){
  * @param {string} predictedWord word to compare userInput against
  * @returns {boolean} Checks if user made a typo
  */
-function HasTypo(userInput,predictedWord){
-    if(userInput.length > 0 && predictedWord === undefined) return true;
+function HasTypo(userInput, predictedWord) {
+    if (userInput.length > 0 && predictedWord === undefined) return true;
     return false;
 }

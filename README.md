@@ -207,4 +207,4 @@ Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51
 
 - [MonkeyType](https://monkeytype.com/) - WPM Calculator to test how fast a user can type
 - [TypeRacer](https://play.typeracer.com/) - A competitive typing game where the user with the highest WPM wins a race
-- [Hollow Knights](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for Player Attack UI
+- [Hollow Knight](https://static.wikia.nocookie.net/essentialsdocs/images/7/70/Battle.png/revision/latest?cb=20190219202514) - Inspiration for artstyle

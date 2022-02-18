@@ -144,7 +144,7 @@ async function swal(options, refreshTime, userInput = "") {
 
     if (hasInput) input.attr({ placeholder: "Type here!", readonly: false });
 
-    button.each(function() {$(this).css(buttonStyle);});
+    button.each(function () { $(this).css(buttonStyle); });
     // #endregion
 
     // #region Event listeners & handlers
@@ -165,10 +165,8 @@ async function swal(options, refreshTime, userInput = "") {
     });
 
     $(document).on("keyup", function (e) {
-        if (e.key === "Enter" && buttons.length > 0 && !isTrigger)
-        {returnVal = onEnterVal(buttons, takeLastButtonVal); isTrigger = true;}
-        if (e.key === "Escape" && !hasEscape && !isTrigger)
-        {returnVal = "Escape"; isTrigger = true;}
+        if (e.key === "Enter" && buttons.length > 0 && !isTrigger) { returnVal = onEnterVal(buttons, takeLastButtonVal); isTrigger = true; }
+        if (e.key === "Escape" && !hasEscape && !isTrigger) { returnVal = "Escape"; isTrigger = true; }
     });
     // #endregion
 
@@ -262,9 +260,7 @@ async function swalLeaderboard(
             subTextSize: 0.026,
             buttons: buttons,
             subtext: subText,
-            background: `url("Assets/images/pngs/${$(
-                "#Difficulty"
-            ).text()}Frame.png")`,
+            background: `url("Assets/images/pngs/${$("#Difficulty").text()}Frame.png")`,
             contentStart: 0.08,
         },
         refreshTime
