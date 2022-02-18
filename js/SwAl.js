@@ -91,7 +91,7 @@ async function swal(options, refreshTime, userInput = "") {
         width: "100%",
         margin: "0 auto",
         border: "none",
-        // "background-color": "#000",
+        "background-color": "rgba(255, 255, 255, 0.0)",
         position: "relative",
         top: `${height * 0.46}px`,
         cursor: `url("Assets/images/pngs/Cursor.png"), auto`,
