@@ -13,8 +13,8 @@ function localStorageSpace() {
 
 function retrieveLocalStorage() {
     const retrievedDifficulty = window.localStorage.getItem('difficulty'),
-        retrievedLevelData = window.localStorage.getItem('levelData'),
-        retrievedPlayerData = window.localStorage.getItem('playerData');
+          retrievedLevelData = window.localStorage.getItem('levelData'),
+          retrievedPlayerData = window.localStorage.getItem('playerData');
 
     return { retrievedDifficulty, retrievedLevelData, retrievedPlayerData };
 }
@@ -57,6 +57,5 @@ async function getBossJSON(Entities) {
 
 function TimeElapsedStorage(timeElapsed = 0) {
     let initial = parseInt(window.localStorage.getItem('timeElapsed'));
-    if (initial === NaN) initial = 0;
     window.localStorage.setItem("timeElapsed", initial + timeElapsed);
 }

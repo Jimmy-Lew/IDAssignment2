@@ -5,9 +5,10 @@ async function startGameWithExistingSession() {
     let isNewGame = await swalConfirm("Start new game?<br><br>", "Overrides previous game")
 
     if (isNewGame) {
-        window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
-        window.localStorage.setItem('levelData', 1)
+        window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
+        window.localStorage.setItem('levelData', 1);
         window.localStorage.setItem('playerData', "1");
+        window.localStorage.setItem('timeElapsed', 0);
     }
     window.location.href = "game.html";
 }
@@ -28,10 +29,11 @@ async function startGameWithNoExistingSession() {
         username = await swalPrompt("Please enter your username");
     }
 
-    window.localStorage.setItem("username", username)
-    window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
-    window.localStorage.setItem('levelData', 1)
+    window.localStorage.setItem("username", username);
+    window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()));
+    window.localStorage.setItem('levelData', 1);
     window.localStorage.setItem('playerData', "1");
+    window.localStorage.setItem('timeElapsed', 0);
 
     window.location.href = "game.html";
 }

@@ -25,7 +25,7 @@ async function LevelComplete(win) {
         await swalAlert(`You defeated Level-${currentLevel}`);
         if (await getLevelJSON() === currentLevel) {
             await UpdateLeaderboard();
-            localStorage.removeItem('timeElapsed'); //Remove Time Elapsed Storage (Rest time to 0 next run)
+            localStorage.setItem('timeElapsed', 0);
             window.location.href = "menu.html";
         }
         else {

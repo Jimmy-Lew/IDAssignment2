@@ -2,8 +2,9 @@ const key = "620138721b941c73ff39795b"
 
 async function UpdateLeaderboard() {
     let username = window.localStorage.getItem("username");
-    if (!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
+    let totalTimeElapsed = parseInt(window.localStorage.getItem("timeElapsed"));
 
+    if (!CheckUsername(username)) return NewPlayer(username, totalTimeElapsed);
     if (!CheckTiming(username, totalTimeElapsed)) return window.location.href = "menu.html";
 
     await delay(800);
