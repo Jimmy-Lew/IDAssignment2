@@ -22,7 +22,7 @@ We chose a mainly **black and white** colour theme as we wanted it to have a cla
 - As a **Foreigner**, I want to learn english how to type english words on a keyboard.
 
 ### Wireframe :
-Link to **Wireframe** : [Adobe XD](https://www.google.com)
+Link to **Wireframe** : [Adobe XD](https://xd.adobe.com/view/42c8e77e-dfd5-4384-90a9-9a535a64ced1-179b/)
 
 ## Features
 
@@ -134,7 +134,7 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
    - Leaderboard should be fine and should not updated/append anymore after the first initalization.
 
 ### Bugs / Problems
-- **[!]** API Randomly Goes down at midnight (Usually 2am - 9am) 
+- **[!]** API Randomly Goes down at midnight (Usually 2am - 8am) 
 - [Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
 - [Partially-Fixed]swAL.js delay
 - Long loading times to get restDB Data
@@ -150,13 +150,13 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 - > game.html <br>
 - > CSS Files <br>
 - > SASS Files <br>
-- > disableZoom.js
-- > * JS Code Cleaner (Helps to Simplify & Clean Up JS Functions) [Mostly after Addison Implements Functions] <br>
+- > disableZoom.js <br>
 - > SWAL.js <br>
 - > menu.js (Everything except sound part) <br>
 - > LocalStorage.js <br>
 - > ComboChaining (Assisted Addison: attack.js) <br>
 - > Helped with .json files <br>
+- - > * JS Code Cleaner (Helps to Simplify & Clean Up JS Functions) [Mostly after Addison Implements Functions] <br>
 - > Artist & Art Designer
 
 ---
@@ -195,7 +195,6 @@ Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51
 * **ALL AUDIO ASSETS** were done by : **Addison Chua**
 
 ### API
-
 - [Mc Naveen Random Word API](https://github.com/mcnaveen/Random-Words-API) - Used to generate random english words with definitions.
 
 ### Acknowledgements
