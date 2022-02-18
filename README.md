@@ -24,6 +24,9 @@ We chose a mainly **black and white** colour theme as we wanted it to have a cla
 ### Wireframe :
 Link to **Wireframe** : [Adobe XD](https://xd.adobe.com/view/42c8e77e-dfd5-4384-90a9-9a535a64ced1-179b/)
 
+### Pitch : 
+Link to **Pitch**: [Youtube](https://www.youtube.com/watch?v=JKThG_EYCQM)
+
 ## Features
 
 ### Existing Features
