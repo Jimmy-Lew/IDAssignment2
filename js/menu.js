@@ -22,6 +22,12 @@ async function startGameWithNoExistingSession(){
         username = await swalPrompt("Please enter your username");
     }
 
+    for (; !/^[A-Za-z\s]*$/.test(username) ;){
+        // Regex test (Accepts only A-Z Characters)
+        await swalAlert("Username Contains Invalid Characters<br><br>", "Only Alphabatical Characters (A-Z) allowed");
+        username = await swalPrompt("Please enter your username");
+    }
+
     window.localStorage.setItem("username", username)
     window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
     window.localStorage.setItem('levelData', 1)
