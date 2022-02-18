@@ -32,7 +32,7 @@ Link to **Wireframe** : [Adobe XD](https://xd.adobe.com/view/42c8e77e-dfd5-4384-
 - **swAL** - Custom popup that pauses the Javascript Execution until popup is interacted with
 - **Leaderboard** - "real-time" leaderboard that displays the top few players who have completed the levels the fastest
 - **Secret Code Generator** - Generates a random set of strings 
-- **Regex Checks** - Validation for 
+- **Regex Checks** - Validation for username and Word API words
 
 
 ### Features Left to Implement
@@ -61,12 +61,17 @@ Link to **Wireframe** : [Adobe XD](https://xd.adobe.com/view/42c8e77e-dfd5-4384-
   > The project also still uses **CSS** for styling (mostly overriden by SASS to be recompiled back to CSS)
 
 ## Preview Screenshots
-<details>
-<summary>Desktop/Laptops</summary>
--- To be Updated Once Completed --
+
+### Desktop/Laptops
+> ![Index Page](Assets/images/screenshots/Index.png)
+> ![MainMenu Page](Assets/images/screenshots/MainMenu.png)
+> ![Leaderboard Popup](Assets/images/screenshots/Leaderboard.png)
+> ![Username Popup](Assets/images/screenshots/Username.png)
+> ![Help Popup](Assets/images/screenshots/Help.png)
+> ![MainGame Page](Assets/images/screenshots/MainGame.png)
 
 ---
-</details>
+
 
 <details>
 <summary>Mobile</summary>
