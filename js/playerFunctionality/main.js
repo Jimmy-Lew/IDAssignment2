@@ -1,3 +1,4 @@
+//#region Global Variables
 let totalTimeElapsed = 0;
 let comboList = []
 let isFirstRun = true;
@@ -15,6 +16,7 @@ const pAttack = new Audio('Assets/audio/PlayerAttack.wav')
 const pDeath = new Audio('Assets/audio/PlayerDeath.wav')
 var selected = new Audio('Assets/audio/OptionSelect.wav');
 var battleOST = new Audio('Assets/audio/SyncopeBattleOST.wav');
+//#endregion
 
 async function LevelComplete(win){
     await delay(2500);
@@ -39,25 +41,22 @@ async function LevelComplete(win){
 }
 
 function playAnimation(animName, duration){
-    const animation = $(`.bossAnim`);
-    const source = `Assets/Animations/Boss1${animName}.webm`
-    animation.attr("src", source);
+    const animation = $(`video.bossAnim.${animName}`);
+    const idle = $('video.bossAnim.Idle')
+    idle.hide();
+    animation.show();
 
     setTimeout(() => {
-        if(animName === "death") animation.removeAttr("loop autoplay")
-        else animation.attr("src", `Assets/Animations/Boss1Idle.webm`)
+        if(animName === "Death") animation.trigger("pause")
+        else {animation.hide(); idle.show();}
     }, duration);
 }
 
 function FadeAudio(name,threshold){
-    console.log('>> Fading Audio')
+    // console.log('>> Fading Audio')
     let fade = setInterval(() => {
         name.volume -= 0.015;
-
-        if (name.volume <= threshold) {
-            console.log('>> Stopping Audio Fade (Threashold Reached)')
-            clearInterval(fade);
-        }
+        if (name.volume <= threshold) clearInterval(fade); //console.log('>> Stopping Audio Fade (Threashold Reached)');
     }, 1000);
 }
 
@@ -72,21 +71,13 @@ async function parseLocalStorageData(){
     enemy = entityList[0];
 }
 
-// #region Main Game
 async function LevelLogic() {
     let userInput;
     let predictedWord;
     let timeSubtracted = 0;
     let isFinished = false;
 
-    if(isFirstRun) {
-        await parseLocalStorageData();
-        isFirstRun = false;
-    }
-
-    // --- Initializing Health (Player & Enemy) & Input field ---
-    DisplayPlayerHealth(player.Health);
-    DisplayBossHealth(enemy.Health);
+    if(isFirstRun) await parseLocalStorageData().then(() => {isFirstRun = false});
 
     resetDisplayWords();
     let wordMap = await GetWordsAndDefs(enemy.APICalls);
@@ -117,64 +108,77 @@ async function LevelLogic() {
     });
 
     var check = setInterval(() => {
-        totalTimeElapsed += 0.1;
+        totalTimeElapsed = Math.round((totalTimeElapsed + 0.1) * 10) / 10;
         if (isFinished && timeLeft !== 0) {
-            console.log('%c>> Moving To Next Stage...', 'color: #1aacf0;');
+            clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
 
             // #region Damage Calculation
             comboList.push(CalculateWordComplexity(userInput.join("")));
             const WPM = CalculateWordsPerMin(userInput, wordTime, (timeLeft - timeSubtracted));
             const damageDealt = CalculateDamage(player.Damage, comboList, WPM);
-            // #endregion
-            DisplayWPM(WPM);
             enemy.damage(damageDealt);
-
-            playAnimation("Damage", 900);
-
-            // Play Audio when player attacks
-            if (isFinished){
-                const attack = pAttack.cloneNode()
-                attack.volume = 0.35;
-                attack.play();
-            }
-
-            // --- Prepare for next round! ---
-            clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
+            // #endregion
 
             if (enemy.Health <= 0){
-                playAnimation("Death", 600);
+                playAnimation("Death", 580);
                 eDeath.volume = 0.35;
                 eDeath.play();
                 FadeAudio(battleOST,0.1);
                 TimeElapsedStorage(totalTimeElapsed)
                 return LevelComplete(true);
             }
+
+            playAnimation("Damage", 1000);
+
+            const attack = pAttack.cloneNode()
+            attack.volume = 0.35;
+            attack.play();
+            
+            // --- Prepare for next round! ---
             LevelLogic();                         // Recalls function to call API and update new words and stuff
         }
 
-        else if (timeLeft <= 0) {
+        if (timeLeft <= 0) {
+            clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
+
             // Calculate Enemy Damage to Player  
             player.damage(enemy.FailureDamage);
 
-            playAnimation("Attack", 600);
-
-            // Play player damage audio
-            eAttack.volume = 0.35;
-            eAttack.play();
-
-            // --- Prepare for next round! ---
-            clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
             if (player.Health <= 0){
                 pDeath.volume = 0.35;
                 pDeath.play();
                 FadeAudio(battleOST,0.1);
                 return LevelComplete(false);
             }
+
+            playAnimation("Attack", 700);
+
+            eAttack.volume = 0.35;
+            eAttack.play();
+
+            // --- Prepare for next round! ---
             LevelLogic();                         // Recalls function to call API and update new words and stuff
         }
+
+        if (totalTimeElapsed % 30 == 0) {
+            player.damage(enemy.ConstantDamage);
+
+            if (player.Health <= 0){
+                clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
+                pDeath.volume = 0.35;
+                pDeath.play();
+                FadeAudio(battleOST,0.1);
+                return LevelComplete(false);
+            }
+
+            playAnimation("Attack", 700);
+
+            eAttack.volume = 0.35;
+            eAttack.play();
+        }
+
     }, 100);
 }
-// #endregion
 
 console.log(localStorageSpace());
 
@@ -193,7 +197,6 @@ $(document).on('click', function(){
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newSelected.play();                      // Plays Audio when clicked
 })
-
 // #endregion
 
 LevelLogic();

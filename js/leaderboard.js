@@ -111,7 +111,7 @@ function GenerateCode(){
     }
 
     // IF (BY ANY CHANCE), it generates an existing key, 
-    // it would keep genereating until a unique key is found.
+    // it would keep genereating until a unique key is found. Recursion bby
     if (CheckSecretCode(result)) return GenerateCode()
     return result;
 }

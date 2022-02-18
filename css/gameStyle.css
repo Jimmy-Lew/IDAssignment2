@@ -39,7 +39,7 @@
 html, body {
   margin: 0;
   height: 100%;
-  background: url(../Assets/images/pngs/background1.png) no-repeat;
+  background: url(../Assets/images/pngs/background1.png) no-repeat center;
   overflow: hidden;
   cursor: url(../Assets/images/pngs/Cursor.png), auto;
 }
@@ -94,6 +94,18 @@ span {
   aspect-ratio: 973 / 673;
 }
 
+.bossAnim.Damage {
+  display: none;
+}
+
+.bossAnim.Attack {
+  display: none;
+}
+
+.bossAnim.Death {
+  display: none;
+}
+
 .typingBox {
   height: auto;
   display: -webkit-box;
@@ -143,6 +155,7 @@ span {
   width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
   aspect-ratio: 1;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 .fill.health {
@@ -156,7 +169,7 @@ span {
   position: absolute;
   content: '';
   display: inline-block;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.7);
   width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
   height: calc(clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px) * 0);
 }
@@ -173,7 +186,7 @@ span {
   position: absolute;
   content: '';
   display: inline-block;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.7);
   width: clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px);
   height: calc(clamp(24px, calc(24px + (140 - 24) * ((100vw - 320px) / (1800 - 320))), 140px) * 0);
 }
