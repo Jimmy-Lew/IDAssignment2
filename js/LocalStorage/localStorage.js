@@ -11,57 +11,52 @@ function localStorageSpace() {
     return allStrings ? 3 + ((allStrings.length * 16) / (8 * 1024)) + ' KB' : 'Empty (0 KB)';
 }
 
-function retrieveLocalStorage(){
+function retrieveLocalStorage() {
     const retrievedDifficulty = window.localStorage.getItem('difficulty'),
-          retrievedLevelData  = window.localStorage.getItem('levelData'),
-          retrievedPlayerData = window.localStorage.getItem('playerData');
+        retrievedLevelData = window.localStorage.getItem('levelData'),
+        retrievedPlayerData = window.localStorage.getItem('playerData');
 
-    return {retrievedDifficulty, retrievedLevelData, retrievedPlayerData};
+    return { retrievedDifficulty, retrievedLevelData, retrievedPlayerData };
 }
 
 function DefineWordTime(retrievedDifficulty, difficultyTimings) {
-    return (retrievedDifficulty === 0) ? difficultyTimings[3] // 40WPM
-         : (retrievedDifficulty === 1) ? difficultyTimings[2] // 60WPM
-         : (retrievedDifficulty === 2) ? difficultyTimings[1] // 90WPM
-         : difficultyTimings[0]; // 100WPM
+    return (retrievedDifficulty === "0") ? difficultyTimings[0] // 40WPM
+        : (retrievedDifficulty === "1") ? difficultyTimings[1] // 60WPM
+            : (retrievedDifficulty === "2") ? difficultyTimings[2] // 90WPM
+                : difficultyTimings[3]; // 100WPM
 }
 
-function parsePlayerData(playerData){
+function parsePlayerData(playerData) {
     if (playerData[0] === "1") return new Player(100, 5);
 }
 
-async function getLevelJSON(retrievedLevelData = null){
+async function getLevelJSON(retrievedLevelData = null) {
     let levelRes = await fetch(levelJSON)
     let levelData = await levelRes.json();
-    
-    if(retrievedLevelData === null){
-        // Return Total Number Of Levels in levels.json
-        return parseInt(Object.keys(levelData).length + 1);
-    }
-    else{
-        let levelNo = `Level-${retrievedLevelData}`;
-        const {DifficultyTimings, Entities} = levelData.Level[levelNo];
-        return {DifficultyTimings, Entities};
-    }
+
+    if (retrievedLevelData === null) return parseInt(Object.keys(levelData).length + 1);
+    let levelNo = `Level-${retrievedLevelData}`;
+    const { DifficultyTimings, Entities } = levelData.Level[levelNo];
+    return { DifficultyTimings, Entities };
 }
 
-async function getBossJSON(Entities){
+async function getBossJSON(Entities) {
     let entityList = [];
 
     for (entityName of Entities) {
         let entityRes = await fetch(bossJSON)
         let entityData = await entityRes.json();
 
-        const {Health, FailureDamage, ConstantDamage, APICalls} = entityData[entityName]
-        let newEntity = new Enemy(Health, FailureDamage, ConstantDamage, APICalls);
+        const { Health, FailureDamage, ConstantDamage, APICalls } = entityData[entityName]
+        let newEntity = new Enemy(entityName, Health, FailureDamage, ConstantDamage, APICalls);
         entityList.push(newEntity);
     }
 
     return entityList;
 }
 
-function TimeElapsedStorage(timeElapsed = 0){
+function TimeElapsedStorage(timeElapsed = 0) {
     let initial = parseInt(window.localStorage.getItem('timeElapsed'));
-    if (initial === NaN) console.log('undefined'); initial = 0;
+    if (initial === NaN) initial = 0;
     window.localStorage.setItem("timeElapsed", initial + timeElapsed);
 }

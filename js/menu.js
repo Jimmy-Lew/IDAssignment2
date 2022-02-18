@@ -3,8 +3,8 @@ var difficultyRating = 0;
 
 async function startGameWithExistingSession() {
     let isNewGame = await swalConfirm("Start new game?<br><br>", "Overrides previous game")
-        
-    if (isNewGame){
+
+    if (isNewGame) {
         window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
         window.localStorage.setItem('levelData', 1)
         window.localStorage.setItem('playerData', "1");
@@ -12,17 +12,17 @@ async function startGameWithExistingSession() {
     window.location.href = "game.html";
 }
 
-async function startGameWithNoExistingSession(){
+async function startGameWithNoExistingSession() {
     await swalAlert("Welcome to Syncope!");
     await displayHelp();
     let username = await swalPrompt("Please enter your username<br><br>", "[Enter] to submit");
 
-    for (; username.length > 15;){
+    for (; username.length > 15;) {
         await swalAlert("Username is too long<br><br>", "Must be less than 15 characters");
         username = await swalPrompt("Please enter your username");
     }
 
-    for (; !/^[A-Za-z\s]*$/.test(username) ;){
+    for (; !/^[A-Za-z\s]*$/.test(username);) {
         // Regex test (Accepts only A-Z Characters)
         await swalAlert("Username Contains Invalid Characters<br><br>", "Only Alphabatical Characters (A-Z) allowed");
         username = await swalPrompt("Please enter your username");
@@ -32,7 +32,7 @@ async function startGameWithNoExistingSession(){
     window.localStorage.setItem('difficulty', difficulties.indexOf($("#Difficulty").text()))
     window.localStorage.setItem('levelData', 1)
     window.localStorage.setItem('playerData', "1");
-    
+
     window.location.href = "game.html";
 }
 
@@ -40,8 +40,8 @@ async function displayHelp() {
     const galleryImages = [
         `<img src="Assets/images/pngs/Help-1.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/Help-2.png" class="swal-gallery">`,
-        `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
-        `<img src="Assets/images/pngs/placeholder2.png" class="swal-gallery">`
+        `<img src="Assets/images/pngs/Help-3.png" class="swal-gallery">`,
+        `<img src="Assets/images/pngs/Help-4.png" class="swal-gallery">`
     ]
 
     let imageIndex = 0;
@@ -49,7 +49,7 @@ async function displayHelp() {
     let isRunning = true
 
     let isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
-    for (; isRunning; ){
+    for (; isRunning;) {
         if (isNextOrPreviousImage === ">") imageIndex++;
         if (isNextOrPreviousImage === "<") imageIndex--;
         if (imageIndex === 0) isFirstOrLast = "First"
@@ -58,7 +58,7 @@ async function displayHelp() {
 
         isNextOrPreviousImage = await swalGallery(galleryImages[imageIndex], isFirstOrLast)
         if (isNextOrPreviousImage === "Escape" || isNextOrPreviousImage === "X") isRunning = false;
-    }   
+    }
 }
 
 $("#Start").on("click", () => {
@@ -75,7 +75,7 @@ $("#Difficulty").on("click", () => {
 });
 
 $("#Leaderboard").on("click", () => {
-    swalLeaderboard(`Leaderboard<br>`,PopulateLeaderboard(), "First");
+    swalLeaderboard(`Leaderboard<br>`, PopulateLeaderboard(difficulties.indexOf($("#Difficulty").text())), "First");
 });
 
 $("#Help").on("click", () => {
@@ -92,14 +92,14 @@ ost.loop = true;
 ost.play();         // Needs user interaction to enable audio...
 
 // Hover Over Options
-$('li').mouseover(function(){
+$('li').mouseover(function () {
     const newOption = option.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newOption.volume = 0.2;              // Adjust Audio Volume
     newOption.play()                     // Plays Audio when hovered over
 })
 
 // MouseClick on Options
-$(document).on('click', function(){
+$(document).on('click', function () {
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newSelected.play();                      // Plays Audio when clicked
 })

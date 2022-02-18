@@ -30,6 +30,8 @@
 html, body {
   margin: 0;
   height: 100%;
+  background: url(../Assets/images/pngs/background2.png) no-repeat center;
+  background-size: cover;
   overflow: hidden;
   cursor: url("../Assets/images/pngs/Cursor.png"), auto;
 }
@@ -123,6 +125,7 @@ span {
           align-items: center;
   top: 0;
   left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
   width: 100%;
   height: 100%;
 }
@@ -171,26 +174,21 @@ span {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.loading{
+.loading {
   display: none;
   margin: auto;
   padding-top: 25vh;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   background: transparent;
 }
 
-lottie-player{
+lottie-player {
   background: transparent;
-  display: block;
-  margin: auto;
-  width: 100%;
-  padding-top: 3em;
-}
-
-body {
-  background: url(../Assets/images/pngs/background2.png) no-repeat center;
-  background-size: cover;
 }
 
 @-webkit-keyframes glow {

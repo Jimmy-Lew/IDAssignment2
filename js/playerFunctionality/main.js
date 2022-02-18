@@ -18,52 +18,51 @@ var selected = new Audio('Assets/audio/OptionSelect.wav');
 var battleOST = new Audio('Assets/audio/SyncopeBattleOST.wav');
 //#endregion
 
-async function LevelComplete(win){
+async function LevelComplete(win) {
     await delay(2500);
-    if(win){
-        await swalAlert("You Won!");
+    if (win) {
         const currentLevel = parseInt(window.localStorage.getItem('levelData'));
+        await swalAlert(`You defeated Level-${currentLevel}`);
         if (await getLevelJSON() === currentLevel) {
             await UpdateLeaderboard();
             localStorage.removeItem('timeElapsed'); //Remove Time Elapsed Storage (Rest time to 0 next run)
             window.location.href = "menu.html";
         }
-        else{
-            window.localStorage.setItem('levelData', currentLevel+1);
+        else {
+            window.localStorage.setItem('levelData', currentLevel + 1);
             window.location.href = "game.html"; // reload page
         }
-        
+
     }
-    else{
+    else {
         await swalAlert("You Lost...<br><br>", "Try again next time Soldier o7");
         window.location.href = "menu.html";
-    } 
+    }
 }
 
-function playAnimation(animName, duration){
+function playAnimation(animName, duration) {
     const animation = $(`video.bossAnim.${animName}`);
     const idle = $('video.bossAnim.Idle')
     idle.hide();
     animation.show();
 
     setTimeout(() => {
-        if(animName === "Death") animation.trigger("pause")
-        else {animation.hide(); idle.show();}
+        if (animName === "Death") animation.trigger("pause")
+        else { animation.hide(); idle.show(); }
     }, duration);
 }
 
-function FadeAudio(name,threshold){
-    // console.log('>> Fading Audio')
+function FadeAudio(name, threshold) {
     let fade = setInterval(() => {
         name.volume -= 0.015;
-        if (name.volume <= threshold) clearInterval(fade); //console.log('>> Stopping Audio Fade (Threashold Reached)');
+        if (name.volume <= threshold) clearInterval(fade);
     }, 1000);
 }
 
-async function parseLocalStorageData(){
-    const {retrievedDifficulty, retrievedLevelData, retrievedPlayerData} = retrieveLocalStorage();
+async function parseLocalStorageData() {
+    const { retrievedDifficulty, retrievedLevelData, retrievedPlayerData } = retrieveLocalStorage();
 
-    const {DifficultyTimings, Entities} = await getLevelJSON(retrievedLevelData);
+    const { DifficultyTimings, Entities } = await getLevelJSON(retrievedLevelData);
     entityList = await getBossJSON(Entities);
 
     wordTime = DefineWordTime(retrievedDifficulty, DifficultyTimings);
@@ -77,8 +76,9 @@ async function LevelLogic() {
     let timeSubtracted = 0;
     let isFinished = false;
 
-    if(isFirstRun) await parseLocalStorageData().then(() => {isFirstRun = false});
+    if (isFirstRun) await parseLocalStorageData().then(() => { isFirstRun = false });
 
+    DisplayBossTitle(enemy.Name);
     resetDisplayWords();
     let wordMap = await GetWordsAndDefs(enemy.APICalls);
     DisplayWords(wordMap);
@@ -119,11 +119,11 @@ async function LevelLogic() {
             enemy.damage(damageDealt);
             // #endregion
 
-            if (enemy.Health <= 0){
+            if (enemy.Health <= 0) {
                 playAnimation("Death", 580);
                 eDeath.volume = 0.35;
                 eDeath.play();
-                FadeAudio(battleOST,0.1);
+                FadeAudio(battleOST, 0.1);
                 TimeElapsedStorage(totalTimeElapsed)
                 return LevelComplete(true);
             }
@@ -133,7 +133,7 @@ async function LevelLogic() {
             const attack = pAttack.cloneNode()
             attack.volume = 0.35;
             attack.play();
-            
+
             // --- Prepare for next round! ---
             LevelLogic();                         // Recalls function to call API and update new words and stuff
         }
@@ -144,10 +144,10 @@ async function LevelLogic() {
             // Calculate Enemy Damage to Player  
             player.damage(enemy.FailureDamage);
 
-            if (player.Health <= 0){
+            if (player.Health <= 0) {
                 pDeath.volume = 0.35;
                 pDeath.play();
-                FadeAudio(battleOST,0.1);
+                FadeAudio(battleOST, 0.1);
                 return LevelComplete(false);
             }
 
@@ -163,11 +163,11 @@ async function LevelLogic() {
         if (totalTimeElapsed % 30 == 0) {
             player.damage(enemy.ConstantDamage);
 
-            if (player.Health <= 0){
+            if (player.Health <= 0) {
                 clearInterval(check);                // Stops the Check setInterval from iterating. (breaks)
                 pDeath.volume = 0.35;
                 pDeath.play();
-                FadeAudio(battleOST,0.1);
+                FadeAudio(battleOST, 0.1);
                 return LevelComplete(false);
             }
 
@@ -193,7 +193,7 @@ setTimeout(() => {  // Wait for growl to finish
     battleOST.play();
 }, 350);
 
-$(document).on('click', function(){
+$(document).on('click', function () {
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)
     newSelected.play();                      // Plays Audio when clicked
 })
