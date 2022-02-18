@@ -61,17 +61,17 @@ Link to **Wireframe** : [Adobe XD](https://www.google.com)
   > The project also still uses **CSS** for styling (mostly overriden by SASS to be recompiled back to CSS)
 
 ## Preview Screenshots
-<details>
-<summary>Desktop/Laptops</summary>
-![Index Page](Assets\images\screenshots\Index.png)
-![MainMenu Page](Assets\images\screenshots\MainMenu.png)
-![Leaderboard Popup](Assets\images\screenshots\Index.png)
-![Username Popup](Assets\images\screenshots\Index.png)
-![Help Popup](Assets\images\screenshots\Help.png)
-![MainGame Page](Assets\images\screenshots\Index.png)
+
+### Desktop/Laptops
+> ![Index Page](Assets\images\screenshots\Index.png)
+> ![MainMenu Page](Assets\images\screenshots\MainMenu.png)
+> ![Leaderboard Popup](Assets\images\screenshots\Index.png)
+> ![Username Popup](Assets\images\screenshots\Index.png)
+> ![Help Popup](Assets\images\screenshots\Help.png)
+> ![MainGame Page](Assets\images\screenshots\Index.png)
 
 ---
-</details>
+
 
 <details>
 <summary>Mobile</summary>
