@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="Assets/images/pngs/SyncopeIconMock.png">
     <link rel="stylesheet" href="css/menuStyle.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
     <title>Syncope</title>
 </head>
 <body>
     <div class="splash">
         <img src="Assets/images/pngs/Title.png" alt="" class="title-image" draggable="false">
+    </div>
+    <div class="loading">
+        <lottie-player src="Assets\Animations\LottieJson\LoadingLottie.json"  background="transparent"  speed="1"  style="width: auto; height: 300px;"  loop  autoplay></lottie-player>
     </div>
     <div id="EnterMainMenu" class="splash-content">
         <p class="splash-text">Click anywhere</p>
@@ -20,7 +24,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
     $(document).on("click", () => {
-    window.location.href = "menu.html";
+        $(".splash-content").fadeOut(250);
+        $(".loading").fadeIn(500);
+
+        setTimeout(() => {
+            window.location.href = "menu.html";
+        }, 3000);
     })
 </script>
 </html> 

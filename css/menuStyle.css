@@ -173,6 +173,23 @@ span {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
+.loading{
+  display: none;
+  margin: auto;
+  padding-top: 25vh;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+lottie-player{
+  background: transparent;
+  display: block;
+  margin: auto;
+  width: 100%;
+  padding-top: 3em;
+}
+
 @-webkit-keyframes glow {
   0% {
     text-shadow: 0 0 10px #fff, 0 0 0px #fff;

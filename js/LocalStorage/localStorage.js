@@ -30,14 +30,19 @@ function parsePlayerData(playerData){
     if (playerData[0] === "1") return new Player(100, 5);
 }
 
-async function getLevelJSON(retrievedLevelData){
-    let levelNo = `Level-${retrievedLevelData}`;
-
+async function getLevelJSON(retrievedLevelData = null){
     let levelRes = await fetch(levelJSON)
     let levelData = await levelRes.json();
-    const {DifficultyTimings, Entities} = levelData.Level[levelNo];
-
-    return {DifficultyTimings, Entities};
+    
+    if(retrievedLevelData === null){
+        // Return Total Number Of Levels in levels.json
+        return parseInt(Object.keys(levelData).length + 1);
+    }
+    else{
+        let levelNo = `Level-${retrievedLevelData}`;
+        const {DifficultyTimings, Entities} = levelData.Level[levelNo];
+        return {DifficultyTimings, Entities};
+    }
 }
 
 async function getBossJSON(Entities){
@@ -53,4 +58,10 @@ async function getBossJSON(Entities){
     }
 
     return entityList;
+}
+
+function TimeElapsedStorage(timeElapsed = 0){
+    let initial = parseInt(window.localStorage.getItem('timeElapsed'));
+    if (initial === NaN) console.log('undefined'); initial = 0;
+    window.localStorage.setItem("timeElapsed", initial + timeElapsed);
 }
