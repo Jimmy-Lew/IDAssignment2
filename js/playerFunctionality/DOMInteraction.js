@@ -16,27 +16,12 @@ function DisplayWords(wordMap) {
     ClearUserInput();
 }
 
-function DisplayPlayerHealth(pHealth) {
-    $("#pHealth").text(`Player_Health: ${pHealth}`); 
-}
-
-function DisplayBossHealth(eHealth) {
-    $("#eHealth").text(`Enemy_Health: ${eHealth}`); 
-}
-
-function DisplayWPM(WPM) {
-    $("#pWPM").text(`Player_WPM: ${WPM}`);
-}
-
 /**
  * 
  * @param {number} timeLeft 
  */
 function UpdateTimer(timeLeft){
-    console.log(`%c>> Running Timer...`, 'color: red;');
-    timeLeft--;
-    $("#time").text(`Time: ${timeLeft}s`);
-    return timeLeft;
+    return timeLeft -= 1;
 }
 // #endregion
 

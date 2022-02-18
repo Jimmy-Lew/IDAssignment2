@@ -91,7 +91,7 @@ async function swal(options, refreshTime, userInput = "") {
         width: "100%",
         margin: "0 auto",
         border: "none",
-        "background-color": "#000",
+        // "background-color": "#000",
         position: "relative",
         top: `${height * 0.46}px`,
         cursor: `url("Assets/images/pngs/Cursor.png"), auto`,
@@ -154,26 +154,21 @@ async function swal(options, refreshTime, userInput = "") {
     button.on("click", function () {
         const buttonNo = parseInt($(this).attr("class").slice(-1));
         returnVal = buttons[buttonNo];
-        refreshTime = 0;
     });
 
     input.on("keyup", function (e) {
         if (e.key === "Enter") {
             $(this).attr("readonly", true);
             returnVal = $(this).val();
-            refreshTime = 0;
+            refreshTime = 100;
         }
     });
 
     $(document).on("keyup", function (e) {
         if (e.key === "Enter" && buttons.length > 0 && !isTrigger)
-            returnVal = onEnterVal(buttons, takeLastButtonVal);
-            isTrigger = true;
-            refreshTime = 0;
+        {returnVal = onEnterVal(buttons, takeLastButtonVal); isTrigger = true;}
         if (e.key === "Escape" && !hasEscape && !isTrigger)
-            returnVal = "Escape";
-            isTrigger = true;
-            refreshTime = 0;
+        {returnVal = "Escape"; isTrigger = true;}
     });
     // #endregion
 

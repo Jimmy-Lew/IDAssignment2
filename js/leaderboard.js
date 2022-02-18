@@ -94,7 +94,7 @@ async function UpdatePlayer(username,totalTimeElapsed,secretCode){
 
 function CheckTiming(username, totalTimeElapsed){
     const response = GetDBData(`{"Username":"${username}"}`, 1, true)
-    if (response[0].Time >= totalTimeElapsed) return false;
+    if (new Date(response[0].Time).getMilliseconds() <= totalTimeElapsed) return false;
     return true;
 }
 
@@ -111,7 +111,7 @@ function GenerateCode(){
     }
 
     // IF (BY ANY CHANCE), it generates an existing key, 
-    // it would keep genereating until a unique key is found.
+    // it would keep genereating until a unique key is found. Recursion bby
     if (CheckSecretCode(result)) return GenerateCode()
     return result;
 }
