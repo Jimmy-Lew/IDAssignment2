@@ -94,7 +94,7 @@ async function UpdatePlayer(username,totalTimeElapsed,secretCode){
 
 function CheckTiming(username, totalTimeElapsed){
     const response = GetDBData(`{"Username":"${username}"}`, 1, true)
-    if (response[0].Time >= totalTimeElapsed) return false;
+    if (new Date(response[0].Time).getMilliseconds() <= totalTimeElapsed) return false;
     return true;
 }
 
