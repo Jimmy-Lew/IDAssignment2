@@ -31,7 +31,8 @@ async function NewPlayer(username,totalTimeElapsed){
 
     var jsondata = {"Username": username, 
                     "Time": totalTimeElapsed, 
-                    "SecretCode": secretCode};
+                    "SecretCode": secretCode,
+                    "Difficulty": window.localStorage.getItem('difficulty')};
                     
     var settings = {
         "async": true,
@@ -71,7 +72,7 @@ async function UpdatePlayer(username,totalTimeElapsed,secretCode){
     const userID = GetDBData(`{"Username":"${username}"}`, 1, true)[0]._id;
 
     // CRUD Operation (U) [PUT]
-    var jsondata = {"Username": username, "Time": totalTimeElapsed, "SecretCode": secretCode};
+    var jsondata = {"Username": username, "Time": totalTimeElapsed, "SecretCode": secretCode, "Difficulty": window.localStorage.getItem('difficulty')};
     var settings = {
         "async": true,
         "crossDomain": true,
@@ -166,14 +167,7 @@ function GetDBData(query = "", noOfResults = "", isSpecific = false){
 }
 
 function PopulateLeaderboard(query = ""){
-    // Sort Data (Converts String to Date obj, compare and sort)
-    const data = GetDBData(query);
-    const sortedData = data.sort( function(a,b){
-        var dateA = new Date(a.Time);
-        var dateB = new Date(b.Time);
-        return dateA - dateB;
-    });
-
+    // Add Headers 
     let content =   '<div class="l-user l-header">' +
                         `<p>Pos.</p>` +
                         '<div class="user-data">' +
@@ -181,19 +175,39 @@ function PopulateLeaderboard(query = ""){
                             `<p>Time</p>`+
                         '</div>' +
                     '</div>';
+    
+    // Sort Data (Converts String to Date obj, compare and sort)
+    const data = GetDBData(query);
+    if (data) {
+        const sortedData = data.sort( function(a,b){
+            var dateA = new Date(a.Time);
+            var dateB = new Date(b.Time);
+            return dateA - dateB;
+        });
 
-    // Populate Leaderboard (Only get top 10)
-    for (let index = 0; index < 10; index++) {
-        var html = '<div class="l-user">' +
-                        `<p>${index + 1}.</p>` +
-                        '<div class="user-data">' +
-                            `<p>${sortedData[index].Username}</p>` +
-                            `<p>${new Date(sortedData[index].Time).getMilliseconds()}s</p>`+
-                        '</div>' +
-                    '</div>';
-        
-        content += html;
+        // To check if there is enough data to dispaly top 10 users.
+        let maxLength = 10;
+        if (sortedData.length < 10) {
+            maxLength = sortedData.length;
+        }
+
+        // Populate Leaderboard
+        for (let index = 0; index < maxLength; index++) {
+            console.log(sortedData[index].Username);
+            var html = '<div class="l-user">' +
+                            `<p>${index + 1}.</p>` +
+                            '<div class="user-data">' +
+                                `<p>${sortedData[index].Username}</p>` +
+                                `<p>${new Date(sortedData[index].Time).getMilliseconds()}s</p>`+
+                            '</div>' +
+                        '</div>';
+        }
     }
-
+    else {
+        var html = '<br><p> ! No Data In DataBase ! </p>';  
+        content = '';
+    }
+    
+    content += html;
     return content;
 }
