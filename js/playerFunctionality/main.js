@@ -21,8 +21,8 @@ var battleOST = new Audio('Assets/audio/SyncopeBattleOST.wav');
 async function LevelComplete(win){
     await delay(2500);
     if(win){
-        await swalAlert("You Won!");
         const currentLevel = parseInt(window.localStorage.getItem('levelData'));
+        await swalAlert(`You defeated Level-${currentLevel}`);
         if (await getLevelJSON() === currentLevel) {
             await UpdateLeaderboard();
             localStorage.removeItem('timeElapsed'); //Remove Time Elapsed Storage (Rest time to 0 next run)
