@@ -65,10 +65,10 @@ Link to **Wireframe** : [Adobe XD](https://www.google.com)
 ### Desktop/Laptops
 > ![Index Page](Assets/images/screenshots/Index.png)
 > ![MainMenu Page](Assets/images/screenshots/MainMenu.png)
-> ![Leaderboard Popup](Assets/images/screenshots/Index.png)
-> ![Username Popup](Assets/images/screenshots/Index.png)
+> ![Leaderboard Popup](Assets/images/screenshots/Leaderboard.png)
+> ![Username Popup](Assets/images/screenshots/Username.png)
 > ![Help Popup](Assets/images/screenshots/Help.png)
-> ![MainGame Page](Assets/images/screenshots/Index.png)
+> ![MainGame Page](Assets/images/screenshots/MainGame.png)
 
 ---
 
