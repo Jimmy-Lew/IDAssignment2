@@ -69,7 +69,7 @@ $("#Difficulty").on("click", () => {
 });
 
 $("#Leaderboard").on("click", () => {
-    swalLeaderboard(`Level 1<br>`,PopulateLeaderboard(), "First");
+    swalLeaderboard(`Leaderboard<br>`,PopulateLeaderboard(), "First");
 });
 
 $("#Help").on("click", () => {
