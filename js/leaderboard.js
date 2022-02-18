@@ -196,7 +196,6 @@ function PopulateLeaderboard(queryDifficulty = 0) {
 
         // Populate Leaderboard
         for (let index = 0; index < maxLength; index++) {
-            console.log(sortedData[index].Username);
             var html = '<div class="l-user">' +
                 `<p>${index + 1}.</p>` +
                 '<div class="user-data">' +
@@ -204,12 +203,13 @@ function PopulateLeaderboard(queryDifficulty = 0) {
                 `<p>${new Date(sortedData[index].Time).getMilliseconds()}s</p>` +
                 '</div>' +
                 '</div>';
+            content += html;
         }
     }
     else {
         var html = '<br><p> ! No Data In DataBase ! </p>';
         content = '';
+        content += html;
     }
-    content += html;
     return content;
 }
