@@ -63,12 +63,12 @@ Link to **Wireframe** : [Adobe XD](https://www.google.com)
 ## Preview Screenshots
 
 ### Desktop/Laptops
-> ![Index Page](Assets\images\screenshots\Index.png)
-> ![MainMenu Page](Assets\images\screenshots\MainMenu.png)
-> ![Leaderboard Popup](Assets\images\screenshots\Index.png)
-> ![Username Popup](Assets\images\screenshots\Index.png)
-> ![Help Popup](Assets\images\screenshots\Help.png)
-> ![MainGame Page](Assets\images\screenshots\Index.png)
+> ![Index Page](Assets/images/screenshots/Index.png)
+> ![MainMenu Page](Assets/images/screenshots/MainMenu.png)
+> ![Leaderboard Popup](Assets/images/screenshots/Index.png)
+> ![Username Popup](Assets/images/screenshots/Index.png)
+> ![Help Popup](Assets/images/screenshots/Help.png)
+> ![MainGame Page](Assets/images/screenshots/Index.png)
 
 ---
 
