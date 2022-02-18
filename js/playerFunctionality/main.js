@@ -177,7 +177,7 @@ eGrowl.play();  // Only when enemy is introduced.
 
 setTimeout(() => {  // Wait for growl to finish
     battleOST.play();
-}, 500);
+}, 350);
 
 $(document).on('click', function(){
     const newSelected = selected.cloneNode() // Duplicates the audio (Allow for overlapping audio)

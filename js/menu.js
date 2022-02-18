@@ -72,10 +72,6 @@ $("#Leaderboard").on("click", () => {
     swalLeaderboard(`Level 1<br>`,PopulateLeaderboard(), "First");
 });
 
-$("#Credits").on("click", () => {
-    
-});
-
 $("#Help").on("click", () => {
     displayHelp();
 });
