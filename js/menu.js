@@ -40,8 +40,8 @@ async function displayHelp() {
     const galleryImages = [
         `<img src="Assets/images/pngs/Help-1.png" class="swal-gallery">`,
         `<img src="Assets/images/pngs/Help-2.png" class="swal-gallery">`,
-        `<img src="Assets/images/pngs/placeholder.png" class="swal-gallery">`,
-        `<img src="Assets/images/pngs/placeholder2.png" class="swal-gallery">`
+        `<img src="Assets/images/pngs/Help-3.png" class="swal-gallery">`,
+        `<img src="Assets/images/pngs/Help-4.png" class="swal-gallery">`
     ]
 
     let imageIndex = 0;
