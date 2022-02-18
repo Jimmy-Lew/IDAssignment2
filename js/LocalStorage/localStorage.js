@@ -20,10 +20,10 @@ function retrieveLocalStorage(){
 }
 
 function DefineWordTime(retrievedDifficulty, difficultyTimings) {
-    return (retrievedDifficulty === 0) ? difficultyTimings[3] // 40WPM
-         : (retrievedDifficulty === 1) ? difficultyTimings[2] // 60WPM
-         : (retrievedDifficulty === 2) ? difficultyTimings[1] // 90WPM
-         : difficultyTimings[0]; // 100WPM
+    return (retrievedDifficulty === "0") ? difficultyTimings[0] // 40WPM
+         : (retrievedDifficulty === "1") ? difficultyTimings[1] // 60WPM
+         : (retrievedDifficulty === "2") ? difficultyTimings[2] // 90WPM
+         : difficultyTimings[3]; // 100WPM
 }
 
 function parsePlayerData(playerData){
@@ -53,7 +53,7 @@ async function getBossJSON(Entities){
         let entityData = await entityRes.json();
 
         const {Health, FailureDamage, ConstantDamage, APICalls} = entityData[entityName]
-        let newEntity = new Enemy(Health, FailureDamage, ConstantDamage, APICalls);
+        let newEntity = new Enemy(entityName, Health, FailureDamage, ConstantDamage, APICalls);
         entityList.push(newEntity);
     }
 
