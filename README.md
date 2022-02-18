@@ -75,7 +75,7 @@ Link to **Wireframe** : [Adobe XD](https://xd.adobe.com/view/42c8e77e-dfd5-4384-
 
 <details>
 <summary>Mobile</summary>
->> Heads Up :: Responsiveness was not mentioned in the Assignment Documentation, however, we added some bare minimum functionality and support for mobile. <br>
+>> Heads Up :: Responsiveness was not mentioned in the Assignment Documentation, however, we added some bare minimum functionality and support for mobile. Given the nature of typing games, the experience is best on laptops or larger devices <br>
 -- To be Updated Once Completed --
 
 ---
