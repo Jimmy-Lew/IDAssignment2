@@ -3,16 +3,17 @@
 </p>
 
 # Syncope
+**/ˈsɪŋkəpi/** : The omission of sounds or letters from within a word.
 
 Do you like fighting virtual enemies and typing on your keyboard? <br>
-Syncope is the perfect game for people of all ages like yourself! <br> <br>
+Syncope is the perfect game for people of all ages like yourself! <br>
 It is a typing game merged with a boss battle elememts where a user would be given a selection of words to type out, and based on the complexity, category, and speed at which you type the words, will detemine the amount of damage dealt onto the enemy!
 
-
+Site Deployment : [Click Me!](https://jimmy-lew.github.io/IDAssignment2/)
 ## Design Process
 
-We went with a **2-Dimensional** (2D) based art style as it was simplier to create and draw within a short amount of time.
-We chose an **(x)** colour theme and **(y)** type of font as it **(explanation)**
+We went with a **2-Dimensional** (2D) based art style as it was simplier to create and draw within a short amount of time and Jimmy is experienced with making 2D art work while Addison is "experienced" with making 8-bit electronic music.
+We chose a mainly **black and white** colour theme as we wanted it to have a classic/retro vibe.
 
 
 ### User Stories :
@@ -28,26 +29,52 @@ Link to **Wireframe** : [Adobe XD](https://www.google.com)
 ### Existing Features
 
 - **Word Prediction** - Automatically predicts which word (out of the 3) the user is typing
-- ...
+- **swAL** - Custom popup that pauses the Javascript Execution until popup is interacted with
+- **Leaderboard** - "real-time" leaderboard that displays the top few players who have completed the levels the fastest
+- **Secret Code Generator** - Generates a random set of strings 
+- **Regex Checks** - Validation for 
 
 
 ### Features Left to Implement
 
-- Multiple Levels
+- To Add More Levels
 - Enemy Health Scaling
+- Random Mode (When have enough time for more ART assets and Audio)
+- Player Mana
 - ...
 
 ## Technologies Used
 
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  > The project uses **HTML** to construct the HTML document for the site.
+
 - [JQuery](https://jquery.com)
   > The project uses **JQuery** to simplify DOM manipulation.
+
+- [JavaScript](https://www.javascript.com/)
+  > The project uses **JavaScript** to add functionality to the website.
 
 - [SASS](https://sass-lang.com/)
   > The project uses **JQuery**, a powerful CSS extension language for styling
 
-## Preview Screenshots
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  > The project also still uses **CSS** for styling (mostly overriden by SASS to be recompiled back to CSS)
 
+## Preview Screenshots
+<details>
+<summary>Desktop/Laptops</summary>
 -- To be Updated Once Completed --
+
+---
+</details>
+
+<details>
+<summary>Mobile</summary>
+>> Heads Up :: Responsiveness was not mentioned in the Assignment Documentation, however, we added some bare minimum functionality and support for mobile. <br>
+-- To be Updated Once Completed --
+
+---
+</details> <br>
 
 ## Development
 
@@ -72,51 +99,52 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 </details> <br>
 
 ### Testing
-1. Creating a new user (Username Restrictions + Generate Secret Code)
+1. Starting as a New user (Username Restrictions + Generate Secret Code)
    - Start Game
-   - Override previous game
+   - Help Menu will be displayed
+   - Enter a valid username (only alphabets)
    - Defeat enemy
-   - Submit time to leaderboard (yes)
-   - Spam your keyboard (More than 15 chars)
-   - Should be prompted to retype Username (something less than 15 chars)
-   - A secret code would be generated for the user (6 chars long) 
+   - Leaderboard score will be pushed, new user created.
+   - A secret code would be generated for the user (6 chars long)
 <br><br>
-2. Updating Personal score
+1. Updating Personal score
    - Start Game
-   - Override previous game
+   - Override previous game (optional)
    - Defeat enemy
    - Submit time to leaderboard (yes)
-   - Enter an existing Username
-   - User would be prompted to enter the secret key given when creating a user
+   - If current time is better (faster) than leaderboard, User would be prompted to enter the secret key (given when creating a user)
    - If key is incorrect, user will be prompted if they would like to try again. (no = return to main menu)
    - If key is correct, time will be updated. 
 <br><br>
-3. Gameplay
+1. Gameplay
    - Start Game
    - Override previous game
    - Typing a letter that corresponds with one of the letters will cause the word to be "selected" (based on auto prediction)
    - The letters of the selected word would be highlighted as the user continues to enter the correct characters (in correct sequence + case sensitive)
-   - There will be a penalty (time reduction) for every typo made by the user
+   - There will be a penalty (time reduction of 1s) for every typo made by the user
 <br><br>
 4. Leaderboard
    - Click on leaderboard in main menu
    - Leaderboard would appear in the middle of the screen
-   - Top 10 players would be displayed (Based on different difficulty, levels & time taken)
+   - Top 10 players would be displayed (Filtered based on different difficulty)
    - Close the leaderboard
+   - Select a different difficulty in the main menu & press leaderboard
+   - Leaderboard should filter and show 
    - Spam the leaderboard button again
    - Leaderboard should be fine and should not updated/append anymore after the first initalization.
 
 ### Bugs / Problems
+- **[!]** API Randomly Goes down at midnight (Usually 2am - 9am) 
 - [Fixed] Javascript Async -- Functions would run without waiting for API Response to finish and returns null.
-- Markdown Dropdown can't embed URL / Styles
-- swAL.js delay
-- Long loading times to get restDB Data (Depends on the speed of RestDB)
+- [Partially-Fixed]swAL.js delay
+- Long loading times to get restDB Data
+
 
 ## Credits
 
 ### Contributions
 <details>
-<summary>Jimmy Lew (Mainly Front End)</summary>
+<summary>Jimmy Lew (Mainly Front-End)</summary>
 - > index.html <br>
 - > menu.html <br>
 - > game.html <br>
@@ -127,30 +155,32 @@ For Boolean type variable put 'is', 'has' related word in front of the variable 
 - > SWAL.js <br>
 - > menu.js (Everything except sound part) <br>
 - > LocalStorage.js <br>
-- > Helped with ComboChaining (attack.js) <br>
-- > Helped with .json + enemy,js & player.js constructors <br>
+- > ComboChaining (Assisted Addison: attack.js) <br>
+- > Helped with .json files <br>
 - > Artist & Art Designer
 
 ---
 </details>
 
 <details>
-<summary>Addison Chua (Mainly Backend End)</summary>
+<summary>Addison Chua (Mainly Back-End)</summary>
 - > api.js <br>
 - > attack.js <br>
 - > DOMInteraction.js <br>
 - > main.js <br>
 - > leaderboard.js + HTML <br>
-- > menu.js (Only audio part) <br>
+- > menu.js (Audio part + Username Regex Check) <br>
 - > enemy.js <br>
 - > player.js <br>
 - > bosses.json <br>
 - > levels.json <br>
+- > LocalStorage.js (Assisted Jimmy : TimeElapsedStorage + Modified getLevelJSON) <br>
 - > Helped with DefineWordTime (localStorage.js) <br>
 - > Wireframe Designs (Both High Fidelity & Low Fidelity) <br>
 - > README.md <br>
 - > Assist Jimmy In Front End <br>
 - > Music / Audio Producer <br> <br>
+
 Live Wakatime Contribution (Last 30 Days) : https://wakatime.com/@NotAddison/projects/sdydmimyop?start=2022-02-11&end=2022-02-17 <br>
 Archive Wakatime Contribution : https://drive.google.com/drive/folders/1szsa-S51ETz_gtX2W-BSd1x1jUNpwxrk?usp=sharing <br>
 
