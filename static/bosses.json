@@ -1,12 +1,12 @@
 {
     "Spooder": {
-        "Health": 1,
+        "Health": 180,
         "FailureDamage": 25,
         "ConstantDamage": 20,
         "APICalls": 3
     },
     "Spider Boss 2": {
-        "Health": 1,
+        "Health": 180,
         "FailureDamage": 25,
         "ConstantDamage": 30,
         "APICalls": 3
